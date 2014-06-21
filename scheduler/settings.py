@@ -26,6 +26,13 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+TEMPLATE_LOADERS = (
+    'djaml.loaders.DjamlFilesystemLoader',
+    'djaml.loaders.DjamlAppDirectoriesLoader',
+)
+TEMPLATE_DIRS = (       
+    os.path.join(BASE_DIR, 'templates'),
+)
 
 # Application definition
 
@@ -36,6 +43,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'south',
+    'app',
 )
 
 MIDDLEWARE_CLASSES = (
