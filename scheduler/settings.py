@@ -8,9 +8,20 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+
+# UWAPI INFO
+UWAPI_KEY = "e245b0144fea3540d3daae4a4eece8a6"
+
+# FACEBOOK INFO
+FACEBOOK_APP_ID = "1423786754570094"
+FACEBOOK_APP_SECRET = "2cdd9b6625d09e511e3531ad6f2ac277"
+
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -26,13 +37,33 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'django_facebook.FacebookCustomUser'
+
 TEMPLATE_LOADERS = (
     'djaml.loaders.DjamlFilesystemLoader',
     'djaml.loaders.DjamlAppDirectoriesLoader',
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
 )
 TEMPLATE_DIRS = (       
     os.path.join(BASE_DIR, 'templates'),
 )
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+    'django_facebook.context_processors.facebook',
+)
+
+AUTHENTICATION_BACKENDS = (
+    'django_facebook.auth_backends.FacebookBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 
 # Application definition
 
@@ -44,6 +75,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'south',
+    'django_facebook',
+    'annoying',
     'app',
 )
 
@@ -104,9 +137,10 @@ ALLOWED_HOSTS = ['*']
 # Static asset configuration
 import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = 'static'
 STATIC_URL = '/static/'
-
+MEDIA_ROOT = "media"
+MEDIA_URL = "/media/"
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )

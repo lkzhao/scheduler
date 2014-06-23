@@ -1,0 +1,15 @@
+- extends "base.haml"
+- block body
+  .left.col-sm-4.col-md-3
+    - block left
+  .right.col-sm-8.col-md-9
+    - block right
+      %nav
+        .brand
+          UW Course Scheduler
+        %ul
+          %li.active
+            %a{:href => "{% url 'index' %}"}
+              Home
+        - block navbar
+      - block main

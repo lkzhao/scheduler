@@ -1,4 +1,30 @@
-%html{lang:"en"}
-	%head
-	%body
-		test
+- extends "layout_sidebar.haml"
+- block css
+	%link{:href => "{{STATIC_URL}}css/index.css", :type => "text/css", :rel => "stylesheet"}
+- block js
+    %script{:src => "{{STATIC_URL}}js/index.js", :type => "text/jsx"}
+
+
+- block left
+	.row
+		- if user.image
+			%img{:src => "{{ user.image.url }}"}
+  .dropdown
+    %button.btn.btn-default.dropdown-toggle{:href => '#', :data-toggle => 'dropdown'}
+      = user
+      %b.caret
+    %ul.dropdown-menu
+      %li
+        %a{:href => "{% url 'auth_logout' %}"}
+          Logout
+- block navbar
+	#saveBtnGroupWrapper
+- block main
+	#main
+	:javascript
+		data={
+			csrf_token: "{{csrf_token}}",
+			user:{name: "{{user.first_name}} {{user.last_name}}"},
+			courseInfo: {{courseInfo|safe}},
+			schedule: {{schedule|safe}}
+		}
