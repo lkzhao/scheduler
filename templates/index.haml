@@ -1,30 +1,53 @@
 - extends "layout_sidebar.haml"
 - block css
-	%link{:href => "{{STATIC_URL}}css/index.css", :type => "text/css", :rel => "stylesheet"}
+  %link{:href => "{{STATIC_URL}}css/switchery.min.css", :type => "text/css", :rel => "stylesheet"}
+  %link{:href => "{{STATIC_URL}}css/index.css", :type => "text/css", :rel => "stylesheet"}
 - block js
-    %script{:src => "{{STATIC_URL}}js/index.js", :type => "text/jsx"}
+  %script{:src => "{{STATIC_URL}}js/lib/switchery.min.js", :type => "text/jsx"}
+  %script{:src => "{{STATIC_URL}}js/index.js", :type => "text/jsx"}
 
 
 - block left
-	.row
-		- if user.image
-			%img{:src => "{{ user.image.url }}"}
-  .dropdown
-    %button.btn.btn-default.dropdown-toggle{:href => '#', :data-toggle => 'dropdown'}
-      = user
+  - if user.image
+    %img.profile-pic.hidden-xs{:src => "{{ user.image.url }}"}
+  - else
+    %img.profile-pic.hidden-xs{:src => "{{STATIC_URL}}images/no-profile.jpg"}
+  .userInfo.dropdown
+    %a.name.dropdown-toggle{:href => '#user', :data-toggle => 'collapse',
+    :data-parent => '.userInfo'}
+      - if user.first_name
+        = user.first_name
+        = user.last_name
+      - else
+        = user.username
       %b.caret
-    %ul.dropdown-menu
+    %ul#user.collapse
       %li
         %a{:href => "{% url 'auth_logout' %}"}
           Logout
+
 - block navbar
-	#saveBtnGroupWrapper
+  %form.navbar-form.navbar-left
+    %button.btn.btn-default.hidden-xs{:type => "button"}
+      %i.fa.fa-bars
+    .form-group
+      %input.form-control{:type => "text", :placeholder => "Search for Course"}
+
+  %form.navbar-form.navbar-right
+    #id-auto-save-wrapper.form-group{:data-toggle => "tooltip", :data-placement => "bottom", :title => "Auto Save"}
+      %input#id-auto-save{:type => "checkbox", :checked => "checked"}
+  #saveBtnGroupWrapper.navbar-right
+
 - block main
-	#main
-	:javascript
-		data={
-			csrf_token: "{{csrf_token}}",
-			user:{name: "{{user.first_name}} {{user.last_name}}"},
-			courseInfo: {{courseInfo|safe}},
-			schedule: {{schedule|safe}}
-		}
+  - if errors
+    - for error in errors
+      .alert.alert-danger
+        = error
+  #main
+  :javascript
+    data={
+      csrf_token: "{{csrf_token}}",
+      user:{name: "{{user.first_name}} {{user.last_name}}"},
+      courseInfo: {{courseInfo|safe}},
+      schedule: {{schedule|safe}}
+    }

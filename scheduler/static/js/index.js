@@ -160,11 +160,12 @@ AddCourseModal=React.createClass({
 SaveBtnGroup=React.createClass({
   defaultSaveInterval:60,
   getInitialState: function() {
-    return {saveTime:this.defaultSaveInterval, saving:""};
+    return {autoSave:$("#id-auto-save:checked").length,saveTime:this.defaultSaveInterval, saveText:"", saving:false};
   },
   setTimer:function(){
     var that=this;
     this.timer=setInterval(function(){
+      if(!that.state.autoSave) return;
       if(that.state.saveTime<=1){
         that.save();
         that.setState({saveTime:that.defaultSaveInterval})
@@ -174,6 +175,17 @@ SaveBtnGroup=React.createClass({
     },1000);
   },
   componentDidMount:function(){
+    var that = this
+    new Switchery($("#id-auto-save").get(0), { color: '#16a085', secondaryColor: '#666a66' })
+    var state = $("#id-auto-save").is(":checked")
+    $("#id-auto-save-wrapper").attr('title','Auto Save: '+(state?'ON':'OFF'))
+    $("#id-auto-save-wrapper").tooltip()
+    $("#id-auto-save").on('change',function(e){
+      var state = $("#id-auto-save").is(":checked")
+      that.setState({autoSave:state, saveTime:that.defaultSaveInterval})
+      $("#id-auto-save-wrapper").attr('data-original-title','Auto Save: '+(state?'ON':'OFF'))
+      $("#id-auto-save-wrapper").tooltip('show')
+    })
     this.setTimer();
   },
   componentWillUnmount: function() {
@@ -181,13 +193,13 @@ SaveBtnGroup=React.createClass({
     this.timer=null;
   },
   componentDidUpdate:function(prevProps, prevState){
-    if(this.props.saveText==""&&!this.timer){
+    if(this.state.saveText==""&&!this.timer){
       this.setTimer();
     }
   },
   save:function(e){
     var that = this
-    this.setState({saveTime:this.defaultSaveInterval, saving:"Saving"})
+    this.setState({saveTime:this.defaultSaveInterval, saving:true})
     $.ajax({
       url:"/save/",
       type:"post",
@@ -198,21 +210,38 @@ SaveBtnGroup=React.createClass({
       },
       success:function(json){
         if(json.success==1){
-          that.setState({saving:""})
+          that.setState({saving:false})
         }else{
-          that.setState({saving:"save failed. check your internet connection"})
+          that.setState({saveText:"save failed. check your internet connection",saving:false})
         }
       },
       error:function(){
-        that.setState({saving:"save failed. check your internet connection"})
+        that.setState({saveText:"save failed. check your internet connection",saving:false})
       }
     })
   },
   render: function() {
+    saveText=""
+    if(this.state.autoSave){
+      saveText = this.state.saveText!=""?this.state.saveText:"Auto Save in "+this.state.saveTime+"s"
+    }
+    if(this.state.saving){
+      var saveBtn = (
+        <a className="btn btn-default disabled">
+          <i className="fa fa-circle-o-notch fa-spin"></i> Saving
+        </a>
+        )
+    }else{
+      var saveBtn = (
+        <a className="btn btn-default" onClick={this.save}>
+          <i className="fa fa-save"></i> Save
+        </a>
+        )
+    }
     return(
       <ul className="saveBtnGroup">
-        <li><span className="navbar-text">{this.state.saveText!=""?this.state.saveText:"Autosave in "+this.state.saveTime+"s"}</span></li>
-        <li><a onClick={this.save}>Save</a></li>
+        <li><span>{saveText}</span></li>
+        <li>{saveBtn}</li>
       </ul>
     );
   }
@@ -289,6 +318,7 @@ MainView=React.createClass({
   dragStart:function(e){
     if(this.state.dragingCourse!="") return false;
     var $el = $(e.target)
+    if(!$el.is(".course")) return false;
     this.setState({dragingCourse:{
       subject:$el.attr('data-subject'),
       catalog_number:$el.attr('data-catalog_number')
@@ -361,8 +391,8 @@ MainView=React.createClass({
       var termName=calculateTerm(startYear,startTerm,i);
       var isDragingTerm=false;
       var buttons=[
-          (<button className='removeTermBtn' onClick={that.removeTerm.bind(that,i)}><i className="fa fa-fw fa-times"></i></button>),
-          (<button className="insertTermBtn" onClick={that.addTerm.bind(that,i)}><i className="fa fa-fw fa-plus"></i> insert above</button>),
+          (<button className='removeTermBtn btn btn-default' onClick={that.removeTerm.bind(that,i)}><i className="fa fa-fw fa-times"></i></button>),
+          (<button className="insertTermBtn btn btn-default" onClick={that.addTerm.bind(that,i)}><i className="fa fa-fw fa-plus"></i> Insert a Term</button>),
           (<button className='btn btn-default btn-xs skipTermBtn' onClick={that.toggleSkipTerm.bind(that,i)}>{term.skiped?"Go to School":"Skip / Co-op"}</button>)
           ]
       if(term.skiped){
@@ -378,7 +408,7 @@ MainView=React.createClass({
         var offeredInCurrentTerm=getTermNameArray(courseInfo.terms_offered).indexOf(termName.substr(5))>-1;
         var satisfied=checkPrereq(courseTaken,courseInfo.prerequisites_parsed);
         var classStr="col-md-4 col-sm-6 col-xs-12 course";
-        if(course==that.state.dragingCourse){
+        if(name(course)==name(that.state.dragingCourse)){
           isDragingTerm=true;
         }
         return (
@@ -399,12 +429,10 @@ MainView=React.createClass({
         <div key={i} className="term" id={i}>
           <div className="col-md-12"><h4>{termName+" "}{buttons}</h4></div>
             {currentTermCourses}
-            <div className={"col-md-4 col-xs-12 col-sm-6 course addCourseBtn "+(isDragingTerm?"hide":"")} onDragOver={that.dragOver} onDrop={that.drop}>
-              <div className={"panel"}  onClick={that.handleAddCourse.bind(that,i)}>
-                <div className="panel-body">
-                  <strong>{that.state.dragingCourse==""?"Add Course":(<i className="fa fa-plus-square-o"></i>)}</strong>
-                </div>
-              </div>
+            <div className={"col-md-4 col-xs-12 col-sm-6 course "+(isDragingTerm?"hide":"")} onDragOver={that.dragOver} onDrop={that.drop} onClick={that.handleAddCourse.bind(that,i)}>
+              <button className="btn-block btn btn-default addCourseBtn" >
+                {that.state.dragingCourse==""?"Add Course":"Move Here"}
+              </button>
             </div>
           <div className="clearfix"/>
         </div>
@@ -413,9 +441,7 @@ MainView=React.createClass({
     return(
       <div className={that.state.dragingCourse!=""?"draging":""}>
         {termsEl}
-        <div className="col-xs-12">
-          <button className='btn btn-default addTermBtn btn-lg btn-block' onClick={that.addTerm.bind(that,data.schedule.length)}>Add a Term</button>
-        </div>
+        <button className='btn btn-default addTermBtn btn-lg btn-block' onClick={that.addTerm.bind(that,data.schedule.length)}>Add a Term</button>
         <AddCourseModal onSubmit={this.confirmAddCourse}/>
       </div>
     );

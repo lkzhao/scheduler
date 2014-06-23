@@ -27,14 +27,19 @@ class IndexView(ProtectedView, TemplateView):
         context = super(IndexView, self).get_context_data(**kwargs)
         context['schedule'] = json.dumps(self.request.user.profile.schedule)
         courseInfo={}
-        for term in self.request.user.profile.schedule:
-            for course in term['courses']:
-                courseData = getCourseInfo(
-                                course['subject'],
-                                course['catalog_number']
-                                )
-                courseInfo[course['subject']+course['catalog_number']] = courseData
-        context['courseInfo'] = json.dumps(courseInfo)
+        try:
+            for term in self.request.user.profile.schedule:
+                for course in term['courses']:
+                    courseData = getCourseInfo(
+                                    course['subject'],
+                                    course['catalog_number']
+                                    )
+                    courseInfo[course['subject']+course['catalog_number']] = courseData
+            context['courseInfo'] = json.dumps(courseInfo)
+        except:
+            context['errors'] = ['Could not parse saved data']
+            context['courseInfo'] = json.dumps({})
+            context['schedule'] = json.dumps([])
         return context
 
 

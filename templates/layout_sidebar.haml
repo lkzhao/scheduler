@@ -1,15 +1,17 @@
 - extends "base.haml"
 - block body
-  .left.col-sm-4.col-md-3
+  .left
     - block left
-  .right.col-sm-8.col-md-9
+
+  %nav.navbar.navbar-default.navbar-fixed-top
+    .navbar-header
+      .navbar-brand
+        UW Course Scheduler
+        %i.fa.fa-calendar
+      %button.navbar-toggle{:data-toggle => "collapse", :data-target => "#navbar-collapse"}
+        %i.fa.fa-bars
+    #navbar-collapse.collapse.navbar-collapse
+      - block navbar
+  .right
     - block right
-      %nav
-        .brand
-          UW Course Scheduler
-        %ul
-          %li.active
-            %a{:href => "{% url 'index' %}"}
-              Home
-        - block navbar
       - block main

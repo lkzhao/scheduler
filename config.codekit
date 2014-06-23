@@ -2,207 +2,284 @@
 "CodeKitInfo": "This is a CodeKit 2.x project configuration file. It is designed to sync project settings across multiple machines. MODIFYING THE CONTENTS OF THIS FILE IS A POOR LIFE DECISION. If you do so, you will likely cause CodeKit to crash. This file is not useful unless accompanied by the project that created it in CodeKit 2. This file is not backwards-compatible with CodeKit 1.x. For more information, see: http:\/\/incident57.com\/codekit",
 "creatorBuild": "16921",
 "files": {
-	"\/css\/bootstrap-theme.css": {
+	"\/scheduler\/media\/01.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 840105,
+		"inputAbbreviatedPath": "\/scheduler\/media\/01.jpg",
+		"outputAbbreviatedPath": "\/scheduler\/media\/01.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/scheduler\/media\/images\/facebook_profiles\/2014\/06\/21\/fb_image_774472949240056.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 8013,
+		"inputAbbreviatedPath": "\/scheduler\/media\/images\/facebook_profiles\/2014\/06\/21\/fb_image_774472949240056.jpg",
+		"outputAbbreviatedPath": "\/scheduler\/media\/images\/facebook_profiles\/2014\/06\/21\/fb_image_774472949240056.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/scheduler\/media\/images\/facebook_profiles\/2014\/06\/21\/fb_image_774472949240056_1.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 8013,
+		"inputAbbreviatedPath": "\/scheduler\/media\/images\/facebook_profiles\/2014\/06\/21\/fb_image_774472949240056_1.jpg",
+		"outputAbbreviatedPath": "\/scheduler\/media\/images\/facebook_profiles\/2014\/06\/21\/fb_image_774472949240056_1.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/scheduler\/media\/images\/facebook_profiles\/2014\/06\/21\/fb_image_774472949240056_2.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 8013,
+		"inputAbbreviatedPath": "\/scheduler\/media\/images\/facebook_profiles\/2014\/06\/21\/fb_image_774472949240056_2.jpg",
+		"outputAbbreviatedPath": "\/scheduler\/media\/images\/facebook_profiles\/2014\/06\/21\/fb_image_774472949240056_2.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/scheduler\/media\/images\/facebook_profiles\/2014\/06\/21\/fb_image_774472949240056_3.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 8013,
+		"inputAbbreviatedPath": "\/scheduler\/media\/images\/facebook_profiles\/2014\/06\/21\/fb_image_774472949240056_3.jpg",
+		"outputAbbreviatedPath": "\/scheduler\/media\/images\/facebook_profiles\/2014\/06\/21\/fb_image_774472949240056_3.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/scheduler\/static\/css\/bootstrap-switch.css": {
 		"fileType": 16,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/css\/bootstrap-theme.css",
+		"inputAbbreviatedPath": "\/scheduler\/static\/css\/bootstrap-switch.css",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/css\/bootstrap-theme.min.css": {
+	"\/scheduler\/static\/css\/bootstrap-theme.css": {
 		"fileType": 16,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/css\/bootstrap-theme.min.css",
+		"inputAbbreviatedPath": "\/scheduler\/static\/css\/bootstrap-theme.css",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/css\/bootstrap.css": {
+	"\/scheduler\/static\/css\/bootstrap-theme.min.css": {
 		"fileType": 16,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/css\/bootstrap.css",
+		"inputAbbreviatedPath": "\/scheduler\/static\/css\/bootstrap-theme.min.css",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/css\/bootstrap.min.css": {
+	"\/scheduler\/static\/css\/bootstrap.css": {
 		"fileType": 16,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/css\/bootstrap.min.css",
+		"inputAbbreviatedPath": "\/scheduler\/static\/css\/bootstrap.css",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/css\/font-awesome.css": {
+	"\/scheduler\/static\/css\/bootstrap.min.css": {
 		"fileType": 16,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/css\/font-awesome.css",
+		"inputAbbreviatedPath": "\/scheduler\/static\/css\/bootstrap.min.css",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/css\/font-awesome.min.css": {
+	"\/scheduler\/static\/css\/font-awesome.css": {
 		"fileType": 16,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/css\/font-awesome.min.css",
+		"inputAbbreviatedPath": "\/scheduler\/static\/css\/font-awesome.css",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/css\/index.css": {
+	"\/scheduler\/static\/css\/font-awesome.min.css": {
+		"fileType": 16,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/scheduler\/static\/css\/font-awesome.min.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/scheduler\/static\/css\/index.css": {
 		"fileType": 16,
 		"ignore": 1,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/css\/index.css",
+		"inputAbbreviatedPath": "\/scheduler\/static\/css\/index.css",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/css\/login.css": {
+	"\/scheduler\/static\/css\/login.css": {
 		"fileType": 16,
 		"ignore": 1,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/css\/login.css",
+		"inputAbbreviatedPath": "\/scheduler\/static\/css\/login.css",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/css\/main.css": {
+	"\/scheduler\/static\/css\/main.css": {
 		"fileType": 16,
 		"ignore": 1,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/css\/main.css",
+		"inputAbbreviatedPath": "\/scheduler\/static\/css\/main.css",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/index.html": {
-		"fileType": 8192,
+	"\/scheduler\/static\/images\/no-profile.jpg": {
+		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/index.html",
-		"outputAbbreviatedPath": "No Output Path",
+		"initialSize": 10027,
+		"inputAbbreviatedPath": "\/scheduler\/static\/images\/no-profile.jpg",
+		"outputAbbreviatedPath": "\/scheduler\/static\/images\/no-profile.jpg",
 		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
+		"outputPathIsSetByUser": 0,
+		"processed": 0
 		},
-	"\/js\/forms.js": {
+	"\/scheduler\/static\/js\/forms.js": {
 		"fileType": 64,
 		"ignore": 1,
 		"ignoreWasSetByUser": 1,
-		"inputAbbreviatedPath": "\/js\/forms.js",
-		"outputAbbreviatedPath": "\/js\/min\/forms-ck.js",
+		"inputAbbreviatedPath": "\/scheduler\/static\/js\/forms.js",
+		"outputAbbreviatedPath": "\/scheduler\/static\/js\/min\/forms-ck.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 0,
-		"syntaxCheckerStyle": 0
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
 		},
-	"\/js\/index.js": {
+	"\/scheduler\/static\/js\/index.js": {
 		"fileType": 64,
 		"ignore": 1,
 		"ignoreWasSetByUser": 1,
-		"inputAbbreviatedPath": "\/js\/index.js",
-		"outputAbbreviatedPath": "\/js\/min\/index-ck.js",
+		"inputAbbreviatedPath": "\/scheduler\/static\/js\/index.js",
+		"outputAbbreviatedPath": "\/scheduler\/static\/js\/min\/index-ck.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 0,
+		"outputStyle": 1,
 		"syntaxCheckerStyle": 0
 		},
-	"\/js\/lib\/bootstrap.min.js": {
+	"\/scheduler\/static\/js\/lib\/bootstrap-switch.min.js": {
 		"fileType": 64,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/lib\/bootstrap.min.js",
-		"outputAbbreviatedPath": "\/js\/lib\/min\/bootstrap.min-ck.js",
+		"inputAbbreviatedPath": "\/scheduler\/static\/js\/lib\/bootstrap-switch.min.js",
+		"outputAbbreviatedPath": "\/scheduler\/static\/js\/lib\/min\/bootstrap-switch.min-ck.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
-	"\/js\/lib\/jquery-2.0.3.min.js": {
+	"\/scheduler\/static\/js\/lib\/bootstrap.min.js": {
 		"fileType": 64,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/lib\/jquery-2.0.3.min.js",
-		"outputAbbreviatedPath": "\/js\/lib\/min\/jquery-2.0.3.min-ck.js",
+		"inputAbbreviatedPath": "\/scheduler\/static\/js\/lib\/bootstrap.min.js",
+		"outputAbbreviatedPath": "\/scheduler\/static\/js\/lib\/min\/bootstrap.min-ck.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
-	"\/js\/lib\/moment.min.js": {
+	"\/scheduler\/static\/js\/lib\/jquery-2.0.3.min.js": {
 		"fileType": 64,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/lib\/moment.min.js",
-		"outputAbbreviatedPath": "\/js\/lib\/min\/moment.min-ck.js",
+		"inputAbbreviatedPath": "\/scheduler\/static\/js\/lib\/jquery-2.0.3.min.js",
+		"outputAbbreviatedPath": "\/scheduler\/static\/js\/lib\/min\/jquery-2.0.3.min-ck.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
-	"\/js\/lib\/react\/JSXTransformer.js": {
+	"\/scheduler\/static\/js\/lib\/moment.min.js": {
 		"fileType": 64,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/lib\/react\/JSXTransformer.js",
-		"outputAbbreviatedPath": "\/js\/lib\/react\/min\/JSXTransformer-ck.js",
+		"inputAbbreviatedPath": "\/scheduler\/static\/js\/lib\/moment.min.js",
+		"outputAbbreviatedPath": "\/scheduler\/static\/js\/lib\/min\/moment.min-ck.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
-	"\/js\/lib\/react\/react-with-addons.js": {
+	"\/scheduler\/static\/js\/lib\/react\/JSXTransformer.js": {
 		"fileType": 64,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/lib\/react\/react-with-addons.js",
-		"outputAbbreviatedPath": "\/js\/lib\/react\/min\/react-with-addons-ck.js",
+		"inputAbbreviatedPath": "\/scheduler\/static\/js\/lib\/react\/JSXTransformer.js",
+		"outputAbbreviatedPath": "\/scheduler\/static\/js\/lib\/react\/min\/JSXTransformer-ck.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
-	"\/js\/lib\/react\/react-with-addons.min.js": {
+	"\/scheduler\/static\/js\/lib\/react\/react-with-addons.js": {
 		"fileType": 64,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/lib\/react\/react-with-addons.min.js",
-		"outputAbbreviatedPath": "\/js\/lib\/react\/min\/react-with-addons.min-ck.js",
+		"inputAbbreviatedPath": "\/scheduler\/static\/js\/lib\/react\/react-with-addons.js",
+		"outputAbbreviatedPath": "\/scheduler\/static\/js\/lib\/react\/min\/react-with-addons-ck.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
-	"\/js\/lib\/react\/react.js": {
+	"\/scheduler\/static\/js\/lib\/react\/react-with-addons.min.js": {
 		"fileType": 64,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/lib\/react\/react.js",
-		"outputAbbreviatedPath": "\/js\/lib\/react\/min\/react-ck.js",
+		"inputAbbreviatedPath": "\/scheduler\/static\/js\/lib\/react\/react-with-addons.min.js",
+		"outputAbbreviatedPath": "\/scheduler\/static\/js\/lib\/react\/min\/react-with-addons.min-ck.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
-	"\/js\/lib\/react\/react.min.js": {
+	"\/scheduler\/static\/js\/lib\/react\/react.js": {
 		"fileType": 64,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/lib\/react\/react.min.js",
-		"outputAbbreviatedPath": "\/js\/lib\/react\/min\/react.min-ck.js",
+		"inputAbbreviatedPath": "\/scheduler\/static\/js\/lib\/react\/react.js",
+		"outputAbbreviatedPath": "\/scheduler\/static\/js\/lib\/react\/min\/react-ck.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
-	"\/less\/index.less": {
+	"\/scheduler\/static\/js\/lib\/react\/react.min.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/scheduler\/static\/js\/lib\/react\/react.min.js",
+		"outputAbbreviatedPath": "\/scheduler\/static\/js\/lib\/react\/min\/react.min-ck.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/scheduler\/static\/less\/index.less": {
 		"allowInsecureImports": 0,
 		"createSourceMap": 0,
 		"disableJavascript": 0,
@@ -210,8 +287,8 @@
 		"ieCompatibility": 1,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/less\/index.less",
-		"outputAbbreviatedPath": "\/css\/index.css",
+		"inputAbbreviatedPath": "\/scheduler\/static\/less\/index.less",
+		"outputAbbreviatedPath": "\/scheduler\/static\/css\/index.css",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,
@@ -222,7 +299,7 @@
 		"strictMath": 0,
 		"strictUnits": 0
 		},
-	"\/less\/login.less": {
+	"\/scheduler\/static\/less\/login.less": {
 		"allowInsecureImports": 0,
 		"createSourceMap": 0,
 		"disableJavascript": 0,
@@ -230,8 +307,8 @@
 		"ieCompatibility": 1,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/less\/login.less",
-		"outputAbbreviatedPath": "\/css\/login.css",
+		"inputAbbreviatedPath": "\/scheduler\/static\/less\/login.less",
+		"outputAbbreviatedPath": "\/scheduler\/static\/css\/login.css",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,
@@ -242,7 +319,7 @@
 		"strictMath": 0,
 		"strictUnits": 0
 		},
-	"\/less\/main.less": {
+	"\/scheduler\/static\/less\/main.less": {
 		"allowInsecureImports": 0,
 		"createSourceMap": 0,
 		"disableJavascript": 0,
@@ -250,8 +327,28 @@
 		"ieCompatibility": 1,
 		"ignore": 1,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/less\/main.less",
-		"outputAbbreviatedPath": "\/css\/main.css",
+		"inputAbbreviatedPath": "\/scheduler\/static\/less\/main.less",
+		"outputAbbreviatedPath": "\/scheduler\/static\/css\/main.css",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"relativeURLS": 0,
+		"shouldRunAutoprefixer": 0,
+		"shouldRunBless": 0,
+		"strictImports": 0,
+		"strictMath": 0,
+		"strictUnits": 0
+		},
+	"\/scheduler\/static\/less\/switch.less": {
+		"allowInsecureImports": 0,
+		"createSourceMap": 0,
+		"disableJavascript": 0,
+		"fileType": 1,
+		"ieCompatibility": 1,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/scheduler\/static\/less\/switch.less",
+		"outputAbbreviatedPath": "\/scheduler\/static\/css\/switch.css",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,
@@ -270,9 +367,9 @@
 	},
 "projectAttributes": {
 	"bowerAbbreviatedPath": "",
-	"displayValue": "static",
+	"displayValue": "scheduler",
 	"displayValueWasSetByUser": 0,
-	"iconImageName": "harddrive_brown"
+	"iconImageName": "pencil_darkGray"
 	},
 "projectSettings": {
 	"alwaysUseExternalServer": 1,
@@ -840,7 +937,7 @@
 	"sassUseLibsass": 0,
 	"shouldRunAutoprefixer": 0,
 	"shouldRunBless": 0,
-	"skippedItemsString": ".svn, .git, .hg, log, _logs, _cache, cache, logs",
+	"skippedItemsString": "_cache, logs, \/templates, _logs, cache, .git, log, venv, .svn, .hg",
 	"slimAutoOutputPathRelativePath": "",
 	"slimAutoOutputPathReplace1": "",
 	"slimAutoOutputPathReplace2": "",

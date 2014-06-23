@@ -24,8 +24,13 @@
 
 //login
 @borderColor: #cccccc;
-@backgroundColor:#edf3f7;
+@backgroundColor:#2c3030;
 @backgroundShadowColor:#434351;
+
+@navbarHeight:50px;
+@navbarBgColor: #1abc9c;
+@navbarBorderColor: #16a085;
+@sidebarWidth:250px;
 
 @animationFn:cubic-bezier(.51,1.37,.78,1.45);
 
@@ -39,6 +44,12 @@ body{
 }
 a{cursor: pointer;}
 
+.placeholder(@color){
+  &:-moz-placeholder{color:@color;transition:color .3s;}
+  &::-moz-placeholder{color:@color;transition:color .3s;}
+  &:-ms-input-placeholder{color:@color;transition:color .3s;}
+  &::-webkit-input-placeholder{color:@color;transition:color .3s;}
+}
 .fadeShow(@opac:1){
   opacity: 0;
   pointer-events:none;
