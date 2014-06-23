@@ -21,9 +21,13 @@ var uwapi={
     })
   },
   getInfo:function(course){
-    console.log(course.subject+course.catalog_number,this.courseInfo)
     return this.courseInfo[course.subject+course.catalog_number];
   }
+}
+
+
+function name(obj){
+  return obj.subject+obj.catalog_number
 }
 function calculateTerm(startYear,startTerm,i){
   startYear=startYear+Math.floor((startTerm+i)/3);
@@ -301,11 +305,12 @@ MainView=React.createClass({
     return true;
   },
   drop:function(e){
-    var toCourse=$(e.target).closest('.course').attr('id');
+    var toCourse={
+      subject:$(e.target).closest('.course').attr('data-subject'),
+      catalog_number:$(e.target).closest('.course').attr('data-catalog_number')
+    }
     var fromCourse = this.state.dragingCourse;
-    console.log(fromCourse)
-    console.log("event data:"+e.nativeEvent.dataTransfer.getData("text/plain"))
-    if(!toCourse||toCourse==""){
+    if(!toCourse.subject||toCourse.subject==""){
       //to term
       var toTerm=parseInt($(e.target).closest('.term').attr('id'));
       this.removeCourse(fromCourse);
@@ -314,8 +319,10 @@ MainView=React.createClass({
       //swap course
       for (var i = 0; i < data.schedule.length; i++) {
         for (var j = 0; j < data.schedule[i].courses.length; j++) {
-          if(data.schedule[i].courses[j]==toCourse)data.schedule[i].courses[j]=fromCourse;
-          else if(data.schedule[i].courses[j]==fromCourse)data.schedule[i].courses[j]=toCourse;
+          if(name(data.schedule[i].courses[j])==name(toCourse))
+            data.schedule[i].courses[j]=fromCourse;
+          else if(name(data.schedule[i].courses[j])==name(fromCourse))
+            data.schedule[i].courses[j]=toCourse;
         };
       };
     }
@@ -387,7 +394,7 @@ MainView=React.createClass({
             </div>
           </div>)
       })
-      $.each(term.courses,function(i,course){courseTaken.push(course)});
+      $.each(term.courses,function(i,course){courseTaken.push(name(course))});
       return (
         <div key={i} className="term" id={i}>
           <div className="col-md-12"><h4>{termName+" "}{buttons}</h4></div>
