@@ -149,6 +149,7 @@ AddCourseModal=React.createClass({
     }else{
       data.courseList.push(course)
       $(document).trigger("dataUpdated")
+      $("#searchInput").blur();
       $("body").trigger('mousedown')
     }
   },
@@ -459,7 +460,7 @@ MainView=React.createClass({
         <div key={i} className="term" id={i}>
           <div className="col-md-12"><h4>{termName+" "}{buttons}</h4></div>
             {currentTermCourses}
-            {!term.courses.length?backgroundText:""}
+            {!term.courses.length&&that.state.dragingCourse==""?backgroundText:""}
             <div className={"col-md-4 col-xs-12 col-sm-6 course "+(that.state.dragingCourse==""||i==that.state.dragingCourse.termIndex?"invisible":"")} onDragOver={that.dragOver} onDrop={that.drop.bind(that,i,term.courses.length)}>
               <button className="btn-block btn btn-default moveBlock">
                 Move Here
