@@ -108,6 +108,7 @@ AddCourseModal=React.createClass({
   searchCourse:function(e){
     e.preventDefault();
     if(this.state.searched){
+      this.setState({searched:false})
       this.handleAddCourse(e);
       return;
     }
