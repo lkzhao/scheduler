@@ -150,7 +150,6 @@ AddCourseModal=React.createClass({
     }else{
       data.courseList.push(course)
       $(document).trigger("dataUpdated")
-      $("#searchInput").blur();
       $("body").trigger('mousedown')
     }
   },
