@@ -132,7 +132,7 @@ body {
 }
 .navbar.navbar-default #searchBtnWrapper i.searchIndicator {
   position: absolute;
-  left: 540px;
+  left: 530px;
   line-height: 34px;
 }
 .navbar.navbar-default .btn.btn-default {
@@ -372,6 +372,7 @@ body {
 }
 .page-header {
   margin: 10px 15px 0;
+  border: none;
 }
 .hide {
   display: none;
