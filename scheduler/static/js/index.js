@@ -76,7 +76,7 @@ function getTermNameArray(terms_offered){
 
 function hasCourse(course){
   for (var i = 0; i < data.courseList.length; i++) {
-    if(name(data.courseList[i])&&name(course))
+    if(name(data.courseList[i])==name(course))
       return true;
   };
   for (var i = 0; i < data.schedule.length; i++) {
@@ -88,6 +88,10 @@ function hasCourse(course){
   };
   return false;
 }
+
+function getTermList(termIndex){
+  return termIndex==-1?data.courseList:data.schedule[termIndex].courses
+}
 AddCourseModal=React.createClass({
   getInitialState: function() {
     return {input:"",focus:false,loading:false,searched:false,subject:"",catalog_number:"",errMsg:""};
@@ -95,6 +99,7 @@ AddCourseModal=React.createClass({
   componentDidMount:function(){
     $("body").on('mousedown', this.handleBlur);
     $(".navbar-form").on('mousedown', this.blockClick);
+    $(".deleteBtn").tooltip({container:'.navbar'})
   },
   componentWillUnmount: function() {
     $("body").off('mousedown', this.handleBlur);
@@ -139,12 +144,27 @@ AddCourseModal=React.createClass({
       alert("Course already added")
     }else{
       data.courseList.push(course)
-      $(document).trigger("listCoursesUpdated")
-      $("body").click()
+      $(document).trigger("dataUpdated")
+      $("body").trigger('mousedown')
     }
   },
   blockClick:function(e){
     e.stopPropagation();
+  },
+  drop:function(e){
+    var courseName = e.dataTransfer.getData("text/plain")
+    for (var termIndex = -1; termIndex < data.schedule.length; termIndex++) {
+      var term = getTermList(termIndex)
+      for (var courseIndex = 0; courseIndex < term.length; courseIndex++) {
+        if(name(term[courseIndex])==courseName){
+          term.splice(courseIndex,1);
+          return;
+        }
+      };
+    };
+  },
+  dragOver:function(e){
+    e.preventDefault();
   },
   render: function() {
     var cName = "searchResult"+(this.state.focus?"":" hideUp")
@@ -175,6 +195,9 @@ AddCourseModal=React.createClass({
         <div className="form-group">
           <input id='searchInput' type='text' placeholder='Search for Course' className={'form-control'+(this.state.focus?" focused":"")} value={this.state.input} onChange={this.handleChange} onFocus={this.handleFocus} ref="searchInput"/>
           <i className={"fa fa-spin fa-spinner searchIndicator "+(this.state.loading?"":"hide")} />
+        </div>
+        <div className="form-group deleteBtn" data-toggle="tooltip" title="Drag course here to delete" data-placement="bottom" ref="deleteBtn" onDrop={this.drop} onDragOver={this.dragOver}>
+          <i className="pe-7s-trash fa-fw"/>
         </div>
         {content}
       </form>
@@ -283,10 +306,10 @@ MainView=React.createClass({
   },
   componentDidMount:function(){
     $(window).on('mousemove', this.handleMouseMove);
-    $(document).on('listCoursesUpdated', this.handleSearch);
+    $(document).on('dataUpdated', this.refresh);
   },
   componentWillUnmount: function() {
-    $(document).off('listCoursesUpdated', this.handleSearch);
+    $(document).off('dataUpdated', this.refresh);
     $(window).off('mousemove', this.handleMouseMove);
   },
   toggleSkipTerm:function(termIndex){
@@ -297,8 +320,8 @@ MainView=React.createClass({
     }
     this.forceUpdate();
   },
-  handleSearch:function(e){
-    console.log("update")
+  refresh:function(e){
+    console.log("force refresh")
     this.forceUpdate()
   },
   addTerm:function(termIndex){
@@ -306,21 +329,18 @@ MainView=React.createClass({
     this.forceUpdate();
   },
   addCourse:function(termIndex,course){
-    this.getTermList(termIndex).push(course);
+    getTermList(termIndex).push(course);
   },
   removeTerm:function(termIndex){
     data.schedule.splice(termIndex, 1);
     this.forceUpdate();
   },
   removeCourse:function(termIndex, courseIndex){
-    this.getTermList(termIndex).splice(courseIndex,1);
-  },
-  getTermList:function(termIndex){
-    return termIndex==-1?data.courseList:data.schedule[termIndex].courses
+    getTermList(termIndex).splice(courseIndex,1);
   },
   dragStart:function(termIndex, courseIndex, e){
-    var course = this.getTermList(termIndex)[courseIndex]
-    e.dataTransfer.setData("text/plain", course.subject+" "+course.catalog_number);
+    var course = getTermList(termIndex)[courseIndex]
+    e.dataTransfer.setData("text/plain", course.subject+course.catalog_number);
     if(this.state.dragingCourse!="") return false;
     this.hidePreview();
     this.setState({dragingCourse:{
@@ -338,25 +358,24 @@ MainView=React.createClass({
   drop:function(termIndex, courseIndex, e){
     var fromTermIndex = this.state.dragingCourse.termIndex
     var fromCourseIndex = this.state.dragingCourse.courseIndex
-    var fromCourse = this.getTermList(fromTermIndex)[fromCourseIndex]
-    if(this.getTermList(termIndex).length==courseIndex){
+    var fromCourse = getTermList(fromTermIndex)[fromCourseIndex]
+    if(getTermList(termIndex).length==courseIndex){
       this.removeCourse(fromTermIndex, fromCourseIndex);
       this.addCourse(termIndex, fromCourse);
     }else{
       //swap
-      var destCourse = this.getTermList(termIndex)[courseIndex]
-      this.getTermList(termIndex)[courseIndex] = fromCourse
-      this.getTermList(fromTermIndex)[fromCourseIndex] = destCourse
+      var destCourse = getTermList(termIndex)[courseIndex]
+      getTermList(termIndex)[courseIndex] = fromCourse
+      getTermList(fromTermIndex)[fromCourseIndex] = destCourse
     }
     this.setState({dragingCourse:""});
-    return false;
   },
   handleMouseMove:function(e){
     if($(".preview.show").length>0)
       $(".preview").css({top:e.clientY+20,left:e.clientX+15});
   },
   showPreview:function(termIndex, courseIndex){
-    var course=uwapi.getInfo(this.getTermList(termIndex)[courseIndex])
+    var course=uwapi.getInfo(getTermList(termIndex)[courseIndex])
     var title=$("<h3><strong>"+course.name+"</strong> - "+course.title+"</h3>")
     var desc=$("<p>"+course.description+"</p>")
     var anti=$("<p><strong>Antireq: </strong>"+(course.antirequisite||"none")+"</p>")
@@ -376,7 +395,7 @@ MainView=React.createClass({
 
     var listEl=data.courseList.map(function(course,i){
       return (
-        <div className="col-md-4 col-sm-6 col-xs-12 course" key={i} draggable="true" onDragStart={that.dragStart.bind(that,-1,i)} onDragEnd={that.dragEnd} onDragOver={that.dragOver} onDrop={that.drop.bind(that,-1,i)} onMouseEnter={that.showPreview.bind(that,-1,i)} onMouseLeave={that.hidePreview}>
+        <div className="course" key={i} draggable="true" onDragStart={that.dragStart.bind(that,-1,i)} onDragEnd={that.dragEnd} onDragOver={that.dragOver} onDrop={that.drop.bind(that,-1,i)} onMouseEnter={that.showPreview.bind(that,-1,i)} onMouseLeave={that.hidePreview}>
           <div className="panel panel-default">
             <div className="panel-body">
               <strong>{course.subject+" "+course.catalog_number+" "}</strong>
@@ -386,7 +405,7 @@ MainView=React.createClass({
         )
     })
     listEl.push((
-      <div className={"col-md-4 col-xs-12 col-sm-6 course "+(that.state.dragingCourse==""||that.state.dragingCourse.termIndex==-1?"invisible":"")} onDragOver={that.dragOver} onDrop={that.drop.bind(that,-1,listEl.length)}>
+      <div className={"course "+(that.state.dragingCourse==""||that.state.dragingCourse.termIndex==-1?"invisible":"")} onDragOver={that.dragOver} onDrop={that.drop.bind(that,-1,listEl.length)}>
         <button className="btn-block btn btn-default moveBlock">
           Move Here
         </button>
@@ -442,11 +461,10 @@ MainView=React.createClass({
     })
     return(
       <div className={"row "+ (that.state.dragingCourse!=""?"draging":"")}>
-        <div className="col-xs-12">
-          <h3 className="page-header">List</h3>
+        <div className="dock">
           {listEl}
         </div>
-        <div className="col-xs-12">
+        <div className="col-xs-12 terms">
           <h3 className="page-header">Terms</h3>
           {termsEl}
         </div>

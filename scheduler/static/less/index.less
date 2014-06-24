@@ -42,12 +42,19 @@ body{
   a,.navbar-brand{
     color:white;
   }
+  i{font-size: 30px;}
+  .deleteBtn{
+    color:@navbarBorderColor;
+    transition:color .4s;
+    &:hover{
+      color:white;
+    }
+  }
   .navbar-brand{
     width: @sidebarWidth;
     border-right:1px solid @navbarBorderColor;
     height: @navbarHeight;
     i{
-      font-size: 30px;
       position: absolute;
       top:9px;
       left:@sidebarWidth - 35px;
@@ -139,6 +146,29 @@ body{
 }
 .sourceCode{
   font-family: 'Source Code Pro', ;
+}
+.moveBlock{
+  height:50px;
+}
+.dock{
+  position: fixed;
+  height:@dockHeight;
+  top:@navbarHeight;
+  left:@sidebarWidth;
+  right:0;
+  padding:15px;
+  z-index: 200;
+  background: #ecf0f1;
+  overflow-x: auto; 
+  overflow-y: hidden; 
+  .course{
+    width: 150px;
+    padding:0 15px;
+    display: inline-block;
+  }
+}
+.terms{
+  margin-top:@dockHeight;
 }
 .term{
   position: relative;

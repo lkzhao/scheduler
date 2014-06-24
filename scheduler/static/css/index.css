@@ -61,13 +61,22 @@ body {
 .navbar.navbar-default .navbar-brand {
   color: white;
 }
+.navbar.navbar-default i {
+  font-size: 30px;
+}
+.navbar.navbar-default .deleteBtn {
+  color: #16a085;
+  transition: color .4s;
+}
+.navbar.navbar-default .deleteBtn:hover {
+  color: white;
+}
 .navbar.navbar-default .navbar-brand {
   width: 250px;
   border-right: 1px solid #16a085;
   height: 50px;
 }
 .navbar.navbar-default .navbar-brand i {
-  font-size: 30px;
   position: absolute;
   top: 9px;
   left: 215px;
@@ -189,6 +198,29 @@ body {
 }
 .sourceCode {
   font-family: 'Source Code Pro';
+}
+.moveBlock {
+  height: 50px;
+}
+.dock {
+  position: fixed;
+  height: 80px;
+  top: 50px;
+  left: 250px;
+  right: 0;
+  padding: 15px;
+  z-index: 200;
+  background: #ecf0f1;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.dock .course {
+  width: 150px;
+  padding: 0 15px;
+  display: inline-block;
+}
+.terms {
+  margin-top: 80px;
 }
 .term {
   position: relative;
