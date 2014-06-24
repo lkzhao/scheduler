@@ -25,9 +25,17 @@ class IndexView(ProtectedView, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
-        context['schedule'] = json.dumps(self.request.user.profile.schedule)
-        courseInfo={}
         try:
+            courseInfo={}
+            context['schedule'] = json.dumps(self.request.user.profile.schedule)
+            context['courseList'] = json.dumps(self.request.user.profile.courseList)
+            for course in self.request.user.profile.courseList:
+                courseData = getCourseInfo(
+                                course['subject'],
+                                course['catalog_number']
+                                )
+                courseInfo[course['subject']+course['catalog_number']] = courseData
+                
             for term in self.request.user.profile.schedule:
                 for course in term['courses']:
                     courseData = getCourseInfo(
@@ -40,17 +48,25 @@ class IndexView(ProtectedView, TemplateView):
             context['errors'] = ['Could not parse saved data']
             context['courseInfo'] = json.dumps({})
             context['schedule'] = json.dumps([])
+            context['courseList'] = json.dumps([])
         return context
 
 
 @ajax_request
 @login_required
 def Save(request):
-    if not request.POST or "schedule" not in request.POST:
+    if not request.POST:
         return {'success': False}
+    for requiredField in ['schedule','autosave','courseList']:
+        if requiredField not in request.POST:
+            return {'success': False, 'error':"missing required fields"}
 
     schedule = request.POST['schedule']
+    autosave = request.POST['autosave']
+    courseList = request.POST['courseList']
     request.user.profile.schedule=schedule
+    request.user.profile.autosave=autosave=="true"
+    request.user.profile.courseList=courseList
     request.user.profile.save()
     return {'success':True}
 

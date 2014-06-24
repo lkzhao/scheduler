@@ -27,15 +27,14 @@
           Logout
 
 - block navbar
-  %form.navbar-form.navbar-left
-    %button.btn.btn-default.hidden-xs{:type => "button"}
-      %i.fa.fa-bars
-    .form-group
-      %input.form-control{:type => "text", :placeholder => "Search for Course"}
+  #searchBtnWrapper
 
   %form.navbar-form.navbar-right
     #id-auto-save-wrapper.form-group{:data-toggle => "tooltip", :data-placement => "bottom", :title => "Auto Save"}
-      %input#id-auto-save{:type => "checkbox", :checked => "checked"}
+      - if user.profile.autosave
+        %input#id-auto-save{:type => "checkbox", :checked => "checked"}
+      - else
+        %input#id-auto-save{:type => "checkbox"}
   #saveBtnGroupWrapper.navbar-right
 
 - block main
@@ -49,5 +48,6 @@
       csrf_token: "{{csrf_token}}",
       user:{name: "{{user.first_name}} {{user.last_name}}"},
       courseInfo: {{courseInfo|safe}},
-      schedule: {{schedule|safe}}
+      schedule: {{schedule|safe}},
+      courseList: {{courseList|safe}},
     }

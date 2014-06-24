@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Source+Code+Pro:200,400|Raleway:600,400);
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,200);
 ul {
   padding: 0;
   margin: 0;
@@ -20,6 +20,8 @@ a {
 }
 body {
   padding-top: 50px;
+  transition: padding .4s;
+  display: flex;
 }
 .left {
   width: 100%;
@@ -40,16 +42,16 @@ body {
     z-index: 2;
     min-height: 100%;
     width: 250px;
-    position: fixed;
-    top: 50px;
-    left: 0;
-    bottom: 0;
   }
   .right {
-    margin-left: 250px;
+    flex: 1;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    z-index: 10;
   }
 }
 .navbar.navbar-default {
+  z-index: 9999;
+  font-weight: 200;
   background: #1abc9c;
   color: white;
   border-bottom: 3px solid #16a085;
@@ -64,7 +66,13 @@ body {
   border-right: 1px solid #16a085;
   height: 50px;
 }
-.navbar.navbar-default .navbar-form .form-control {
+.navbar.navbar-default .navbar-brand i {
+  font-size: 30px;
+  position: absolute;
+  top: 9px;
+  left: 215px;
+}
+.navbar.navbar-default #searchBtnWrapper .form-control {
   border-radius: 20px;
   background: #16a085;
   border-color: #16a085;
@@ -73,52 +81,53 @@ body {
   transition: width 0.3s, border-color 0.3s;
   width: 150px;
 }
-.navbar.navbar-default .navbar-form .form-control:hover,
-.navbar.navbar-default .navbar-form .form-control:active,
-.navbar.navbar-default .navbar-form .form-control:focus {
+.navbar.navbar-default #searchBtnWrapper .form-control:hover,
+.navbar.navbar-default #searchBtnWrapper .form-control:active,
+.navbar.navbar-default #searchBtnWrapper .form-control:focus {
   box-shadow: none;
 }
-.navbar.navbar-default .navbar-form .form-control:-moz-placeholder {
+.navbar.navbar-default #searchBtnWrapper .form-control:-moz-placeholder {
   color: #ffffff;
   transition: color .3s;
 }
-.navbar.navbar-default .navbar-form .form-control::-moz-placeholder {
+.navbar.navbar-default #searchBtnWrapper .form-control::-moz-placeholder {
   color: #ffffff;
   transition: color .3s;
 }
-.navbar.navbar-default .navbar-form .form-control:-ms-input-placeholder {
+.navbar.navbar-default #searchBtnWrapper .form-control:-ms-input-placeholder {
   color: #ffffff;
   transition: color .3s;
 }
-.navbar.navbar-default .navbar-form .form-control::-webkit-input-placeholder {
+.navbar.navbar-default #searchBtnWrapper .form-control::-webkit-input-placeholder {
   color: #ffffff;
   transition: color .3s;
 }
-.navbar.navbar-default .navbar-form .form-control:active,
-.navbar.navbar-default .navbar-form .form-control:focus {
+.navbar.navbar-default #searchBtnWrapper .form-control.focused {
   width: 300px;
 }
-.navbar.navbar-default .navbar-form .form-control:active:-moz-placeholder,
-.navbar.navbar-default .navbar-form .form-control:focus:-moz-placeholder {
+.navbar.navbar-default #searchBtnWrapper .form-control.focused:-moz-placeholder {
   color: #16a085;
   transition: color .3s;
 }
-.navbar.navbar-default .navbar-form .form-control:active::-moz-placeholder,
-.navbar.navbar-default .navbar-form .form-control:focus::-moz-placeholder {
+.navbar.navbar-default #searchBtnWrapper .form-control.focused::-moz-placeholder {
   color: #16a085;
   transition: color .3s;
 }
-.navbar.navbar-default .navbar-form .form-control:active:-ms-input-placeholder,
-.navbar.navbar-default .navbar-form .form-control:focus:-ms-input-placeholder {
+.navbar.navbar-default #searchBtnWrapper .form-control.focused:-ms-input-placeholder {
   color: #16a085;
   transition: color .3s;
 }
-.navbar.navbar-default .navbar-form .form-control:active::-webkit-input-placeholder,
-.navbar.navbar-default .navbar-form .form-control:focus::-webkit-input-placeholder {
+.navbar.navbar-default #searchBtnWrapper .form-control.focused::-webkit-input-placeholder {
   color: #16a085;
   transition: color .3s;
+}
+.navbar.navbar-default #searchBtnWrapper i.searchIndicator {
+  position: absolute;
+  left: 540px;
+  line-height: 34px;
 }
 .navbar.navbar-default .btn.btn-default {
+  font-weight: 200;
   background: #16a085;
   border-color: #16a085;
   transition: border-color 0.3s;
@@ -133,6 +142,30 @@ body {
   height: 50px;
   line-height: 34px;
   padding: 8px;
+}
+.searchResult {
+  position: fixed;
+  z-index: 20;
+  top: 53px;
+  left: 0;
+  right: 0;
+  background: #1abc9c;
+  padding: 15px 265px;
+  border-bottom: 1px solid #16a085;
+  transition: transform .4s;
+  transform-origin: 50% 0%;
+  -webkit-transform-origin: 50% 0%;
+  -webkit-transition: -webkit-transform 0.4s;
+}
+.searchResult h3 {
+  margin: 0 0 10px;
+}
+.searchResult.hideUp {
+  -webkit-transform: rotateX(90deg);
+  transform: rotateX(90deg);
+}
+.searchResult .submitCourseBtn {
+  float: right;
 }
 .btn.btn-default {
   cursor: pointer;
@@ -150,7 +183,7 @@ body {
 .skipTermBtn,
 .removeTermBtn,
 .addTermBtn,
-.addCourseBtn,
+.moveBlock,
 .insertTermBtn {
   transition: opacity .3s;
 }
@@ -163,6 +196,9 @@ body {
   border: 1px solid transparent;
   border-radius: 7px;
   transition: border .3s;
+}
+.term.skiped {
+  color: #aaa;
 }
 .term .skipTermBtn {
   opacity: 0;
@@ -221,10 +257,6 @@ body {
   color: #a94442;
   background-color: #f2dede;
   border-color: #ebccd1;
-}
-.addCourseBtn {
-  height: 77px;
-  font-size: 20px;
 }
 .preview {
   position: fixed;
@@ -300,8 +332,14 @@ body {
 .userInfo ul {
   border-top: 1px solid #444;
 }
+.page-header {
+  margin: 10px 15px 0;
+}
 .hide {
   display: none;
+}
+.invisible {
+  opacity: 0;
 }
 .courseInputGroup {
   margin-bottom: 10px;

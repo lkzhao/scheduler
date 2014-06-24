@@ -11,6 +11,10 @@ class Profile(models.Model):
 	# 	[{courses:[]skiped:true}, {courses:[{subject:"CS",catalog_number:"115"}]skiped:false}]
 	schedule = JSONField(default=[], null=True, blank=True)
 
+	# user's selected course that are not added to schedule
+	courseList = JSONField(default=[], null=True, blank=True)
+	autosave = models.BooleanField(default=True)
+
 # Create your models here.
 class Course(models.Model):
     subject = models.CharField(max_length=10)

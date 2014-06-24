@@ -1,6 +1,4 @@
 /** @jsx React.DOM */
-
-
 var uwapi={
   courseInfo:data.courseInfo||{},
   getCourse:function(subject,catalog_number,callback){
@@ -18,6 +16,8 @@ var uwapi={
         course.name=course.subject+course.catalog_number;
         that.courseInfo[course.subject+course.catalog_number]=course;
         callback(course.name);
+    }).fail(function() {
+      callback(null);
     })
   },
   getInfo:function(course){
@@ -73,12 +73,32 @@ function checkPrereq(courseTaken,prereq,isRecur){
 function getTermNameArray(terms_offered){
   return terms_offered.map(function(i){return i=="F"?"Fall":i=="W"?"Winter":"Spring"})
 }
+
+function hasCourse(course){
+  for (var i = 0; i < data.courseList.length; i++) {
+    if(name(data.courseList[i])&&name(course))
+      return true;
+  };
+  for (var i = 0; i < data.schedule.length; i++) {
+    for (var j = 0; j < data.schedule[i].courses.length; j++) {
+      if(data.schedule[i].courses[j].subject==course.subject&&
+        data.schedule[i].courses[j].catalog_number==course.catalog_number)
+        return true;
+    };
+  };
+  return false;
+}
 AddCourseModal=React.createClass({
   getInitialState: function() {
-    return {input:"",searched:false,subject:"",catalog_number:"",errMsg:""};
+    return {input:"",focus:false,loading:false,searched:false,subject:"",catalog_number:"",errMsg:""};
   },
   componentDidMount:function(){
-
+    $("body").on('mousedown', this.handleBlur);
+    $(".navbar-form").on('mousedown', this.blockClick);
+  },
+  componentWillUnmount: function() {
+    $("body").off('mousedown', this.handleBlur);
+    $(".navbar-form").on('mousedown', this.blockClick);
   },
   searchCourse:function(e){
     e.preventDefault();
@@ -86,74 +106,78 @@ AddCourseModal=React.createClass({
     var subject=this.state.subject;
     var catalog_number=this.state.catalog_number;
     var that=this;
+    that.setState({loading:true});
     uwapi.getCourse(subject,catalog_number,function(course){
       if(course){
-        that.setState({searched:true,errMsg:""});
+        that.setState({loading:false,searched:true,errMsg:""});
       }else{
-        that.setState({searched:false,errMsg:"Course not found: "+subject+catalog_number});
+        that.setState({loading:false,searched:true,errMsg:"Course not found: "+subject+" "+catalog_number});
       }
     })
     return false;
   },
-  submitCourse:function(){
-    if(this.state.searched){
-      $('#addCourseModal').modal('hide');
-      this.setState({searched:false,errMsg:""});
-      this.props.onSubmit({
-        subject:this.state.subject,
-        catalog_number:this.state.catalog_number
-      })
-    }
-  },
   handleChange:function(e){
-    var inputValue=e.target.value;
+    var inputValue=e.target.value.toUpperCase();
     subject=inputValue.match(/^\D+/);
     catalog_number=subject?inputValue.substr(subject[0].length):"";
-    subject=(subject)?subject[0].toUpperCase().replace(/ /g,''):"";
-    catalog_number=catalog_number.toUpperCase().replace(/ /g,'');
+    subject=(subject)?subject[0].replace(/ /g,''):"";
+    catalog_number=catalog_number.replace(/ /g,'');
     this.setState({input:inputValue,subject:subject,catalog_number:catalog_number,searched:false,errMsg:""},function(){});
   },
+  handleBlur:function(e){
+    this.setState({focus:false})
+  },
+  handleFocus:function(e){
+    this.setState({focus:true})
+  },
+  handleAddCourse:function(e){
+    var course = {
+      subject:this.state.subject,
+      catalog_number:this.state.catalog_number
+    }
+    if(hasCourse(course)){
+      alert("Course already added")
+    }else{
+      data.courseList.push(course)
+      $(document).trigger("listCoursesUpdated")
+      $("body").click()
+    }
+  },
+  blockClick:function(e){
+    e.stopPropagation();
+  },
   render: function() {
-    if(this.state.searched){
+    var cName = "searchResult"+(this.state.focus?"":" hideUp")
+    if(this.state.errMsg!=""){
+      var content=(
+              <div className={cName}>
+                {this.state.errMsg}
+              </div>)
+    }else if(this.state.searched){
       var course=uwapi.getInfo({subject:this.state.subject,
         catalog_number:this.state.catalog_number});
       var content=(
-              <div>
+              <div className={cName}>
                 <h3><a target="_blank" href={course.url}>{course.subject+" "+course.catalog_number+" - "+course.title}</a></h3>
                 <p>{course.description}</p>
                 <div><strong>Antireq: </strong>{course.antirequisite||"none"}</div>
                 <div><strong>Prereq: </strong>{course.prerequisites||"none"}</div>
                 <div><strong>Terms offered: </strong>{getTermNameArray(course.terms_offered).join(", ")}</div>
-              </div>)
+                <a onClick={this.handleAddCourse} className="btn btn-default submitCourseBtn">Add to list</a>
+              </div>
+              )
     }else{
-      var content=this.state.errMsg==""?{}:(<div className="alert alert-danger">{this.state.errMsg}</div>)
+      var content=(<div className={cName} />)
     }
+
     return(
-      <div className="modal fade" id="addCourseModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 className="modal-title" id="myModalLabel">Add Course</h4>
-            </div>
-            <div className="modal-body">
-              <form onSubmit={this.searchCourse}>
-                <div className={"input-group courseInputGroup "+(this.state.searched?"hideBtn":"")}>
-                  <input type='text' Placeholder='course search' className='form-control' value={this.state.input} onChange={this.handleChange}/>
-                  <span className="input-group-btn">
-                    <button type="button" type='submit' className="btn btn-primary">Search</button>
-                  </span>
-                </div>
-              </form>
-              {content}
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-              {this.state.searched?(<button type="button" className="btn btn-primary" onClick={this.submitCourse}>Add this course</button>):{}}
-            </div>
-          </div>
+      <form className="navbar-form navbar-left" onSubmit={this.searchCourse}>
+        <div className="form-group">
+          <input id='searchInput' type='text' placeholder='Search for Course' className={'form-control'+(this.state.focus?" focused":"")} value={this.state.input} onChange={this.handleChange} onFocus={this.handleFocus} ref="searchInput"/>
+          <i className={"fa fa-spin fa-spinner searchIndicator "+(this.state.loading?"":"hide")} />
         </div>
-      </div>
+        {content}
+      </form>
     );
   }
 })
@@ -205,11 +229,13 @@ SaveBtnGroup=React.createClass({
       type:"post",
       dataType:"json",
       data:{
+        courseList:JSON.stringify(data.courseList),
         csrfmiddlewaretoken:data.csrf_token,
-        schedule:JSON.stringify(data.schedule)
+        schedule:JSON.stringify(data.schedule),
+        autosave:this.state.autoSave
       },
       success:function(json){
-        if(json.success==1){
+        if(json.success){
           that.setState({saving:false})
         }else{
           that.setState({saveText:"save failed. check your internet connection",saving:false})
@@ -221,20 +247,20 @@ SaveBtnGroup=React.createClass({
     })
   },
   render: function() {
-    saveText=""
+    saveText=this.state.saveText
     if(this.state.autoSave){
       saveText = this.state.saveText!=""?this.state.saveText:"Auto Save in "+this.state.saveTime+"s"
     }
     if(this.state.saving){
       var saveBtn = (
         <a className="btn btn-default disabled">
-          <i className="fa fa-circle-o-notch fa-spin"></i> Saving
+          <i className="pe-7s-disk fa-spin"></i> Saving
         </a>
         )
     }else{
       var saveBtn = (
         <a className="btn btn-default" onClick={this.save}>
-          <i className="fa fa-save"></i> Save
+          Save
         </a>
         )
     }
@@ -257,74 +283,50 @@ MainView=React.createClass({
   },
   componentDidMount:function(){
     $(window).on('mousemove', this.handleMouseMove);
+    $(document).on('listCoursesUpdated', this.handleSearch);
   },
   componentWillUnmount: function() {
+    $(document).off('listCoursesUpdated', this.handleSearch);
     $(window).off('mousemove', this.handleMouseMove);
   },
   toggleSkipTerm:function(termIndex){
     if(data.schedule[termIndex].skiped){
-      data.schedule.splice(termIndex, 1);
+      data.schedule[termIndex].skiped = false
     }else{
       data.schedule.splice(termIndex, 0, {skiped:true,courses:[]});
     }
     this.forceUpdate();
   },
-  handleAddCourse:function(termIndex){
-    $('#addCourseModal').modal('show');
-    this.currentTerm=termIndex;
+  handleSearch:function(e){
+    console.log("update")
+    this.forceUpdate()
   },
   addTerm:function(termIndex){
     data.schedule.splice(termIndex,0,{courses:[]});
     this.forceUpdate();
   },
-  hasCourse:function(course){
-    for (var i = 0; i < data.schedule.length; i++) {
-      for (var j = 0; j < data.schedule[i].courses.length; j++) {
-        if(data.schedule[i].courses[j].subject==course.subject&&
-          data.schedule[i].courses[j].catalog_number==course.catalog_number)
-          return true;
-      };
-    };
-    return false;
-  },
-  confirmAddCourse:function(course){
-    if(this.hasCourse(course)){
-      console.log("Course added already")
-      return false;
-    } 
-    data.schedule[this.currentTerm].courses.push(course);
-    this.forceUpdate();
-  },
   addCourse:function(termIndex,course){
-    this.currentTerm=termIndex;
-    this.confirmAddCourse(course);
+    this.getTermList(termIndex).push(course);
   },
   removeTerm:function(termIndex){
     data.schedule.splice(termIndex, 1);
     this.forceUpdate();
   },
-  removeCourse:function(course,refresh){
-    for (var i = 0; i < data.schedule.length; i++) {
-      for (var j = 0; j < data.schedule[i].courses.length; j++) {
-        if(data.schedule[i].courses[j].subject==course.subject&&
-          data.schedule[i].courses[j].catalog_number==course.catalog_number){
-          data.schedule[i].courses.splice(j,1);
-          if(refresh) this.forceUpdate();
-          return;
-        }
-      };
-    };
+  removeCourse:function(termIndex, courseIndex){
+    this.getTermList(termIndex).splice(courseIndex,1);
   },
-  dragStart:function(e){
+  getTermList:function(termIndex){
+    return termIndex==-1?data.courseList:data.schedule[termIndex].courses
+  },
+  dragStart:function(termIndex, courseIndex, e){
+    var course = this.getTermList(termIndex)[courseIndex]
+    e.dataTransfer.setData("text/plain", course.subject+" "+course.catalog_number);
     if(this.state.dragingCourse!="") return false;
-    var $el = $(e.target)
-    if(!$el.is(".course")) return false;
-    this.setState({dragingCourse:{
-      subject:$el.attr('data-subject'),
-      catalog_number:$el.attr('data-catalog_number')
-    }});
     this.hidePreview();
-    e.dataTransfer.setData('text/plain', e.target.id);
+    this.setState({dragingCourse:{
+      termIndex:termIndex,
+      courseIndex:courseIndex
+    }});
     return true;
   },
   dragEnd:function(e){
@@ -332,32 +334,20 @@ MainView=React.createClass({
   },
   dragOver:function(e){
     e.preventDefault();
-    return true;
   },
-  drop:function(e){
-    var toCourse={
-      subject:$(e.target).closest('.course').attr('data-subject'),
-      catalog_number:$(e.target).closest('.course').attr('data-catalog_number')
-    }
-    var fromCourse = this.state.dragingCourse;
-    if(!toCourse.subject||toCourse.subject==""){
-      //to term
-      var toTerm=parseInt($(e.target).closest('.term').attr('id'));
-      this.removeCourse(fromCourse);
-      this.addCourse(toTerm,fromCourse);
+  drop:function(termIndex, courseIndex, e){
+    var fromTermIndex = this.state.dragingCourse.termIndex
+    var fromCourseIndex = this.state.dragingCourse.courseIndex
+    var fromCourse = this.getTermList(fromTermIndex)[fromCourseIndex]
+    if(this.getTermList(termIndex).length==courseIndex){
+      this.removeCourse(fromTermIndex, fromCourseIndex);
+      this.addCourse(termIndex, fromCourse);
     }else{
-      //swap course
-      for (var i = 0; i < data.schedule.length; i++) {
-        for (var j = 0; j < data.schedule[i].courses.length; j++) {
-          if(name(data.schedule[i].courses[j])==name(toCourse))
-            data.schedule[i].courses[j]=fromCourse;
-          else if(name(data.schedule[i].courses[j])==name(fromCourse))
-            data.schedule[i].courses[j]=toCourse;
-        };
-      };
+      //swap
+      var destCourse = this.getTermList(termIndex)[courseIndex]
+      this.getTermList(termIndex)[courseIndex] = fromCourse
+      this.getTermList(fromTermIndex)[fromCourseIndex] = destCourse
     }
-    e.preventDefault();
-    e.stopPropagation();
     this.setState({dragingCourse:""});
     return false;
   },
@@ -365,12 +355,8 @@ MainView=React.createClass({
     if($(".preview.show").length>0)
       $(".preview").css({top:e.clientY+20,left:e.clientX+15});
   },
-  showPreview:function(e){
-    var $el = $(e.target).closest(".course")
-    var course=uwapi.getInfo({
-      subject:$el.attr('data-subject'),
-      catalog_number:$el.attr('data-catalog_number')
-    })
+  showPreview:function(termIndex, courseIndex){
+    var course=uwapi.getInfo(this.getTermList(termIndex)[courseIndex])
     var title=$("<h3><strong>"+course.name+"</strong> - "+course.title+"</h3>")
     var desc=$("<p>"+course.description+"</p>")
     var anti=$("<p><strong>Antireq: </strong>"+(course.antirequisite||"none")+"</p>")
@@ -387,9 +373,28 @@ MainView=React.createClass({
     var startYear=this.state.startYear;
     var startTerm=this.state.startTerm;
     var courseTaken=[];
+
+    var listEl=data.courseList.map(function(course,i){
+      return (
+        <div className="col-md-4 col-sm-6 col-xs-12 course" key={i} draggable="true" onDragStart={that.dragStart.bind(that,-1,i)} onDragEnd={that.dragEnd} onDragOver={that.dragOver} onDrop={that.drop.bind(that,-1,i)} onMouseEnter={that.showPreview.bind(that,-1,i)} onMouseLeave={that.hidePreview}>
+          <div className="panel panel-default">
+            <div className="panel-body">
+              <strong>{course.subject+" "+course.catalog_number+" "}</strong>
+            </div>
+          </div>
+        </div>
+        )
+    })
+    listEl.push((
+      <div className={"col-md-4 col-xs-12 col-sm-6 course "+(that.state.dragingCourse==""||that.state.dragingCourse.termIndex==-1?"invisible":"")} onDragOver={that.dragOver} onDrop={that.drop.bind(that,-1,listEl.length)}>
+        <button className="btn-block btn btn-default moveBlock">
+          Move Here
+        </button>
+      </div>
+      ))
+
     var termsEl=data.schedule.map(function(term,i){
       var termName=calculateTerm(startYear,startTerm,i);
-      var isDragingTerm=false;
       var buttons=[
           (<button className='removeTermBtn btn btn-default' onClick={that.removeTerm.bind(that,i)}><i className="fa fa-fw fa-times"></i></button>),
           (<button className="insertTermBtn btn btn-default" onClick={that.addTerm.bind(that,i)}><i className="fa fa-fw fa-plus"></i> Insert a Term</button>),
@@ -397,7 +402,7 @@ MainView=React.createClass({
           ]
       if(term.skiped){
         return(
-        <div className="term" key={i} id={i}>
+        <div className="term skiped" key={i} id={i}>
           <div className="col-md-12"><h4>{calculateTerm(startYear,startTerm,i)+" "}<small>skiped </small> {buttons}</h4></div>
           <div className="clearfix"/>
         </div>
@@ -408,12 +413,9 @@ MainView=React.createClass({
         var offeredInCurrentTerm=getTermNameArray(courseInfo.terms_offered).indexOf(termName.substr(5))>-1;
         var satisfied=checkPrereq(courseTaken,courseInfo.prerequisites_parsed);
         var classStr="col-md-4 col-sm-6 col-xs-12 course";
-        if(name(course)==name(that.state.dragingCourse)){
-          isDragingTerm=true;
-        }
         return (
-          <div className={classStr} key={j} draggable="true" onDrag={that.dragStart} onDragEnd={that.dragEnd} onDragOver={that.dragOver} onDrop={that.drop} data-subject={course.subject} data-catalog_number={course.catalog_number}>
-            <div className={"panel panel-"+(satisfied&&offeredInCurrentTerm?"default":"danger")} onMouseEnter={that.showPreview} onMouseLeave={that.hidePreview}>
+          <div className={classStr} key={j} draggable="true" onDragStart={that.dragStart.bind(that,i,j)} onDragEnd={that.dragEnd} onDragOver={that.dragOver} onDrop={that.drop.bind(that,i,j)} data-subject={course.subject} data-catalog_number={course.catalog_number}>
+            <div className={"panel panel-"+(satisfied&&offeredInCurrentTerm?"default":"danger")} onMouseEnter={that.showPreview.bind(that,i,j)} onMouseLeave={that.hidePreview}>
               <div className="panel-body">
                 <strong>{courseInfo.subject+" "+courseInfo.catalog_number+" "}</strong>
               </div>
@@ -429,9 +431,9 @@ MainView=React.createClass({
         <div key={i} className="term" id={i}>
           <div className="col-md-12"><h4>{termName+" "}{buttons}</h4></div>
             {currentTermCourses}
-            <div className={"col-md-4 col-xs-12 col-sm-6 course "+(isDragingTerm?"hide":"")} onDragOver={that.dragOver} onDrop={that.drop} onClick={that.handleAddCourse.bind(that,i)}>
-              <button className="btn-block btn btn-default addCourseBtn" >
-                {that.state.dragingCourse==""?"Add Course":"Move Here"}
+            <div className={"col-md-4 col-xs-12 col-sm-6 course "+(that.state.dragingCourse==""||i==that.state.dragingCourse.termIndex?"invisible":"")} onDragOver={that.dragOver} onDrop={that.drop.bind(that,i,term.courses.length)}>
+              <button className="btn-block btn btn-default moveBlock">
+                Move Here
               </button>
             </div>
           <div className="clearfix"/>
@@ -439,10 +441,18 @@ MainView=React.createClass({
       )
     })
     return(
-      <div className={that.state.dragingCourse!=""?"draging":""}>
-        {termsEl}
-        <button className='btn btn-default addTermBtn btn-lg btn-block' onClick={that.addTerm.bind(that,data.schedule.length)}>Add a Term</button>
-        <AddCourseModal onSubmit={this.confirmAddCourse}/>
+      <div className={"row "+ (that.state.dragingCourse!=""?"draging":"")}>
+        <div className="col-xs-12">
+          <h3 className="page-header">List</h3>
+          {listEl}
+        </div>
+        <div className="col-xs-12">
+          <h3 className="page-header">Terms</h3>
+          {termsEl}
+        </div>
+        <div className="col-xs-12">
+          <button className='btn btn-default addTermBtn btn-lg btn-block' onClick={that.addTerm.bind(that,data.schedule.length)}>Add a Term</button>
+        </div>
       </div>
     );
   }
@@ -454,6 +464,9 @@ $(function(){
   React.renderComponent(
     <MainView />,
     $("#main").get(0)
+  );React.renderComponent(
+    <AddCourseModal />,
+    $("#searchBtnWrapper").get(0)
   );
   React.renderComponent(
     <SaveBtnGroup />,
