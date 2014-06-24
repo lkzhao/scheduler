@@ -445,11 +445,17 @@ MainView=React.createClass({
             </div>
           </div>)
       })
+      var backgroundText=(
+        <div className="backgroundText">
+          No course for this term. Search for a course and drag it here from the top list.
+        </div>
+        )
       $.each(term.courses,function(i,course){courseTaken.push(name(course))});
       return (
         <div key={i} className="term" id={i}>
           <div className="col-md-12"><h4>{termName+" "}{buttons}</h4></div>
             {currentTermCourses}
+            {!term.courses.length?backgroundText:""}
             <div className={"col-md-4 col-xs-12 col-sm-6 course "+(that.state.dragingCourse==""||i==that.state.dragingCourse.termIndex?"invisible":"")} onDragOver={that.dragOver} onDrop={that.drop.bind(that,i,term.courses.length)}>
               <button className="btn-block btn btn-default moveBlock">
                 Move Here

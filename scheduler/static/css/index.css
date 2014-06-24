@@ -66,7 +66,7 @@ body {
 }
 .navbar.navbar-default .deleteBtn {
   color: #16a085;
-  transition: color .4s;
+  transition: color .2s;
 }
 .navbar.navbar-default .deleteBtn:hover {
   color: white;
@@ -196,9 +196,6 @@ body {
 .insertTermBtn {
   transition: opacity .3s;
 }
-.sourceCode {
-  font-family: 'Source Code Pro';
-}
 .moveBlock {
   height: 50px;
 }
@@ -213,6 +210,7 @@ body {
   background: #ecf0f1;
   overflow-x: auto;
   overflow-y: hidden;
+  border-bottom: 1px solid #bdc3c7;
 }
 .dock .course {
   width: 150px;
@@ -363,6 +361,14 @@ body {
 }
 .userInfo ul {
   border-top: 1px solid #444;
+}
+.backgroundText {
+  position: absolute;
+  top: 40px;
+  width: 100%;
+  text-align: center;
+  font-size: 22px;
+  color: #bbb;
 }
 .page-header {
   margin: 10px 15px 0;
