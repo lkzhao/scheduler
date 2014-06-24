@@ -107,6 +107,10 @@ AddCourseModal=React.createClass({
   },
   searchCourse:function(e){
     e.preventDefault();
+    if(this.state.searched){
+      this.handleAddCourse(e);
+      return;
+    }
     if(this.state.subject==""||this.state.catalog_number=="")return;
     var subject=this.state.subject;
     var catalog_number=this.state.catalog_number;
@@ -183,7 +187,7 @@ AddCourseModal=React.createClass({
                 <div><strong>Antireq: </strong>{course.antirequisite||"none"}</div>
                 <div><strong>Prereq: </strong>{course.prerequisites||"none"}</div>
                 <div><strong>Terms offered: </strong>{getTermNameArray(course.terms_offered).join(", ")}</div>
-                <a onClick={this.handleAddCourse} className="btn btn-default submitCourseBtn">Add to list</a>
+                <button className="btn btn-default submitCourseBtn">Add to list</button>
               </div>
               )
     }else{
