@@ -36,7 +36,11 @@ def getCourseData(course):
 def refreshDB():
   print("Getting list of all subejcts")
   subjects = getJSON("codes/subjects")
+  get = False
   for subjectData in subjects:
+    if subjectData['subject'].upper()=="REC":
+      get=True
+    if not get: continue
     subject, created = Subject.objects.get_or_create(
       name = subjectData['subject'].upper()
       )
