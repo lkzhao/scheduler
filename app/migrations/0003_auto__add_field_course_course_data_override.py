@@ -8,24 +8,26 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'Profile.courseList'
-        db.add_column(u'app_profile', 'courseList',
-                      self.gf('annoying.fields.JSONField')(default=[], null=True, blank=True),
+        # Adding field 'Course.course_data_override'
+        db.add_column(u'app_course', 'course_data_override',
+                      self.gf('annoying.fields.JSONField')(default={}, null=True, blank=True),
                       keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting field 'Profile.courseList'
-        db.delete_column(u'app_profile', 'courseList')
+        # Deleting field 'Course.course_data_override'
+        db.delete_column(u'app_course', 'course_data_override')
 
 
     models = {
         u'app.course': {
-            'Meta': {'object_name': 'Course'},
+            'Meta': {'unique_together': "(('subject', 'catalog_number'),)", 'object_name': 'Course'},
             'catalog_number': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
             'course_data': ('annoying.fields.JSONField', [], {'default': '{}', 'null': 'True', 'blank': 'True'}),
+            'course_data_override': ('annoying.fields.JSONField', [], {'default': '{}', 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'subject': ('django.db.models.fields.CharField', [], {'max_length': '10'})
+            'lastUpdate': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'subject': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['app.Subject']"})
         },
         u'app.profile': {
             'Meta': {'object_name': 'Profile'},
@@ -33,6 +35,12 @@ class Migration(SchemaMigration):
             'courseList': ('annoying.fields.JSONField', [], {'default': '[]', 'null': 'True', 'blank': 'True'}),
             'schedule': ('annoying.fields.JSONField', [], {'default': '[]', 'null': 'True', 'blank': 'True'}),
             'user': ('annoying.fields.AutoOneToOneField', [], {'to': u"orm['django_facebook.FacebookCustomUser']", 'unique': 'True', 'primary_key': 'True'})
+        },
+        u'app.subject': {
+            'Meta': {'object_name': 'Subject'},
+            'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
+            'lastUpdate': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '10', 'primary_key': 'True'})
         },
         u'auth.group': {
             'Meta': {'object_name': 'Group'},

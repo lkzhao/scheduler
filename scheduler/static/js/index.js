@@ -94,7 +94,7 @@ function getTermList(termIndex){
 }
 AddCourseModal=React.createClass({
   getInitialState: function() {
-    return {input:"",focus:false,loading:false,searched:false,subject:"",catalog_number:"",errMsg:""};
+    return {input:"",focus:false,loading:false,searched:false,subject:"",catalog_number:"",message:"",dataList:[],dataListSelected:0, dataListType:"None"};
   },
   componentDidMount:function(){
     $("body").on('mousedown', this.handleBlur);
@@ -105,26 +105,35 @@ AddCourseModal=React.createClass({
     $("body").off('mousedown', this.handleBlur);
     $(".navbar-form").on('mousedown', this.blockClick);
   },
-  searchCourse:function(e){
+  handleSubmit:function(e){
     e.preventDefault();
-    if(this.state.searched){
+    var that=this;
+    if(this.state.dataList.length>0){
+      var selected = this.state.dataList[this.state.dataListSelected]
+      if(this.state.dataListType=="Subject"){
+        this.setState({dataList:selected.courses, dataListSelected:0, input:selected.name,subject:selected.name, dataListType:"Course", message:""})
+        return;
+      }else if(this.state.dataListType=="Course"){
+        that.setState({loading:true,catalog_number:selected.catalog_number,input:this.state.subject+selected.catalog_number});
+        uwapi.getCourse(this.state.subject,selected.catalog_number,function(course){
+          if(course){
+            that.setState({loading:false,searched:true,message:"",dataListType:"None",dataList:""});
+          }else{
+            that.setState({loading:false,searched:true,dataListType:"None",dataList:"",message:"Error loading course info"});
+          }
+        })
+      }
+    }else if(this.state.searched&&this.state.message==""){
       this.setState({searched:false})
       this.handleAddCourse(e);
       return;
     }
-    if(this.state.subject==""||this.state.catalog_number=="")return;
-    var subject=this.state.subject;
-    var catalog_number=this.state.catalog_number;
-    var that=this;
-    that.setState({loading:true});
-    uwapi.getCourse(subject,catalog_number,function(course){
-      if(course){
-        that.setState({loading:false,searched:true,errMsg:""});
-      }else{
-        that.setState({loading:false,searched:true,errMsg:"Course not found: "+subject+" "+catalog_number});
-      }
-    })
     return false;
+  },
+  handleResponse:function(response){
+    if(name(response.query)==name(this.state)){
+      
+    }
   },
   handleChange:function(e){
     var inputValue=e.target.value.toUpperCase();
@@ -132,7 +141,34 @@ AddCourseModal=React.createClass({
     catalog_number=subject?inputValue.substr(subject[0].length):"";
     subject=(subject)?subject[0].replace(/ /g,''):"";
     catalog_number=catalog_number.replace(/ /g,'');
-    this.setState({input:inputValue,subject:subject,catalog_number:catalog_number,searched:false,errMsg:""},function(){});
+    var state = {
+      focus:true,
+      input:inputValue,
+      subject:subject,
+      catalog_number:catalog_number,
+      searched:false,
+      message:""
+    }
+    if(subject!=""){
+      var matchedSubjects = allSubjects.filter(function(subjectData){
+        return subjectData.name.lastIndexOf(subject, 0) === 0
+      })
+      if(matchedSubjects.length==1&&matchedSubjects[0].name==subject&&catalog_number!=""){
+        state.dataList=matchedSubjects[0].courses.filter(function(courseData){
+          return courseData.catalog_number.lastIndexOf(catalog_number, 0) === 0
+        })
+        state.dataListType="Course"
+      }else{
+        state.dataList=matchedSubjects
+        state.dataListType="Subject"
+      }
+    }else{
+      state.dataListType="None"
+    }
+    if(this.state.input!=inputValue){
+      state.dataListSelected=0
+    }
+    this.setState(state,function(){});
   },
   handleBlur:function(e){
     this.setState({focus:false})
@@ -171,12 +207,24 @@ AddCourseModal=React.createClass({
   dragOver:function(e){
     e.preventDefault();
   },
+  handleKeydown:function(e){
+    if(e.keyCode==40){//down
+      if(this.state.dataListSelected<this.state.dataList.length-1)
+        this.setState({dataListSelected:this.state.dataListSelected+1})
+      e.preventDefault()
+    }else if(e.keyCode==38){//up
+      if(this.state.dataListSelected>0)
+        this.setState({dataListSelected:this.state.dataListSelected-1})
+      e.preventDefault()
+    }
+  },
   render: function() {
     var cName = "searchResult"+(this.state.focus?"":" hideUp")
-    if(this.state.errMsg!=""){
+    var that = this;
+    if(this.state.message!=""){
       var content=(
               <div className={cName}>
-                {this.state.errMsg}
+                {this.state.message}
               </div>)
     }else if(this.state.searched){
       var course=uwapi.getInfo({subject:this.state.subject,
@@ -192,13 +240,54 @@ AddCourseModal=React.createClass({
               </div>
               )
     }else{
-      var content=(<div className={cName} />)
+      //show suggestion
+      if(this.state.dataListType=="Subject"){
+        var dataList = this.state.dataList
+        if(dataList.length>10) dataList=dataList.slice(0, 10)
+        var subjectEls = dataList.map(function(subject,i){
+          return(
+            <div className={"suggestion"+(that.state.dataListSelected==i?" active":"")}>
+              <strong>{subject.name}</strong> - {subject.description}
+            </div>
+            )
+        })
+        var content=(
+          <div className={cName} >
+            {subjectEls.length>0?subjectEls:(
+              "Subject not found "+that.state.subject
+              )}
+          </div>
+          )
+      }else if(this.state.dataListType=="Course"){
+        var dataList = this.state.dataList
+        if(dataList.length>10) dataList=dataList.slice(0, 10)
+        var courseEls = dataList.map(function(course,i){
+          return(
+            <div className={"suggestion"+(that.state.dataListSelected==i?" active":"")}>
+              <strong>{that.state.subject+course.catalog_number}</strong> - {course.title}
+            </div>
+            )
+        })
+        var content=(
+          <div className={cName} >
+            {courseEls.length>0?courseEls:(
+              "Course not found: "+that.state.subject+" "+that.state.catalog_number
+              )}
+          </div>
+          )
+      }else{
+        var content=(
+          <div className={cName} >
+            Enter Course Code: i.e CS241, ENGL109, ...
+          </div>
+        )
+      }
     }
 
     return(
-      <form className="navbar-form navbar-left" onSubmit={this.searchCourse}>
+      <form className="navbar-form navbar-left" onSubmit={this.handleSubmit}>
         <div className="form-group">
-          <input id='searchInput' type='text' placeholder='Search for Course' className={'form-control'+(this.state.focus?" focused":"")} value={this.state.input} onChange={this.handleChange} onFocus={this.handleFocus} ref="searchInput"/>
+          <input id='searchInput' type='text' placeholder='Search for Course' className={'form-control'+(this.state.focus?" focused":"")} value={this.state.input} onChange={this.handleChange} onFocus={this.handleFocus} ref="searchInput" onKeyDown={this.handleKeydown}/>
           <i className={"fa fa-spin fa-spinner searchIndicator "+(this.state.loading?"":"hide")} />
         </div>
         <div className="form-group deleteBtn" data-toggle="tooltip" title="Drag course here to delete" data-placement="bottom" ref="deleteBtn" onDrop={this.drop} onDragOver={this.dragOver}>

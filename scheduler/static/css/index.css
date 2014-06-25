@@ -61,12 +61,10 @@ body {
 .navbar.navbar-default .navbar-brand {
   color: white;
 }
-.navbar.navbar-default i {
-  font-size: 30px;
-}
 .navbar.navbar-default .deleteBtn {
   color: #16a085;
   transition: color .2s;
+  font-size: 30px;
 }
 .navbar.navbar-default .deleteBtn:hover {
   color: white;
@@ -77,6 +75,7 @@ body {
   height: 50px;
 }
 .navbar.navbar-default .navbar-brand i {
+  font-size: 30px;
   position: absolute;
   top: 9px;
   left: 215px;
@@ -263,6 +262,9 @@ body {
 .term:hover .insertTermBtn {
   opacity: 1;
   pointer-events: all;
+}
+.suggestion.active {
+  background: #16a085;
 }
 .course {
   cursor: -webkit-grab;

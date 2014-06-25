@@ -11,7 +11,8 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from annoying.decorators import ajax_request
 from annoying.functions import get_object_or_None
-from .models import Course
+from .models import Course,Subject
+from .helpers import getJSON
 import urllib2
 import json
 
@@ -25,6 +26,7 @@ class IndexView(ProtectedView, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
+        context['allSubjects'] = json.dumps([{"name":s.name,"description":s.description,"courses":[{"catalog_number":c.catalog_number,"title":(c.course_data['title'] if 'title' in c.course_data else "")} for c in s.course_set.all().order_by("catalog_number")]} for s in Subject.objects.all()])
         try:
             courseInfo={}
             context['schedule'] = json.dumps(self.request.user.profile.schedule)
@@ -35,7 +37,7 @@ class IndexView(ProtectedView, TemplateView):
                                 course['catalog_number']
                                 )
                 courseInfo[course['subject']+course['catalog_number']] = courseData
-                
+
             for term in self.request.user.profile.schedule:
                 for course in term['courses']:
                     courseData = getCourseInfo(
@@ -70,46 +72,37 @@ def Save(request):
     request.user.profile.save()
     return {'success':True}
 
-def getJSON(url):
-    url = "https://api.uwaterloo.ca/v2/"+url+".json?key="+settings.UWAPI_KEY
-    req = urllib2.Request(url, None, {'Content-Type': 'application/json'})
-    f = urllib2.urlopen(req)
-    response = f.read()
-    f.close()
-    data = json.loads(response)
-    return data['data']
 
 
-def getCourseInfo(subject, catalog_number):
-    subject = subject.upper()
+
+def getCourseInfo(subjectName, catalog_number):
+    subjectName = subjectName.upper()
     catalog_number = catalog_number.upper()
-    def getCourseData():
-        data = getJSON("courses/"+subject+"/"+catalog_number)
-        prereq = getJSON("courses/"+subject+"/"+catalog_number+"/prerequisites")
-        data.update(prereq)
-        if 'terms_offered' not in data or not data['terms_offered']:
-            data['terms_offered'] = ['W','S','F']
-        data['name'] = data['subject']+data['catalog_number']
-        return data
     course = get_object_or_None(
         Course, 
-        subject=subject,
+        subject__name=subjectName,
         catalog_number=catalog_number
         )
     if not course:
-        try:
-            data = getCourseData()
-        except ValueError:
-            return None
-        course = Course(
-                    subject=subject,
-                    catalog_number=catalog_number,
-                    course_data=data
-                    )
-        course.save()
+        return None
 
+    course.course_data.update(course.course_data_override)
     return course.course_data
 
 @ajax_request
-def CourseInfo(request, subject, catalog_number):
-    return getCourseInfo(subject, catalog_number);
+def CourseInfo(request, subjectName, catalog_number):
+    return getCourseInfo(subjectName, catalog_number);
+
+@ajax_request
+def ListLookup(request, subjectName):
+    subject = get_object_or_None(
+        Subject,
+        name=subjectName
+        )
+    if subject:
+        courses = subject.course_set.all().order_by('catalog_number')
+        return [{"catalog_number":c.catalog_number,"title":c.course_data['title']} for c in courses]
+    else:
+        return []
+
+

@@ -8,7 +8,7 @@ from django.contrib import admin
 from django.conf.urls.static import static
 admin.autodiscover()
 
-from app.views import (IndexView, CourseInfo, Save)
+from app.views import (IndexView, CourseInfo, ListLookup, Save)
 
 urlpatterns = patterns('',
     # Examples:
@@ -17,7 +17,8 @@ urlpatterns = patterns('',
 
     url(r'^$', login_required(IndexView.as_view()), name='index'),
 
-    url(r'^course/(?P<subject>\w+)/(?P<catalog_number>\w+)/$', CourseInfo),
+    url(r'^course/(?P<subjectName>\w+)/(?P<catalog_number>\w+)/$', CourseInfo),
+    url(r'^lookup/(?P<subjectName>\w+)/$', ListLookup),
     url(r'^save/$', Save),
     url(r'^facebook/', include('django_facebook.urls')),
 		url(r'^accounts/', include(auth_urls)),

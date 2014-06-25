@@ -42,11 +42,11 @@ body{
   a,.navbar-brand{
     color:white;
   }
-  i{font-size: 30px;}
 
   .deleteBtn{
     color:@navbarBorderColor;
     transition:color .2s;
+    font-size: 30px;
     &:hover{
       color:white;
     }
@@ -56,6 +56,7 @@ body{
     border-right:1px solid @navbarBorderColor;
     height: @navbarHeight;
     i{
+      font-size: 30px;
       position: absolute;
       top:9px;
       left:@sidebarWidth - 35px;
@@ -209,6 +210,9 @@ body{
       pointer-events:all;
     }
   }
+}
+.suggestion.active{
+  background: @navbarBorderColor;
 }
 .course{
   cursor: -webkit-grab;

@@ -12,22 +12,42 @@ class Migration(SchemaMigration):
         db.create_table(u'app_profile', (
             ('user', self.gf('annoying.fields.AutoOneToOneField')(to=orm['django_facebook.FacebookCustomUser'], unique=True, primary_key=True)),
             ('schedule', self.gf('annoying.fields.JSONField')(default=[], null=True, blank=True)),
+            ('courseList', self.gf('annoying.fields.JSONField')(default=[], null=True, blank=True)),
+            ('autosave', self.gf('django.db.models.fields.BooleanField')(default=True)),
         ))
         db.send_create_signal(u'app', ['Profile'])
+
+        # Adding model 'Subject'
+        db.create_table(u'app_subject', (
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=10, primary_key=True)),
+            ('description', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
+            ('lastUpdate', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
+        ))
+        db.send_create_signal(u'app', ['Subject'])
 
         # Adding model 'Course'
         db.create_table(u'app_course', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('subject', self.gf('django.db.models.fields.CharField')(max_length=10)),
+            ('subject', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['app.Subject'])),
             ('catalog_number', self.gf('django.db.models.fields.CharField')(max_length=10)),
             ('course_data', self.gf('annoying.fields.JSONField')(default={}, null=True, blank=True)),
+            ('lastUpdate', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
         ))
         db.send_create_signal(u'app', ['Course'])
 
+        # Adding unique constraint on 'Course', fields ['subject', 'catalog_number']
+        db.create_unique(u'app_course', ['subject_id', 'catalog_number'])
+
 
     def backwards(self, orm):
+        # Removing unique constraint on 'Course', fields ['subject', 'catalog_number']
+        db.delete_unique(u'app_course', ['subject_id', 'catalog_number'])
+
         # Deleting model 'Profile'
         db.delete_table(u'app_profile')
+
+        # Deleting model 'Subject'
+        db.delete_table(u'app_subject')
 
         # Deleting model 'Course'
         db.delete_table(u'app_course')
@@ -35,16 +55,25 @@ class Migration(SchemaMigration):
 
     models = {
         u'app.course': {
-            'Meta': {'object_name': 'Course'},
+            'Meta': {'unique_together': "(('subject', 'catalog_number'),)", 'object_name': 'Course'},
             'catalog_number': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
             'course_data': ('annoying.fields.JSONField', [], {'default': '{}', 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'subject': ('django.db.models.fields.CharField', [], {'max_length': '10'})
+            'lastUpdate': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'subject': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['app.Subject']"})
         },
         u'app.profile': {
             'Meta': {'object_name': 'Profile'},
+            'autosave': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'courseList': ('annoying.fields.JSONField', [], {'default': '[]', 'null': 'True', 'blank': 'True'}),
             'schedule': ('annoying.fields.JSONField', [], {'default': '[]', 'null': 'True', 'blank': 'True'}),
             'user': ('annoying.fields.AutoOneToOneField', [], {'to': u"orm['django_facebook.FacebookCustomUser']", 'unique': 'True', 'primary_key': 'True'})
+        },
+        u'app.subject': {
+            'Meta': {'object_name': 'Subject'},
+            'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
+            'lastUpdate': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '10', 'primary_key': 'True'})
         },
         u'auth.group': {
             'Meta': {'object_name': 'Group'},
