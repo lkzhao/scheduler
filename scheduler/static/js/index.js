@@ -153,7 +153,7 @@ AddCourseModal=React.createClass({
       var matchedSubjects = allSubjects.filter(function(subjectData){
         return subjectData.name.lastIndexOf(subject, 0) === 0
       })
-      if(matchedSubjects.length==1&&matchedSubjects[0].name==subject&&catalog_number!=""){
+      if(matchedSubjects[0].name==subject&&catalog_number!=""){
         state.dataList=matchedSubjects[0].courses.filter(function(courseData){
           return courseData.catalog_number.lastIndexOf(catalog_number, 0) === 0
         })
