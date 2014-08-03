@@ -8,6 +8,11 @@ body{
   position: relative;
   background: @backgroundColor;
   color:white;
+  padding:15px;
+  .userview{
+    margin:-15px;
+    margin-bottom: 20px;
+  }
   .profile-pic{
     width: 100%;
     min-height: 100px;
@@ -25,14 +30,9 @@ body{
 @media(min-width:768px){
   .left{
     position:fixed;
-    padding:15px;
     width: @sidebarWidth;
     top:@navbarHeight;
     bottom:0;
-    .userview{
-      margin:-15px;
-      margin-bottom: 20px;
-    }
   }
   .right{
     margin-left:@sidebarWidth;

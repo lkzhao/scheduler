@@ -28,6 +28,11 @@ body {
   position: relative;
   background: #2c3030;
   color: white;
+  padding: 15px;
+}
+.left .userview {
+  margin: -15px;
+  margin-bottom: 20px;
 }
 .left .profile-pic {
   width: 100%;
@@ -44,14 +49,9 @@ body {
 @media (min-width: 768px) {
   .left {
     position: fixed;
-    padding: 15px;
     width: 220px;
     top: 50px;
     bottom: 0;
-  }
-  .left .userview {
-    margin: -15px;
-    margin-bottom: 20px;
   }
   .right {
     margin-left: 220px;
@@ -351,6 +351,11 @@ body {
   line-height: 50px;
   color: #ddd;
 }
+@media (max-width: 768px) {
+  .right .course {
+    width: 100%;
+  }
+}
 .course {
   cursor: -webkit-grab;
   cursor: -moz-grab;
@@ -358,6 +363,7 @@ body {
   vertical-align: top;
   text-align: center;
   position: relative;
+  min-width: 150px;
   margin-bottom: 20px;
 }
 .course .panel {
@@ -404,6 +410,12 @@ body {
   height: 50px;
   font-size: 20px;
   line-height: 50px;
+}
+@media (max-width: 768px) {
+  .right .course {
+    width: 100%;
+    margin: 1%;
+  }
 }
 .btn.btn-default {
   cursor: pointer;
