@@ -132,7 +132,7 @@ AddCourseModal=React.createClass({
   },
   handleResponse:function(response){
     if(name(response.query)==name(this.state)){
-      
+
     }
   },
   handleChange:function(e){
@@ -298,6 +298,27 @@ AddCourseModal=React.createClass({
     );
   }
 })
+
+
+UserView = React.createClass({
+  render:function(){
+    user=this.props.user
+    return (<div className="userview">
+      <img className="profile-pic hidden-xs" src={user.imageurl}/>
+      <div className="userInfo dropdown">
+        <a className="name dropdown-toggle" href="#user" data-toggle="collapse" data-parent=".userInfo">
+          {user.name}
+          <b className="caret"/>
+        </a>
+        <ul id="user" className="collapse">
+          <li>
+            <a href="/logout" >Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>)
+  }
+})
 SaveBtnGroup=React.createClass({
   defaultSaveInterval:60,
   getInitialState: function() {
@@ -434,7 +455,7 @@ MainView=React.createClass({
   },
   dragStart:function(termIndex, courseIndex, e){
     var course = getTermList(termIndex)[courseIndex]
-    e.dataTransfer.setData("text/plain", course.subject+course.catalog_number);
+    e.dataTransfer.setData("text/course", course.subject+course.catalog_number);
     if(this.state.dragingCourse!="") return false;
     this.hidePreview();
     this.setState({dragingCourse:{
@@ -469,6 +490,7 @@ MainView=React.createClass({
       $(".preview").css({top:e.clientY+20,left:e.clientX+15});
   },
   showPreview:function(termIndex, courseIndex){
+    console.log("showing preview")
     var course=uwapi.getInfo(getTermList(termIndex)[courseIndex])
     var title=$("<h3><strong>"+course.name+"</strong> - "+course.title+"</h3>")
     var desc=$("<p>"+course.description+"</p>")
@@ -480,6 +502,9 @@ MainView=React.createClass({
   },
   hidePreview:function(){
     $(".preview").removeClass("show")
+  },
+  showhelp:function(text){
+    $(".preview").html(text).addClass("show")
   },
   render: function() {
     var that=this;
@@ -499,24 +524,28 @@ MainView=React.createClass({
         )
     })
     listEl.push((
-      <div className={"course "+(that.state.dragingCourse==""||that.state.dragingCourse.termIndex==-1?"invisible":"")} onDragOver={that.dragOver} onDrop={that.drop.bind(that,-1,listEl.length)}>
-        <button className="btn-block btn btn-default moveBlock">
+      <div className={"course moveBlock "+(that.state.dragingCourse==""||that.state.dragingCourse.termIndex==-1?"invisible":"")} onDragOver={that.dragOver} onDrop={that.drop.bind(that,-1,listEl.length)}>
           Move Here
-        </button>
       </div>
       ))
 
     var termsEl=data.schedule.map(function(term,i){
       var termName=calculateTerm(startYear,startTerm,i);
-      var buttons=[
-          (<button className='removeTermBtn btn btn-default' onClick={that.removeTerm.bind(that,i)}><i className="fa fa-fw fa-times"></i></button>),
-          (<button className="insertTermBtn btn btn-default" onClick={that.addTerm.bind(that,i)}><i className="fa fa-fw fa-plus"></i> Insert a Term</button>),
-          (<button className='btn btn-default btn-xs skipTermBtn' onClick={that.toggleSkipTerm.bind(that,i)}>{term.skiped?"Go to School":"Skip / Co-op"}</button>)
-          ]
+      var buttons=(
+        <div className="term-menu">
+          <button onMouseEnter={that.showhelp.bind(that,"Remove this term")} onMouseLeave={that.hidePreview} className='removeTermBtn btn' onClick={that.removeTerm.bind(that,i)}><i className="fa fa-fw fa-times"/></button>
+          <button onMouseEnter={that.showhelp.bind(that,"Insert a term above")} onMouseLeave={that.hidePreview} className="insertTermBtn btn" onClick={that.addTerm.bind(that,i)}><i className="fa fa-fw fa-plus"/></button>
+          <button onMouseEnter={that.showhelp.bind(that,(term.skiped?"Un-skip":"Skip"))} onMouseLeave={that.hidePreview} className='skipTermBtn btn' onClick={that.toggleSkipTerm.bind(that,i)}><i className={"fa fa-fw "+(term.skiped?"fa-reply":"fa-share")}/></button>
+        </div>
+      )
       if(term.skiped){
         return(
         <div className="term skiped" key={i} id={i}>
-          <div className="col-md-12"><h4>{calculateTerm(startYear,startTerm,i)+" "}<small>skiped </small> {buttons}</h4></div>
+          <div className="term-title"><h4>{calculateTerm(startYear,startTerm,i)+" "}</h4></div>
+          {buttons}
+          <div className="courses">
+            Skiped / Coop
+          </div>
           <div className="clearfix"/>
         </div>
         )
@@ -525,10 +554,10 @@ MainView=React.createClass({
         var courseInfo=uwapi.getInfo(course);
         var offeredInCurrentTerm=getTermNameArray(courseInfo.terms_offered).indexOf(termName.substr(5))>-1;
         var satisfied=checkPrereq(courseTaken,courseInfo.prerequisites_parsed);
-        var classStr="col-md-4 col-sm-6 col-xs-12 course";
+        var classStr="course";
         return (
-          <div className={classStr} key={j} draggable="true" onDragStart={that.dragStart.bind(that,i,j)} onDragEnd={that.dragEnd} onDragOver={that.dragOver} onDrop={that.drop.bind(that,i,j)} data-subject={course.subject} data-catalog_number={course.catalog_number}>
-            <div className={"panel panel-"+(satisfied&&offeredInCurrentTerm?"default":"danger")} onMouseEnter={that.showPreview.bind(that,i,j)} onMouseLeave={that.hidePreview}>
+          <div className={classStr} key={j} draggable="true" onDragStart={that.dragStart.bind(that,i,j)} onDragEnd={that.dragEnd} onDragOver={that.dragOver} onDrop={that.drop.bind(that,i,j)} data-subject={course.subject} data-catalog_number={course.catalog_number}  onMouseEnter={that.showPreview.bind(that,i,j)} onMouseLeave={that.hidePreview}>
+            <div className={"panel panel-"+(satisfied&&offeredInCurrentTerm?"default":"danger")}>
               <div className="panel-body">
                 <strong>{courseInfo.subject+" "+courseInfo.catalog_number+" "}</strong>
               </div>
@@ -541,35 +570,42 @@ MainView=React.createClass({
       })
       var backgroundText=(
         <div className="backgroundText">
-          No course for this term. Search for a course and drag it here from the top list.
+          No course for this term.
         </div>
         )
       $.each(term.courses,function(i,course){courseTaken.push(name(course))});
       return (
         <div key={i} className="term" id={i}>
-          <div className="col-md-12"><h4>{termName+" "}{buttons}</h4></div>
+          <div className="term-title"><h4>{termName+" "}</h4></div>
+          {buttons}
+          <div className="courses">
             {currentTermCourses}
             {!term.courses.length&&that.state.dragingCourse==""?backgroundText:""}
-            <div className={"col-md-4 col-xs-12 col-sm-6 course "+(that.state.dragingCourse==""||i==that.state.dragingCourse.termIndex?"invisible":"")} onDragOver={that.dragOver} onDrop={that.drop.bind(that,i,term.courses.length)}>
-              <button className="btn-block btn btn-default moveBlock">
+            <div className={"course moveBlock "+(that.state.dragingCourse==""||i==that.state.dragingCourse.termIndex?"invisible":"")} onDragOver={that.dragOver} onDrop={that.drop.bind(that,i,term.courses.length)}>
                 Move Here
-              </button>
             </div>
+          </div>
           <div className="clearfix"/>
         </div>
       )
     })
     return(
-      <div className={"row "+ (that.state.dragingCourse!=""?"draging":"")}>
-        <div className="dock">
+      <div className={that.state.dragingCourse!=""?"draging":""}>
+        <div className="left">
+          <UserView user={data.user}/>
+          <h4 className="page-header">Courses</h4>
           {listEl}
         </div>
-        <div className="col-xs-12 terms">
-          <h3 className="page-header">Terms</h3>
-          {termsEl}
-        </div>
-        <div className="col-xs-12">
-          <button className='btn btn-default addTermBtn btn-lg btn-block' onClick={that.addTerm.bind(that,data.schedule.length)}>Add a Term</button>
+        <div className="right">
+          <div className="row">
+          <div className="col-xs-12 terms">
+            <h3 className="page-header">Terms</h3>
+            {termsEl}
+          </div>
+          <div className="col-xs-12">
+            <button className='btn btn-default addTermBtn btn-lg btn-block' onClick={that.addTerm.bind(that,data.schedule.length)}>Add a Term</button>
+          </div>
+          </div>
         </div>
       </div>
     );

@@ -1,0 +1,42 @@
+body{
+  padding-top:@navbarHeight;
+  transition:padding .4s;
+  display: flex;
+}
+.left{
+  width: 100%;
+  position: relative;
+  background: @backgroundColor;
+  color:white;
+  .profile-pic{
+    width: 100%;
+    min-height: 100px;
+  }
+  .course{
+    color:#333333;
+  }
+}
+
+.right{
+  background: @timeline-bg;
+  padding: 15px;
+  min-height: 100%;
+}
+@media(min-width:768px){
+  .left{
+    position:fixed;
+    padding:15px;
+    width: @sidebarWidth;
+    top:@navbarHeight;
+    bottom:0;
+    .userview{
+      margin:-15px;
+      margin-bottom: 20px;
+    }
+  }
+  .right{
+    margin-left:@sidebarWidth;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+  }
+}

@@ -1,0 +1,134 @@
+
+
+.terms{
+  padding:0;
+  margin:0;
+  &:before{
+    content:'';
+    position: absolute;
+    background: @timeline-highlight;
+    width: 4px;
+    left:@timeline-position;
+    margin-left: -2px;
+    top: 30px;
+    border-radius: 2px;
+    bottom: 30px;
+  }
+}
+.term{
+  position: relative;
+  border-radius: 7px;
+  padding: @timeline-row-padding;
+  transition:border .3s;
+  color: @timeline-color;
+  .skipTermBtn,.insertTermBtn,.removeTermBtn{
+    opacity: 0;
+    pointer-events:none;
+  }
+  .term-title{
+    position: absolute;
+    transition: top .4s;
+    top:@timeline-arrow-top + @timeline-row-padding;
+    right: 100% - @timeline-position + @timeline-center-padding;
+    margin-top:-10px;
+    line-height:20px;
+    font-size:20px;
+  }
+  .courses{
+    background:white;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+    border-radius:4px;
+    width: 100% - @timeline-position - @timeline-center-padding;
+    float: right;
+    position:relative;
+    &:before{
+      content: " ";
+      position: absolute;
+      top:@timeline-arrow-top;
+      width: 0;
+      height: 0;
+      border: 10px solid transparent;
+      left:-10px;
+      border-left-width:  0;
+      border-right-color: white;
+    }
+  }
+  .term-menu,.term-menu .btn{
+    position: absolute;
+    left:@timeline-position;
+    top:@timeline-arrow-top + @timeline-row-padding + 10px;
+    height:@timeline-node-size;
+    width: @timeline-node-size;
+    border:4px solid white;
+    background: @timeline-highlight;
+    margin-left: -@timeline-node-size/2;
+    margin-top: -@timeline-node-size/2;
+    border-radius: @timeline-node-size;
+    box-shadow:0 0 4px @timeline-highlight;
+  }
+  .term-menu .btn{
+    transition: opacity .4s, left .4s;
+    opacity:0;
+    top: -4px;
+    left: -4px;
+    margin-left: 0;
+    margin-top: 0;
+    i{
+      color:white;
+      position:absolute;
+      top:0;
+      left:0;
+      width:@timeline-node-size - 6px;
+      text-align: center;
+      line-height: @timeline-node-size - 6px;
+    }
+    outline:none;
+  }
+  &.skiped{
+    color:#aaa;
+    .courses{
+      height:40px;
+      padding:15px;
+      font-size:16px;
+      background:none;
+      box-shadow:none;
+      &:before{
+        border:none;
+      }
+    }
+  }
+  &:hover{
+    .skipTermBtn,.removeTermBtn,.insertTermBtn{
+      opacity: 1;
+      pointer-events:all;
+    }
+    .term-title{
+      top:0;
+    }
+    .term-menu{
+      .btn{
+        opacity:1;
+      }
+      .removeTermBtn{
+        background:#e74c3c;
+        left: -10px - (@timeline-node-size+10px);
+      }.insertTermBtn{
+        background:#2ecc71;
+        left: -10px - 2*(@timeline-node-size+10px);
+      }.skipTermBtn{
+        background:#34495e;
+        left: -10px - 3*(@timeline-node-size+10px);
+      }
+    }
+  }
+}
+
+.backgroundText{
+  position: absolute;
+  top:10px;
+  width: 100%;
+  text-align: center;
+  font-size: 22px;
+  line-height:50px;
+  color:#ddd;
+}

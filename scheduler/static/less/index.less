@@ -1,136 +1,11 @@
 @import "main.less";
 @import "switch.less";
-body{
-  padding-top:@navbarHeight;
-  transition:padding .4s;
-  display: flex;
-}
-.left{
-  width: 100%;
-  position: relative;
-  background: @backgroundColor;
-  .profile-pic{
-    width: 100%;
-    min-height: 100px;
-  }
-}
+@import "layout.less";
+@import "navbar.less";
+@import "preview.less";
+@import "term.less";
+@import "course.less";
 
-.right{
-  background: white;
-  padding: 15px;
-  min-height: 100%;
-}
-@media(min-width:768px){
-  .left{
-    z-index: 2;
-    min-height: 100%;
-    width: @sidebarWidth;
-  }
-  .right{
-    flex:1;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    z-index: 10;
-  }
-}
-.navbar.navbar-default{
-  z-index: 9999;
-  font-weight: 200;
-  background: @navbarBgColor;
-  color:white;
-  border-bottom: 3px solid @navbarBorderColor;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  a,.navbar-brand{
-    color:white;
-  }
-
-  .deleteBtn{
-    color:@navbarBorderColor;
-    transition:color .2s;
-    font-size: 30px;
-    &:hover{
-      color:white;
-    }
-  }
-  .navbar-brand{
-    width: @sidebarWidth;
-    border-right:1px solid @navbarBorderColor;
-    height: @navbarHeight;
-    i{
-      font-size: 30px;
-      position: absolute;
-      top:9px;
-      left:@sidebarWidth - 35px;
-    }
-  }
-  #searchBtnWrapper{
-    .form-control{
-      border-radius: 20px;
-      background: @navbarBorderColor;
-      border-color: @navbarBorderColor;
-      color:white;
-      box-shadow: none;
-      transition:width .3s, border-color .3s;
-      width: 150px;
-      &:hover,&:active,&:focus{
-        box-shadow: none;
-      }
-      .placeholder(#fff);
-      &.focused{
-        width: 300px;
-        .placeholder(@navbarBorderColor);
-      }
-    }
-    i.searchIndicator{
-      position: absolute;
-      left:280px+@sidebarWidth;
-      line-height: 34px;
-    }
-  }
-  .btn.btn-default{
-    font-weight: 200;
-    background: @navbarBorderColor;
-    border-color: @navbarBorderColor;
-    transition:border-color .3s;
-    color:white;
-    height:34px;
-  }
-}
-.navbar{
-  .saveBtnGroup{
-    div,ul,li{
-      vertical-align: middle;
-      display: inline-block;
-      height:50px;
-      line-height: 34px;
-      padding:8px;
-    }
-  }
-}
-
-.searchResult{
-  position: fixed;
-  z-index: 20;
-  top: @navbarHeight+3px;
-  left:0;
-  right:0;
-  background: @navbarBgColor;
-  padding: 15px @sidebarWidth+15px;
-  border-bottom:1px solid @navbarBorderColor;
-  transition:transform .4s;
-  transform-origin:50% 0%;
-  -webkit-transform-origin:50% 0%;
-  -webkit-transition:-webkit-transform .4s;
-  h3{
-    margin: 0 0 10px;
-  }
-  &.hideUp{
-    -webkit-transform:rotateX(90deg);
-    transform:rotateX(90deg);
-  }
-  .submitCourseBtn{
-    float:right;
-  }
-}
 .btn.btn-default{
   cursor: pointer;
   color:#818a94;
@@ -146,113 +21,7 @@ body{
 .skipTermBtn,.removeTermBtn,.addTermBtn,.moveBlock,.insertTermBtn{
   transition:opacity .3s;
 }
-.moveBlock{
-  height:50px;
-}
-.dock{
-  position: fixed;
-  height:@dockHeight;
-  top:@navbarHeight;
-  left:@sidebarWidth;
-  right:0;
-  padding:15px;
-  z-index: 200;
-  background: #ecf0f1;
-  overflow-x: auto; 
-  overflow-y: hidden; 
-  border-bottom: 1px solid #bdc3c7;
-  .course{
-    width: 200px;
-    padding:0 15px;
-    display: inline-block;
-  }
-}
-.terms{
-  margin-top:@dockHeight;
-}
-.term{
-  position: relative;
-  margin: 10px 0;
-  border: 1px solid transparent;
-  border-radius: 7px;
-  transition:border .3s;
-  &.skiped{
-    color:#aaa;
-  }
-  .skipTermBtn{
-    opacity: 0;
-    pointer-events:none;
-  }
-  .insertTermBtn,.removeTermBtn{
-    opacity: 0;
-    pointer-events:none;
-    cursor: pointer;
-    position: absolute;
-    font-size: 15px;
-    line-height: 15px;
-    background: white;
-    padding: 0;
-    top: -10px;
-    text-align: center;
-  }
-  .insertTermBtn{
-    left:50%;
-    margin-left:-100px;
-    width:200px;
-  }
-  .removeTermBtn {
-    right:-10px;
-  }
-  &:hover{
-    border-color:#D6E1E6;
-    .skipTermBtn,.removeTermBtn,.insertTermBtn{
-      opacity: 1;
-      pointer-events:all;
-    }
-  }
-}
-.suggestion.active{
-  background: @navbarBorderColor;
-}
-.course{
-  cursor: -webkit-grab;
-  cursor: -moz-grab;
-  display:inline-block;
-  text-align: center;
-  position: relative;
-  margin-bottom: 20px;
-  .panel{
-    margin:0;
-  }
-  .panel-body{
-    padding: 10px;
-    font-size: 20px;
-  }
-  .panel-footer{
-    min-height: 20px;
-    padding: 3px 10px;
-  }
-  .panel-danger > .panel-footer{
-    color: #a94442;
-    background-color: #f2dede;
-    border-color: #ebccd1;
-  }
-}
-.preview{
-  position: fixed;
-  padding:10px;
-  border:1px solid #aaaaaa;
-  max-width: 550px;
-  z-index: 1400;
-  background: #fafafa;
-  border-radius: 4px;
-  box-shadow: 0 0 8px #aaaaaa;
-  margin-right:5px;
-  pointer-events:none;
-  -webkit-transform-origin:-10% -15%;
-  .fadeShow(0.96);
-  h3{margin:5px}
-}
+
 .draging{
   cursor: -webkit-grabbing; cursor: -moz-grabbing;
   .term:hover{
@@ -264,19 +33,6 @@ body{
   }
   .skipTermBtn,.removeTermBtn,.addTermBtn{
     opacity: 0 !important;
-  }
-  .course{
-    &:before{
-      content:"";
-      background: rgba(0, 0, 0, 0.2);
-      position: absolute;
-      border:1px solid #555559;
-      box-shadow: inset 0 4px 15px  rgba(0, 0, 0, 0.35),0 1px 0 white;
-      top:0;
-      bottom: 0;
-      left:15px;right:15px;
-      border-radius: 4px;
-    }
   }
 }
 .userInfo{
@@ -294,14 +50,6 @@ body{
   ul{
     border-top:1px solid #444;
   }
-}
-.backgroundText{
-  position: absolute;
-  top:40px;
-  width: 100%;
-  text-align: center;
-  font-size: 22px;
-  color:#bbb;
 }
 .page-header{margin:10px 15px 0;border:none;}
 .hide{display:none}

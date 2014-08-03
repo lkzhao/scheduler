@@ -1,0 +1,103 @@
+.navbar.navbar-default{
+  z-index: 9999;
+  font-weight: 200;
+  background: @navbarBgColor;
+  color:white;
+  border-bottom: 3px solid @navbarBorderColor;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  a,.navbar-brand{
+    color:white;
+  }
+
+  .deleteBtn{
+    color:@navbarBorderColor;
+    transition:color .2s;
+    font-size: 30px;
+    &:hover{
+      color:white;
+    }
+  }
+  .navbar-brand{
+    width: @sidebarWidth;
+    border-right:1px solid @navbarBorderColor;
+    height: @navbarHeight;
+    i{
+      font-size: 30px;
+      position: absolute;
+      top:9px;
+      left:@sidebarWidth - 35px;
+    }
+  }
+  #searchBtnWrapper{
+    .form-control{
+      border-radius: 20px;
+      background: @navbarBorderColor;
+      border-color: @navbarBorderColor;
+      color:white;
+      box-shadow: none;
+      transition:width .3s, border-color .3s;
+      width: 150px;
+      &:hover,&:active,&:focus{
+        box-shadow: none;
+      }
+      .placeholder(#fff);
+      &.focused{
+        width: 300px;
+        .placeholder(@navbarBorderColor);
+      }
+    }
+    i.searchIndicator{
+      position: absolute;
+      left:280px+@sidebarWidth;
+      line-height: 34px;
+    }
+  }
+  .btn.btn-default{
+    font-weight: 200;
+    background: @navbarBorderColor;
+    border-color: @navbarBorderColor;
+    transition:border-color .3s;
+    color:white;
+    height:34px;
+  }
+}
+.navbar{
+  .saveBtnGroup{
+    div,ul,li{
+      vertical-align: middle;
+      display: inline-block;
+      height:50px;
+      line-height: 34px;
+      padding:8px;
+    }
+  }
+}
+
+.searchResult{
+  position: fixed;
+  z-index: 20;
+  top: @navbarHeight+3px;
+  left:0;
+  right:0;
+  background: @navbarBgColor;
+  padding: 15px @sidebarWidth+15px;
+  border-bottom:1px solid @navbarBorderColor;
+  transition:transform .4s;
+  transform-origin:50% 0%;
+  -webkit-transform-origin:50% 0%;
+  -webkit-transition:-webkit-transform .4s;
+  h3{
+    margin: 0 0 10px;
+  }
+  &.hideUp{
+    -webkit-transform:rotateX(90deg);
+    transform:rotateX(90deg);
+  }
+  .submitCourseBtn{
+    float:right;
+  }
+}
+
+.suggestion.active{
+  background: @navbarBorderColor;
+}
