@@ -1,0 +1,34 @@
+@import "main.less";
+body{
+  background: #445;
+}
+.paper{
+  margin:20px;
+  background: white;
+  padding:20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  border-radius: 7px;
+  transition:margin .3s;
+}
+.course{
+  width: 20%;
+  text-align: center;
+  font-weight: 700;
+  display:inline-block;
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+@media(max-width:767px){
+  .course{
+    width: 50%;
+  }
+  .paper{
+    margin:5px;
+  }
+}
+@media(min-width:940px){
+  .paper{
+    width: 900px;
+    margin:100px auto 50px;
+  }
+}

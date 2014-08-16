@@ -15,6 +15,9 @@ class Profile(models.Model):
   courseList = JSONField(default=[], null=True, blank=True)
   autosave = models.BooleanField(default=True)
 
+  startYear = models.IntegerField(default=2012)
+  startTerm = models.IntegerField(default=0)
+
 
 class Subject(models.Model):
   name = models.CharField(max_length=10, primary_key=True)

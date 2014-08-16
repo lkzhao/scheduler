@@ -11,53 +11,34 @@ body {
 a {
   cursor: pointer;
 }
-.switchery {
-  height: 32px;
-  margin-left: -15px;
+.preview {
+  position: fixed;
+  padding: 10px;
+  border: 1px solid #aaaaaa;
+  max-width: 550px;
+  z-index: 1400;
+  background: #fafafa;
+  border-radius: 4px;
+  box-shadow: 0 0 8px #aaaaaa;
+  margin-right: 5px;
+  -webkit-transform-origin: -10% -15%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s cubic-bezier(0.51, 1.37, 0.78, 1.45);
+  -webkit-transition: opacity 0.3s, -webkit-transform 0.3s cubic-bezier(0.51, 1.37, 0.78, 1.45);
+  -webkit-transform: scale(0.5);
+  transform: scale(0.5);
+  pointer-events: none !important;
 }
-.switchery > small {
-  height: 32px;
+.preview.show,
+.preview.in {
+  opacity: 0.96;
+  pointer-events: all;
+  -webkit-transform: scale(1);
+  transform: scale(1);
 }
-body {
-  padding-top: 50px;
-  transition: padding .4s;
-  display: flex;
-}
-.left {
-  width: 100%;
-  position: relative;
-  background: #2c3030;
-  color: white;
-  padding: 15px;
-}
-.left .userview {
-  margin: -15px;
-  margin-bottom: 20px;
-}
-.left .profile-pic {
-  width: 100%;
-  min-height: 100px;
-}
-.left .course {
-  color: #333333;
-}
-.right {
-  background: #f0f3f8;
-  padding: 15px;
-  min-height: 100%;
-}
-@media (min-width: 768px) {
-  .left {
-    position: fixed;
-    width: 220px;
-    top: 50px;
-    bottom: 0;
-  }
-  .right {
-    margin-left: 220px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    z-index: 10;
-  }
+.preview h3 {
+  margin: 5px;
 }
 .navbar.navbar-default {
   z-index: 9999;
@@ -70,6 +51,12 @@ body {
 .navbar.navbar-default a,
 .navbar.navbar-default .navbar-brand {
   color: white;
+}
+.navbar.navbar-default li > a {
+  color: white;
+}
+.navbar.navbar-default .navbar-right {
+  margin-right: 20px;
 }
 .navbar.navbar-default .deleteBtn {
   color: #16a085;
@@ -188,34 +175,53 @@ body {
 .suggestion.active {
   background: #16a085;
 }
-.preview {
-  position: fixed;
-  padding: 10px;
-  border: 1px solid #aaaaaa;
-  max-width: 550px;
-  z-index: 1400;
-  background: #fafafa;
-  border-radius: 4px;
-  box-shadow: 0 0 8px #aaaaaa;
-  margin-right: 5px;
-  -webkit-transform-origin: -10% -15%;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s, transform 0.3s cubic-bezier(0.51, 1.37, 0.78, 1.45);
-  -webkit-transition: opacity 0.3s, -webkit-transform 0.3s cubic-bezier(0.51, 1.37, 0.78, 1.45);
-  -webkit-transform: scale(0.5);
-  transform: scale(0.5);
-  pointer-events: none !important;
+.switchery {
+  height: 32px;
+  margin-left: -15px;
 }
-.preview.show,
-.preview.in {
-  opacity: 0.96;
-  pointer-events: all;
-  -webkit-transform: scale(1);
-  transform: scale(1);
+.switchery > small {
+  height: 32px;
 }
-.preview h3 {
-  margin: 5px;
+body {
+  padding-top: 50px;
+  transition: padding .4s;
+  display: flex;
+}
+.left {
+  width: 100%;
+  position: relative;
+  background: #2c3030;
+  color: white;
+  padding: 15px;
+}
+.left .userview {
+  margin: -15px;
+  margin-bottom: 20px;
+}
+.left .profile-pic {
+  width: 100%;
+  min-height: 100px;
+}
+.left .course {
+  color: #333333;
+}
+.right {
+  background: #ffffff;
+  padding: 15px;
+  min-height: 100%;
+}
+@media (min-width: 768px) {
+  .left {
+    position: fixed;
+    width: 220px;
+    top: 50px;
+    bottom: 0;
+  }
+  .right {
+    margin-left: 220px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+  }
 }
 .terms {
   padding: 0;
@@ -255,9 +261,9 @@ body {
   font-size: 20px;
 }
 .term .courses {
-  background: white;
-  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
+  background: #eeeeee;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 7px;
   width: 79%;
   float: right;
   position: relative;

@@ -130,11 +130,6 @@ AddCourseModal=React.createClass({
     }
     return false;
   },
-  handleResponse:function(response){
-    if(name(response.query)==name(this.state)){
-
-    }
-  },
   handleChange:function(e){
     var inputValue=e.target.value.toUpperCase();
     subject=inputValue.match(/^\D+/);
@@ -312,7 +307,7 @@ UserView = React.createClass({
         </a>
         <ul id="user" className="collapse">
           <li>
-            <a href="/logout" >Logout</a>
+            <a href="/accounts/logout" >Logout</a>
           </li>
         </ul>
       </div>
@@ -322,7 +317,7 @@ UserView = React.createClass({
 SaveBtnGroup=React.createClass({
   defaultSaveInterval:60,
   getInitialState: function() {
-    return {autoSave:$("#id-auto-save:checked").length,saveTime:this.defaultSaveInterval, saveText:"", saving:false};
+    return {autoSave:$("#id-auto-save:checked").length>0,saveTime:this.defaultSaveInterval, saveText:"", saving:false};
   },
   setTimer:function(){
     var that=this;
@@ -370,7 +365,9 @@ SaveBtnGroup=React.createClass({
         courseList:JSON.stringify(data.courseList),
         csrfmiddlewaretoken:data.csrf_token,
         schedule:JSON.stringify(data.schedule),
-        autosave:this.state.autoSave
+        autosave:this.state.autoSave,
+        startYear:data.startYear,
+        startTerm:data.startTerm
       },
       success:function(json){
         if(json.success){
@@ -414,8 +411,6 @@ SaveBtnGroup=React.createClass({
 MainView=React.createClass({
   getInitialState: function() {
     return {
-            startYear:2012,
-            startTerm:2,
             dragingCourse:""
           };
   },
@@ -506,6 +501,14 @@ MainView=React.createClass({
   showhelp:function(text){
     $(".preview").html(text).addClass("show")
   },
+  handleYearChange: function(e){
+    data.startYear=parseInt(e.target.value)
+    this.forceUpdate()
+  },
+  handleTermChange: function(e){
+    data.startTerm=parseInt(e.target.value)
+    this.forceUpdate()
+  },
   render: function() {
     var that=this;
     var startYear=this.state.startYear;
@@ -530,7 +533,7 @@ MainView=React.createClass({
       ))
 
     var termsEl=data.schedule.map(function(term,i){
-      var termName=calculateTerm(startYear,startTerm,i);
+      var termName=calculateTerm(data.startYear,data.startTerm,i);
       var buttons=(
         <div className="term-menu">
           <button onMouseEnter={that.showhelp.bind(that,"Remove this term")} onMouseLeave={that.hidePreview} className='removeTermBtn btn' onClick={that.removeTerm.bind(that,i)}><i className="fa fa-fw fa-times"/></button>
@@ -541,7 +544,7 @@ MainView=React.createClass({
       if(term.skiped){
         return(
         <div className="term skiped" key={i} id={i}>
-          <div className="term-title"><h4>{calculateTerm(startYear,startTerm,i)+" "}</h4></div>
+          <div className="term-title"><h4>{termName+" "}</h4></div>
           {buttons}
           <div className="courses">
             Skiped / Coop
@@ -589,6 +592,7 @@ MainView=React.createClass({
         </div>
       )
     })
+
     return(
       <div className={that.state.dragingCourse!=""?"draging":""}>
         <div className="left">
@@ -598,6 +602,28 @@ MainView=React.createClass({
         </div>
         <div className="right">
           <div className="row">
+          <div className="page-header">
+            <div className="col-xs-4">
+              Total credits:{courseTaken.length*0.5}
+            </div>
+            <div className="col-xs-8">
+              Starting Term:&nbsp;
+              <select onChange={this.handleYearChange} value={data.startYear}>
+                <option value="2010">2010</option>
+                <option value="2011">2011</option>
+                <option value="2012">2012</option>
+                <option value="2013">2013</option>
+                <option value="2014">2014</option>
+                <option value="2015">2015</option>
+                <option value="2016">2016</option>
+              </select>
+              <select onChange={this.handleTermChange} value={data.startTerm}>
+                <option value="0">Winter</option>
+                <option value="1">Spring</option>
+                <option value="2">Fall</option>
+              </select>
+            </div>
+          </div>
           <div className="col-xs-12 terms">
             <h3 className="page-header">Terms</h3>
             {termsEl}

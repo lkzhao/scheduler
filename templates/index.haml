@@ -16,7 +16,10 @@
         %i.fa.fa-bars
     #navbar-collapse.collapse.navbar-collapse
         #searchBtnWrapper
-
+        %ul.nav.navbar-nav
+          %li
+            %a{:href => "/share/{{user.id}}"}
+              Share
         %form.navbar-form.navbar-right
           #id-auto-save-wrapper.form-group{:data-toggle => "tooltip", :data-placement => "bottom", :title => "Auto Save"}
             - if user.profile.autosave
@@ -39,5 +42,8 @@
       courseInfo: {{courseInfo|safe}},
       schedule: {{schedule|safe}},
       courseList: {{courseList|safe}},
+      startYear: {{startYear|safe}},
+      startTerm: {{startTerm|safe}},
     }
+    window.data=data
     allSubjects={{allSubjects|safe}}

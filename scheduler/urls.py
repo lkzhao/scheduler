@@ -8,7 +8,7 @@ from django.contrib import admin
 from django.conf.urls.static import static
 admin.autodiscover()
 
-from app.views import (IndexView, CourseInfo, ListLookup, Save)
+from app.views import (IndexView, ShareView, CourseInfo, ListLookup, Save)
 
 urlpatterns = patterns('',
     # Examples:
@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^$', login_required(IndexView.as_view()), name='index'),
+    url(r'^share/(?P<slug>[-_\w]+)/$', ShareView.as_view(), name='share'),
 
     url(r'^course/(?P<subjectName>\w+)/(?P<catalog_number>\w+)/$', CourseInfo),
     url(r'^lookup/(?P<subjectName>\w+)/$', ListLookup),
