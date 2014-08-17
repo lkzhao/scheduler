@@ -73,7 +73,10 @@ class ShareView(DetailView):
             context['username'] = self.object.user.first_name + self.object.user.last_name 
         else:
             context['username'] = self.object.user.username
-        get_context(context, self.object)
+        if self.object.share:
+            get_context(context, self.object)
+        else:
+            context['private'] = True
         return context
 
 @ajax_request
