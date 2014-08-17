@@ -14,6 +14,7 @@ class Profile(models.Model):
   # user's selected course that are not added to schedule
   courseList = JSONField(default=[], null=True, blank=True)
   autosave = models.BooleanField(default=True)
+  share = models.BooleanField(default=False)
 
   startYear = models.IntegerField(default=2012)
   startTerm = models.IntegerField(default=0)
