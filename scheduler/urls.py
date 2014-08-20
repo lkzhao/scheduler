@@ -22,6 +22,7 @@ urlpatterns = patterns('',
     url(r'^lookup/(?P<subjectName>\w+)/$', ListLookup),
     url(r'^save/$', Save),
     url(r'^facebook/', include('django_facebook.urls')),
-		url(r'^accounts/', include(auth_urls)),
+    
+	url(r'^accounts/', include(auth_urls)),
     url(r'^admin/', include(admin.site.urls)),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

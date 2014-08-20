@@ -152,3 +152,7 @@ MEDIA_ROOT = "media"
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+
+# django facebook settings
+FACEBOOK_LOGIN_DEFAULT_REDIRECT = "/"

@@ -5,7 +5,7 @@ ul {
   list-style: none;
 }
 body {
-  background: #eeeef3;
+  background: #eef2ee;
   font-family: 'Raleway', sans-serif;
   padding: 50px 15px 15px;
 }
@@ -58,6 +58,9 @@ a {
 .navbar.navbar-default .deleteBtn:hover {
   text-shadow: 0 0 5px #16a085;
 }
+.navbar.navbar-default .saveBtnGroup {
+  margin-right: 20px;
+}
 .navbar.navbar-default #searchBtnWrapper .form-control {
   border-radius: 20px;
   background: #16a085;
@@ -65,7 +68,7 @@ a {
   color: white;
   box-shadow: none;
   transition: width 0.3s, border-color 0.3s;
-  width: 150px;
+  width: 250px;
 }
 .navbar.navbar-default #searchBtnWrapper .form-control:hover,
 .navbar.navbar-default #searchBtnWrapper .form-control:active,
@@ -89,7 +92,7 @@ a {
   transition: color .3s;
 }
 .navbar.navbar-default #searchBtnWrapper .form-control.focused {
-  width: 300px;
+  width: 400px;
 }
 .navbar.navbar-default #searchBtnWrapper .form-control.focused:-moz-placeholder {
   color: #16a085;
@@ -119,7 +122,7 @@ a {
   left: 0;
   right: 0;
   background: #ffffff;
-  padding: 15px 235px;
+  padding: 20px 235px;
   border-bottom: 1px solid #16a085;
   transition: transform .4s;
   transform-origin: 50% 0%;
@@ -136,8 +139,13 @@ a {
 .searchResult .submitCourseBtn {
   float: right;
 }
+.suggestion {
+  padding: 4px 10px;
+}
 .suggestion.active {
   background: #16a085;
+  color: white;
+  border-radius: 3px;
 }
 body {
   background: #445;

@@ -11,6 +11,9 @@
       text-shadow: 0 0 5px @navbarBorderColor;
     }
   }
+  .saveBtnGroup{
+    margin-right: 20px;
+  }
   #searchBtnWrapper{
     .form-control{
       border-radius: 20px;
@@ -19,13 +22,13 @@
       color:white;
       box-shadow: none;
       transition:width .3s, border-color .3s;
-      width: 150px;
+      width: 250px;
       &:hover,&:active,&:focus{
         box-shadow: none;
       }
       .placeholder(#fff);
       &.focused{
-        width: 300px;
+        width: 400px;
         .placeholder(@navbarBorderColor);
       }
     }
@@ -44,7 +47,7 @@
   left:0;
   right:0;
   background: @navbarBgColor;
-  padding: 15px @sidebarWidth+15px;
+  padding: 20px @sidebarWidth+15px;
   border-bottom:1px solid @navbarBorderColor;
   transition:transform .4s;
   transform-origin:50% 0%;
@@ -62,6 +65,11 @@
   }
 }
 
-.suggestion.active{
-  background: @navbarBorderColor;
+.suggestion{
+  padding: 4px 10px;
+  &.active{
+    background: @navbarBorderColor;
+    color:white;
+    border-radius: 3px;
+  }
 }

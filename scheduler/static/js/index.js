@@ -575,18 +575,17 @@ MainView=React.createClass({
     })
 
     return(
-      <div className={"container "+(that.state.dragingCourse!=""?"draging":"")}>
+      <div className={that.state.dragingCourse!=""?"draging":""}>
 
         <div className="bucket">
           <h3>Bucket</h3>
           {listEl}
         </div>
-        <div className="row">
-          <div className="page-header">
-            <div className="col-xs-4">
-              Total credits:{courseTaken.length*0.5}
-            </div>
-            <div className="col-xs-8">
+        <div className="settingsbar">
+          <div className="container">
+            Total credits:&nbsp;
+            <strong className="credit">{courseTaken.length*0.5}</strong>
+            <div className="pull-right">
               Starting Term:&nbsp;
               <select onChange={this.handleYearChange} value={data.startYear}>
                 <option value="2010">2010</option>
@@ -604,7 +603,8 @@ MainView=React.createClass({
               </select>
             </div>
           </div>
-
+        </div>
+        <div className="container">
           <div className="col-xs-12 terms">
             <h3 className="page-header">Terms</h3>
             {termsEl}

@@ -1,3 +1,6 @@
+# a modified version of django-facebook's auth_url
+# https://github.com/tschellenbach/Django-facebook/blob/master/django_facebook/auth_urls.py
+
 try:
     from django.conf.urls import patterns, url
 except ImportError:
@@ -14,7 +17,7 @@ urlpatterns = patterns('',
     {'template_name': 'registration/login.haml'},
     name='auth_login'
   ),
-  url(r'^logout/$',replication_safe(auth_views.logout),{'template_name': 'registration/logout.haml'},name='auth_logout'),
+  url(r'^logout/$',replication_safe(auth_views.logout),{'template_name': 'registration/logout.haml','next_page': '/'},name='auth_logout'),
   url(r'^password/change/$',auth_views.password_change,name='auth_password_change'),
   url(r'^password/change/done/$',auth_views.password_change_done,name='auth_password_change_done'),
   url(r'^password/reset/$',auth_views.password_reset,name='auth_password_reset'),
