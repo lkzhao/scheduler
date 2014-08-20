@@ -1,42 +1,5 @@
-body{
-  padding-top:@navbarHeight;
-  transition:padding .4s;
-  display: flex;
-}
-.left{
-  width: 100%;
-  position: relative;
-  background: @backgroundColor;
-  color:white;
-  padding:15px;
-  .userview{
-    margin:-15px;
-    margin-bottom: 20px;
-  }
-  .profile-pic{
-    width: 100%;
-    min-height: 100px;
-  }
-  .course{
-    color:#333333;
-  }
-}
 
-.right{
-  background: @timeline-bg;
-  padding: 15px;
-  min-height: 100%;
-}
-@media(min-width:768px){
-  .left{
-    position:fixed;
-    width: @sidebarWidth;
-    top:@navbarHeight;
-    bottom:0;
-  }
-  .right{
-    margin-left:@sidebarWidth;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    z-index: 10;
-  }
+
+.profile-pic{
+  height:18px;
 }

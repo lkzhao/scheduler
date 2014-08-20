@@ -20,6 +20,20 @@
           %li
             %a{:href => "/share/{{user.id}}"}
               Share
+        .nav.navbar-nav.navbar-right
+          %li.dropdown
+            %a{:data-toggle => "dropdown", :href => "#"}
+              %img.profile-pic{:src => "{%if user.image%}{{user.image.url}}{%else%}static/images/no-profile.jpg{%endif%}"}
+              -if user.first_name
+                = user.first_name
+                = user.last_name
+              -else
+                = user.username
+              %b.caret
+            %ul.dropdown-menu
+              %li
+                %a{:href => "/accounts/logout"}
+                  Logout
         %form.navbar-form.navbar-right
           #id-auto-save-wrapper.form-group{:data-toggle => "tooltip", :data-placement => "bottom", :title => "Auto Save"}
             - if user.profile.autosave
@@ -27,7 +41,6 @@
             - else
               %input#id-auto-save{:type => "checkbox"}
         #saveBtnGroupWrapper.navbar-right
-
   - if errors
     - for error in errors
       .alert.alert-danger
@@ -36,9 +49,6 @@
   :javascript
     data={
       csrf_token: "{{csrf_token}}",
-      user:{name: "{%if user.first_name%}{{user.first_name}} {{user.last_name}}{%else%}{{user.username}}{%endif%}",
-            imageurl: "{%if user.image%}{{user.image.url}}{%else%}static/images/no-profile.jpg{%endif%}"
-            },
       courseInfo: {{courseInfo|safe}},
       schedule: {{schedule|safe}},
       courseList: {{courseList|safe}},

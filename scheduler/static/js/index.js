@@ -188,7 +188,7 @@ AddCourseModal=React.createClass({
     e.stopPropagation();
   },
   drop:function(e){
-    var courseName = e.dataTransfer.getData("text/plain")
+    var courseName = e.dataTransfer.getData("text/course")
     for (var termIndex = -1; termIndex < data.schedule.length; termIndex++) {
       var term = getTermList(termIndex)
       for (var courseIndex = 0; courseIndex < term.length; courseIndex++) {
@@ -295,25 +295,6 @@ AddCourseModal=React.createClass({
 })
 
 
-UserView = React.createClass({
-  render:function(){
-    user=this.props.user
-    return (<div className="userview">
-      <img className="profile-pic hidden-xs" src={user.imageurl}/>
-      <div className="userInfo dropdown">
-        <a className="name dropdown-toggle" href="#user" data-toggle="collapse" data-parent=".userInfo">
-          {user.name}
-          <b className="caret"/>
-        </a>
-        <ul id="user" className="collapse">
-          <li>
-            <a href="/accounts/logout" >Logout</a>
-          </li>
-        </ul>
-      </div>
-    </div>)
-  }
-})
 SaveBtnGroup=React.createClass({
   defaultSaveInterval:60,
   getInitialState: function() {
@@ -388,22 +369,22 @@ SaveBtnGroup=React.createClass({
     }
     if(this.state.saving){
       var saveBtn = (
-        <a className="btn btn-default disabled">
+        <a className="btn btn-default navbar-btn disabled">
           <i className="pe-7s-disk fa-spin"></i> Saving
         </a>
         )
     }else{
       var saveBtn = (
-        <a className="btn btn-default" onClick={this.save}>
+        <a className="btn btn-default navbar-btn" onClick={this.save}>
           Save
         </a>
         )
     }
     return(
-      <ul className="saveBtnGroup">
-        <li><span>{saveText}</span></li>
-        <li>{saveBtn}</li>
-      </ul>
+      <div className="saveBtnGroup">
+        <p className="navbar-text">{saveText}</p>
+        {saveBtn}
+      </div>
     );
   }
 })
@@ -594,14 +575,13 @@ MainView=React.createClass({
     })
 
     return(
-      <div className={that.state.dragingCourse!=""?"draging":""}>
-        <div className="left">
-          <UserView user={data.user}/>
-          <h4 className="page-header">Courses</h4>
+      <div className={"container "+(that.state.dragingCourse!=""?"draging":"")}>
+
+        <div className="bucket">
+          <h3>Bucket</h3>
           {listEl}
         </div>
-        <div className="right">
-          <div className="row">
+        <div className="row">
           <div className="page-header">
             <div className="col-xs-4">
               Total credits:{courseTaken.length*0.5}
@@ -624,13 +604,13 @@ MainView=React.createClass({
               </select>
             </div>
           </div>
+
           <div className="col-xs-12 terms">
             <h3 className="page-header">Terms</h3>
             {termsEl}
           </div>
           <div className="col-xs-12">
             <button className='btn btn-default addTermBtn btn-lg btn-block' onClick={that.addTerm.bind(that,data.schedule.length)}>Add a Term</button>
-          </div>
           </div>
         </div>
       </div>

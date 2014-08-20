@@ -5,11 +5,15 @@ ul {
   list-style: none;
 }
 body {
-  background: #444455;
+  background: #eeeef3;
   font-family: 'Raleway', sans-serif;
+  padding: 50px 15px 15px;
 }
 a {
   cursor: pointer;
+}
+.profile-pic {
+  height: 18px;
 }
 .preview {
   position: fixed;
@@ -41,22 +45,10 @@ a {
   margin: 5px;
 }
 .navbar.navbar-default {
-  z-index: 9999;
-  font-weight: 200;
-  background: #1abc9c;
-  color: white;
-  border-bottom: 3px solid #16a085;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-}
-.navbar.navbar-default a,
-.navbar.navbar-default .navbar-brand {
-  color: white;
-}
-.navbar.navbar-default li > a {
-  color: white;
-}
-.navbar.navbar-default .navbar-right {
-  margin-right: 20px;
+  background: #ffffff;
+  height: 50px;
+  box-shadow: 0 0 0 1px #16a085;
+  border: none;
 }
 .navbar.navbar-default .deleteBtn {
   color: #16a085;
@@ -64,18 +56,7 @@ a {
   font-size: 30px;
 }
 .navbar.navbar-default .deleteBtn:hover {
-  color: white;
-}
-.navbar.navbar-default .navbar-brand {
-  width: 220px;
-  border-right: 1px solid #16a085;
-  height: 50px;
-}
-.navbar.navbar-default .navbar-brand i {
-  font-size: 30px;
-  position: absolute;
-  top: 9px;
-  left: 185px;
+  text-shadow: 0 0 5px #16a085;
 }
 .navbar.navbar-default #searchBtnWrapper .form-control {
   border-radius: 20px;
@@ -131,30 +112,13 @@ a {
   left: 500px;
   line-height: 34px;
 }
-.navbar.navbar-default .btn.btn-default {
-  font-weight: 200;
-  background: #16a085;
-  border-color: #16a085;
-  transition: border-color 0.3s;
-  color: white;
-  height: 34px;
-}
-.navbar .saveBtnGroup div,
-.navbar .saveBtnGroup ul,
-.navbar .saveBtnGroup li {
-  vertical-align: middle;
-  display: inline-block;
-  height: 50px;
-  line-height: 34px;
-  padding: 8px;
-}
 .searchResult {
   position: fixed;
   z-index: 20;
-  top: 53px;
+  top: 50px;
   left: 0;
   right: 0;
-  background: #1abc9c;
+  background: #ffffff;
   padding: 15px 235px;
   border-bottom: 1px solid #16a085;
   transition: transform .4s;
@@ -182,46 +146,8 @@ a {
 .switchery > small {
   height: 32px;
 }
-body {
-  padding-top: 50px;
-  transition: padding .4s;
-  display: flex;
-}
-.left {
-  width: 100%;
-  position: relative;
-  background: #444455;
-  color: white;
-  padding: 15px;
-}
-.left .userview {
-  margin: -15px;
-  margin-bottom: 20px;
-}
-.left .profile-pic {
-  width: 100%;
-  min-height: 100px;
-}
-.left .course {
-  color: #333333;
-}
-.right {
-  background: #ffffff;
-  padding: 15px;
-  min-height: 100%;
-}
-@media (min-width: 768px) {
-  .left {
-    position: fixed;
-    width: 220px;
-    top: 50px;
-    bottom: 0;
-  }
-  .right {
-    margin-left: 220px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    z-index: 10;
-  }
+.profile-pic {
+  height: 18px;
 }
 .terms {
   padding: 0;
@@ -261,7 +187,7 @@ body {
   font-size: 20px;
 }
 .term .courses {
-  background: #eeeeee;
+  background: #ffffff;
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
   border-radius: 7px;
   width: 79%;
@@ -277,7 +203,7 @@ body {
   border: 10px solid transparent;
   left: -10px;
   border-left-width: 0;
-  border-right-color: white;
+  border-right-color: #ffffff;
 }
 .term .term-menu,
 .term .term-menu .btn {
@@ -357,11 +283,6 @@ body {
   line-height: 50px;
   color: #ddd;
 }
-@media (max-width: 768px) {
-  .right .course {
-    width: 100%;
-  }
-}
 .course {
   cursor: -webkit-grab;
   cursor: -moz-grab;
@@ -371,6 +292,8 @@ body {
   position: relative;
   min-width: 150px;
   margin-bottom: 20px;
+  width: 23%;
+  margin: 1%;
 }
 .course .panel {
   margin: 0;
@@ -405,36 +328,31 @@ body {
 .draging .course:before {
   opacity: 1;
 }
-.right .course {
-  width: 23%;
-  margin: 1%;
-}
-.left .course {
-  width: 100%;
-}
 .moveBlock {
   height: 50px;
   font-size: 20px;
   line-height: 50px;
 }
-@media (max-width: 768px) {
-  .right .course {
-    width: 100%;
-    margin: 1%;
-  }
+.bucket {
+  position: fixed;
+  background: white;
+  left: -170px;
+  top: 200px;
+  border-radius: 0 7px 7px 0;
+  padding: 10px;
+  z-index: 10;
+  width: 200px;
+  transition: left 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
-.btn.btn-default {
-  cursor: pointer;
-  color: #818a94;
-  border: 1px solid #D6E1E6;
-  background: none;
+.bucket .course {
+  width: 100%;
+}
+.bucket:hover {
+  left: 0;
 }
 .btn.btn-default:active,
 .btn.btn-default:focus {
   outline: none;
-}
-.btn.btn-default:active {
-  border-color: #a1aab4;
 }
 .skipTermBtn,
 .removeTermBtn,

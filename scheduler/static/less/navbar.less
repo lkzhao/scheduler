@@ -1,36 +1,14 @@
 .navbar.navbar-default{
-  z-index: 9999;
-  font-weight: 200;
   background: @navbarBgColor;
-  color:white;
-  border-bottom: 3px solid @navbarBorderColor;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  a,.navbar-brand{
-    color:white;
-  }
-  li>a{
-    color:white;
-  }
-  .navbar-right{
-    margin-right:20px;
-  }
+  height: @navbarHeight;
+  box-shadow:0 0 0 1px @navbarBorderColor;
+  border:none;
   .deleteBtn{
     color:@navbarBorderColor;
     transition:color .2s;
     font-size: 30px;
     &:hover{
-      color:white;
-    }
-  }
-  .navbar-brand{
-    width: @sidebarWidth;
-    border-right:1px solid @navbarBorderColor;
-    height: @navbarHeight;
-    i{
-      font-size: 30px;
-      position: absolute;
-      top:9px;
-      left:@sidebarWidth - 35px;
+      text-shadow: 0 0 5px @navbarBorderColor;
     }
   }
   #searchBtnWrapper{
@@ -57,31 +35,12 @@
       line-height: 34px;
     }
   }
-  .btn.btn-default{
-    font-weight: 200;
-    background: @navbarBorderColor;
-    border-color: @navbarBorderColor;
-    transition:border-color .3s;
-    color:white;
-    height:34px;
-  }
-}
-.navbar{
-  .saveBtnGroup{
-    div,ul,li{
-      vertical-align: middle;
-      display: inline-block;
-      height:50px;
-      line-height: 34px;
-      padding:8px;
-    }
-  }
 }
 
 .searchResult{
   position: fixed;
   z-index: 20;
-  top: @navbarHeight+3px;
+  top: @navbarHeight;
   left:0;
   right:0;
   background: @navbarBgColor;
