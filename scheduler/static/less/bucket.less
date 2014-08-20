@@ -1,0 +1,18 @@
+.bucket{
+  position: fixed;
+  background: white;
+  left:-170px;
+  top:200px;
+  border-radius: 0 7px 7px 0;
+  padding: 10px;
+  z-index: 10;
+  width: 200px;
+  .course{
+    width: 100%;
+  }
+  transition:left .5s cubic-bezier(0.215, 0.61, 0.355, 1);
+
+  &:hover{
+    left:0;
+  }
+}
