@@ -12,7 +12,6 @@ from django.views.generic.detail import DetailView
 from annoying.decorators import ajax_request
 from annoying.functions import get_object_or_None
 from .models import Course,Subject,Profile
-from .helpers import getJSON
 import urllib2
 import json
 
