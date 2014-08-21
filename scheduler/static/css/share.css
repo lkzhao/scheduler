@@ -67,7 +67,7 @@ a {
   border-color: #e1e5e9;
   color: #545F69;
   box-shadow: none;
-  transition: width 0.3s, border-color 0.3s;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   width: 250px;
 }
 .navbar.navbar-default #searchBtnWrapper .form-control:hover,
@@ -124,10 +124,10 @@ a {
   background: #ffffff;
   padding: 10px 235px;
   border-bottom: 1px solid #e1e5e9;
-  transition: transform .4s;
   transform-origin: 50% 0%;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-transform-origin: 50% 0%;
-  -webkit-transition: -webkit-transform 0.4s;
+  -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .searchResult h3 {
   margin: 0 0 10px;

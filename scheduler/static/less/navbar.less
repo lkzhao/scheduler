@@ -21,7 +21,7 @@
       border-color: @navbarBorderColor;
       color:#545F69;
       box-shadow: none;
-      transition:width .3s, border-color .3s;
+      transition:width .5s @animationTiming;
       width: 250px;
       &:hover,&:active,&:focus{
         box-shadow: none;
@@ -49,10 +49,10 @@
   background: @navbarBgColor;
   padding: 10px @sidebarWidth+15px;
   border-bottom:1px solid @navbarBorderColor;
-  transition:transform .4s;
   transform-origin:50% 0%;
+  transition:transform .5s @animationTiming;
   -webkit-transform-origin:50% 0%;
-  -webkit-transition:-webkit-transform .4s;
+  -webkit-transition:-webkit-transform .5s @animationTiming;
   h3{
     margin: 0 0 10px;
   }
