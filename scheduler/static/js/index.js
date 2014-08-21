@@ -314,7 +314,7 @@ SaveBtnGroup=React.createClass({
   },
   componentDidMount:function(){
     var that = this
-    new Switchery($("#id-auto-save").get(0), { color: '#16a085', secondaryColor: '#666a66' })
+    new Switchery($("#id-auto-save").get(0), { color: '#00A0CA', secondaryColor: '#666a66' })
     var state = $("#id-auto-save").is(":checked")
     $("#id-auto-save-wrapper").attr('title','Auto Save: '+(state?'ON':'OFF'))
     $("#id-auto-save-wrapper").tooltip()
@@ -605,12 +605,13 @@ MainView=React.createClass({
           </div>
         </div>
         <div className="container">
-          <div className="col-xs-12 terms">
-            <h3 className="page-header">Terms</h3>
-            {termsEl}
-          </div>
-          <div className="col-xs-12">
-            <button className='btn btn-default addTermBtn btn-lg btn-block' onClick={that.addTerm.bind(that,data.schedule.length)}>Add a Term</button>
+          <div className="row">
+            <div className="col-xs-12 terms">
+              {termsEl}
+            </div>
+            <div className="col-xs-12">
+              <button className='btn btn-default addTermBtn btn-lg btn-block' onClick={that.addTerm.bind(that,data.schedule.length)}>Add a Term</button>
+            </div>
           </div>
         </div>
       </div>

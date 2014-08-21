@@ -5,7 +5,7 @@ ul {
   list-style: none;
 }
 body {
-  background: #eef2ee;
+  background: #eeeeee;
   font-family: 'Raleway', sans-serif;
   padding: 50px 15px 15px;
 }
@@ -47,25 +47,25 @@ a {
 .navbar.navbar-default {
   background: #ffffff;
   height: 50px;
-  box-shadow: 0 0 0 1px #16a085;
+  box-shadow: 0 0 0 1px #e1e5e9;
   border: none;
 }
 .navbar.navbar-default .deleteBtn {
-  color: #16a085;
+  color: #e1e5e9;
   transition: color .2s;
   font-size: 30px;
 }
 .navbar.navbar-default .deleteBtn:hover {
-  text-shadow: 0 0 5px #16a085;
+  text-shadow: 0 0 5px #e1e5e9;
 }
 .navbar.navbar-default .saveBtnGroup {
   margin-right: 20px;
 }
 .navbar.navbar-default #searchBtnWrapper .form-control {
   border-radius: 20px;
-  background: #16a085;
-  border-color: #16a085;
-  color: white;
+  background: #e1e5e9;
+  border-color: #e1e5e9;
+  color: #545F69;
   box-shadow: none;
   transition: width 0.3s, border-color 0.3s;
   width: 250px;
@@ -76,38 +76,38 @@ a {
   box-shadow: none;
 }
 .navbar.navbar-default #searchBtnWrapper .form-control:-moz-placeholder {
-  color: #ffffff;
+  color: #545f69;
   transition: color .3s;
 }
 .navbar.navbar-default #searchBtnWrapper .form-control::-moz-placeholder {
-  color: #ffffff;
+  color: #545f69;
   transition: color .3s;
 }
 .navbar.navbar-default #searchBtnWrapper .form-control:-ms-input-placeholder {
-  color: #ffffff;
+  color: #545f69;
   transition: color .3s;
 }
 .navbar.navbar-default #searchBtnWrapper .form-control::-webkit-input-placeholder {
-  color: #ffffff;
+  color: #545f69;
   transition: color .3s;
 }
 .navbar.navbar-default #searchBtnWrapper .form-control.focused {
   width: 400px;
 }
 .navbar.navbar-default #searchBtnWrapper .form-control.focused:-moz-placeholder {
-  color: #16a085;
+  color: #e1e5e9;
   transition: color .3s;
 }
 .navbar.navbar-default #searchBtnWrapper .form-control.focused::-moz-placeholder {
-  color: #16a085;
+  color: #e1e5e9;
   transition: color .3s;
 }
 .navbar.navbar-default #searchBtnWrapper .form-control.focused:-ms-input-placeholder {
-  color: #16a085;
+  color: #e1e5e9;
   transition: color .3s;
 }
 .navbar.navbar-default #searchBtnWrapper .form-control.focused::-webkit-input-placeholder {
-  color: #16a085;
+  color: #e1e5e9;
   transition: color .3s;
 }
 .navbar.navbar-default #searchBtnWrapper i.searchIndicator {
@@ -122,8 +122,8 @@ a {
   left: 0;
   right: 0;
   background: #ffffff;
-  padding: 20px 235px;
-  border-bottom: 1px solid #16a085;
+  padding: 10px 235px;
+  border-bottom: 1px solid #e1e5e9;
   transition: transform .4s;
   transform-origin: 50% 0%;
   -webkit-transform-origin: 50% 0%;
@@ -143,8 +143,8 @@ a {
   padding: 4px 10px;
 }
 .suggestion.active {
-  background: #16a085;
-  color: white;
+  background: #e1e5e9;
+  color: #545F69;
   border-radius: 3px;
 }
 .switchery {
@@ -155,9 +155,13 @@ a {
   height: 32px;
 }
 .settingsbar {
-  background: #ddd;
+  background: #545F69;
   margin: 0 -15px 20px;
   padding: 20px;
+  color: white;
+}
+.settingsbar .container {
+  padding: 0 30px;
 }
 .settingsbar .credit {
   font-size: 24px;
@@ -177,9 +181,9 @@ a {
   width: 4px;
   left: 18%;
   margin-left: -2px;
-  top: 30px;
+  top: 0;
   border-radius: 2px;
-  bottom: 30px;
+  bottom: 0;
 }
 .term {
   position: relative;
