@@ -371,6 +371,9 @@ a {
 .bucket:hover {
   left: 0;
 }
+.draging .bucket {
+  left: 0;
+}
 .btn.btn-default:active,
 .btn.btn-default:focus {
   outline: none;
