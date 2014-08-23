@@ -298,12 +298,12 @@ AddCourseModal=React.createClass({
 SaveBtnGroup=React.createClass({
   defaultSaveInterval:60,
   getInitialState: function() {
-    return {autoSave:$("#id-auto-save:checked").length>0,saveTime:this.defaultSaveInterval, saveText:"", saving:false};
+    return {saveTime:this.defaultSaveInterval, saveText:"", saving:false};
   },
   setTimer:function(){
     var that=this;
     this.timer=setInterval(function(){
-      if(!that.state.autoSave) return;
+      if(!data.autoSave) return;
       if(that.state.saveTime<=1){
         that.save();
         that.setState({saveTime:that.defaultSaveInterval})
@@ -312,28 +312,12 @@ SaveBtnGroup=React.createClass({
       }
     },1000);
   },
-  componentDidMount:function(){
-    var that = this
-    new Switchery($("#id-auto-save").get(0), { color: '#00A0CA', secondaryColor: '#666a66' })
-    var state = $("#id-auto-save").is(":checked")
-    $("#id-auto-save-wrapper").attr('title','Auto Save: '+(state?'ON':'OFF'))
-    $("#id-auto-save-wrapper").tooltip()
-    $("#id-auto-save").on('change',function(e){
-      var state = $("#id-auto-save").is(":checked")
-      that.setState({autoSave:state, saveTime:that.defaultSaveInterval})
-      $("#id-auto-save-wrapper").attr('data-original-title','Auto Save: '+(state?'ON':'OFF'))
-      $("#id-auto-save-wrapper").tooltip('show')
-    })
+  handleAutoSaveChange:function(e){
+    data.autoSave = $(e.target).is(":checked")
+    this.setState({saveTime:this.defaultSaveInterval})
+  },
+  componentDidMount:function(prevProps, prevState){
     this.setTimer();
-  },
-  componentWillUnmount: function() {
-    clearInterval(this.timer);
-    this.timer=null;
-  },
-  componentDidUpdate:function(prevProps, prevState){
-    if(this.state.saveText==""&&!this.timer){
-      this.setTimer();
-    }
   },
   save:function(e){
     var that = this
@@ -346,7 +330,7 @@ SaveBtnGroup=React.createClass({
         courseList:JSON.stringify(data.courseList),
         csrfmiddlewaretoken:data.csrf_token,
         schedule:JSON.stringify(data.schedule),
-        autosave:this.state.autoSave,
+        autosave:data.autoSave,
         startYear:data.startYear,
         startTerm:data.startTerm
       },
@@ -362,29 +346,73 @@ SaveBtnGroup=React.createClass({
       }
     })
   },
+  handleYearChange: function(e){
+    data.startYear=parseInt(e.target.value)
+    $(document).trigger('dataUpdated')
+  },
+  handleTermChange: function(e){
+    data.startTerm=parseInt(e.target.value)
+    $(document).trigger('dataUpdated')
+  },
   render: function() {
     saveText=this.state.saveText
-    if(this.state.autoSave){
+    if(data.autoSave){
       saveText = this.state.saveText!=""?this.state.saveText:"Auto Save in "+this.state.saveTime+"s"
     }
     if(this.state.saving){
       var saveBtn = (
-        <a className="btn btn-default navbar-btn disabled">
+        <a className="btn btn-default btn-xs disabled">
           <i className="pe-7s-disk fa-spin"></i> Saving
         </a>
         )
     }else{
       var saveBtn = (
-        <a className="btn btn-default navbar-btn" onClick={this.save}>
+        <a className="btn btn-default btn-xs" onClick={this.save}>
           Save
         </a>
         )
     }
     return(
-      <div className="saveBtnGroup">
-        <p className="navbar-text">{saveText}</p>
+
+      <span className="">
+        {saveText}
         {saveBtn}
-      </div>
+        <div className="btn-group">
+          <button className="btn btn-default btn-xs dropdown-toggle" data-toggle="modal" data-target="#settingModal"><i className="fa fa-bars fa-fw"/>Settings</button>
+        </div>
+        <div id="settingModal" className="modal fade paper-modal">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <button type="button" className="close" data-dismiss="modal">&times;</button>
+                <h4 className="modal-title">Settings</h4>
+              </div>
+              <div className="modal-body">
+                <input type="checkbox" onChange={this.handleAutoSaveChange} checked={data.autoSave}>Auto Save</input>
+                Starting Year:&nbsp;
+                <select onChange={this.handleYearChange} value={data.startYear}>
+                  <option value="2010">2010</option>
+                  <option value="2011">2011</option>
+                  <option value="2012">2012</option>
+                  <option value="2013">2013</option>
+                  <option value="2014">2014</option>
+                  <option value="2015">2015</option>
+                  <option value="2016">2016</option>
+                </select>
+                <select onChange={this.handleTermChange} value={data.startTerm}>
+                  <option value="0">Winter</option>
+                  <option value="1">Spring</option>
+                  <option value="2">Fall</option>
+                </select>
+              </div>
+              <div className="paper-btn-group btn-group">
+                <a className="btn btn-lg btn-primary">OK</a>
+                <a className="btn btn-lg btn-default" data-dismiss="modal">Cancel</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </span>
     );
   }
 })
@@ -482,14 +510,6 @@ MainView=React.createClass({
   showhelp:function(text){
     $(".preview").html(text).addClass("show")
   },
-  handleYearChange: function(e){
-    data.startYear=parseInt(e.target.value)
-    this.forceUpdate()
-  },
-  handleTermChange: function(e){
-    data.startTerm=parseInt(e.target.value)
-    this.forceUpdate()
-  },
   render: function() {
     var that=this;
     var startYear=this.state.startYear;
@@ -576,7 +596,6 @@ MainView=React.createClass({
 
     return(
       <div className={that.state.dragingCourse!=""?"draging":""}>
-
         <div className="bucket">
           <h3>Bucket</h3>
           {listEl}
@@ -586,21 +605,7 @@ MainView=React.createClass({
             Total credits:&nbsp;
             <strong className="credit">{courseTaken.length*0.5}</strong>
             <div className="pull-right">
-              Starting Term:&nbsp;
-              <select onChange={this.handleYearChange} value={data.startYear}>
-                <option value="2010">2010</option>
-                <option value="2011">2011</option>
-                <option value="2012">2012</option>
-                <option value="2013">2013</option>
-                <option value="2014">2014</option>
-                <option value="2015">2015</option>
-                <option value="2016">2016</option>
-              </select>
-              <select onChange={this.handleTermChange} value={data.startTerm}>
-                <option value="0">Winter</option>
-                <option value="1">Spring</option>
-                <option value="2">Fall</option>
-              </select>
+              <SaveBtnGroup />
             </div>
           </div>
         </div>
@@ -628,9 +633,5 @@ $(function(){
   );React.renderComponent(
     <AddCourseModal />,
     $("#searchBtnWrapper").get(0)
-  );
-  React.renderComponent(
-    <SaveBtnGroup />,
-    $("#saveBtnGroupWrapper").get(0)
   );
 })

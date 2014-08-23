@@ -1,8 +1,8 @@
 .settingsbar{
-  background: #545F69;
+  background: @navbarBorderColor;
   margin:0 -15px 20px;
   padding: 20px;
-  color:white;
+  color:#545F69;
   .container{
     padding: 0 30px;
   }
@@ -10,8 +10,56 @@
     font-size: 24px;
     line-height: 12px;
   }
+  .modal{
+    color:#333;
+  }
 }
 
 .profile-pic{
   height:18px;
+}
+@padding: 20px;
+.paper-btn-group{
+  margin: (@padding + 5px) -@padding -@padding;
+  display: table;
+  table-layout: fixed;
+  &>.btn{
+    border-radius: 0;
+    float: none;
+    display: table-cell;
+    width: 1%;
+    border-width:1px 0 0;
+    &:first-child{
+      border-bottom-left-radius: 5px;
+    }
+    &:last-child{
+      border-bottom-right-radius: 5px;
+    }
+  }
+  .btn-default,.btn-danger-inverse,.btn-primary-inverse {
+    .button-variant(@btn-default-color; darken(@btn-default-bg,5%); @btn-default-border);
+  }
+  .btn-danger-inverse{
+    color:@btn-danger-bg;
+  }
+  .btn-primary-inverse{
+    color:@btn-primary-bg;
+  }
+}
+
+.modal{
+  
+  .modal-header{
+    border:none;
+  }
+  .paper-seperator{
+    margin: @modal-inner-padding -@modal-inner-padding;
+  }
+  .paper-fold{
+    margin: @modal-inner-padding -@modal-inner-padding;
+    padding: @modal-inner-padding;
+  }
+  .paper-btn-group{
+    margin: 5px 0 0 ;
+  }
 }

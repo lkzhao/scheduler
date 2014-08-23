@@ -37,7 +37,7 @@ class Course(models.Model):
   lastUpdate = models.DateTimeField(auto_now=True)
 
   def __unicode__(self):
-    return self.subject+self.catalog_number
+    return str(self.subject)+self.catalog_number
 
   class Meta:
     unique_together = ("subject", "catalog_number")
