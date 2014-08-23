@@ -115,6 +115,7 @@ def getCourseInfo(subjectName, catalog_number):
         return None
 
     course.course_data.update(course.course_data_override)
+    course.course_data.update({"id":course.id})
     return course.course_data
 
 @ajax_request

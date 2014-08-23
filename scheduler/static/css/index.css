@@ -6307,7 +6307,7 @@ a {
   left: 0;
   right: 0;
   background: #ffffff;
-  padding: 10px 235px;
+  padding: 20px 235px;
   border-bottom: 1px solid #e1e5e9;
   transform-origin: 50% 0%;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);

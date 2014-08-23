@@ -231,7 +231,10 @@ AddCourseModal=React.createClass({
                 <div><strong>Antireq: </strong>{course.antirequisite||"none"}</div>
                 <div><strong>Prereq: </strong>{course.prerequisites||"none"}</div>
                 <div><strong>Terms offered: </strong>{getTermNameArray(course.terms_offered).join(", ")}</div>
-                <button className="btn btn-default submitCourseBtn">Add to list</button>
+                <div className="pull-right">
+                  <a className="btn btn-default" href={"/admin/app/course/"+course.id}>Edit</a>
+                  <button className="btn btn-primary">Add to list</button>
+                </div>
               </div>
               )
     }else{
