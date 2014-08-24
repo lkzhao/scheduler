@@ -6346,18 +6346,59 @@ a {
 .settingsbar {
   background: #e1e5e9;
   margin: 0 -15px 20px;
-  padding: 20px;
+  padding: 5px 0;
+  line-height: 40px;
   color: #545F69;
 }
-.settingsbar .container {
-  padding: 0 30px;
-}
-.settingsbar .credit {
-  font-size: 24px;
+.settingsbar .important {
+  font-size: 22px;
   line-height: 12px;
 }
 .settingsbar .modal {
   color: #333;
+}
+.settingsbar .btn.btn-primary {
+  color: #545f69;
+  background-color: #ccd3da;
+  border-color: #ccd3da;
+  border-radius: 6px;
+  padding: 6px 15px;
+}
+.settingsbar .btn.btn-primary:hover,
+.settingsbar .btn.btn-primary:focus,
+.settingsbar .btn.btn-primary:active,
+.settingsbar .btn.btn-primary.active,
+.open > .dropdown-toggle.settingsbar .btn.btn-primary {
+  color: #545f69;
+  background-color: #afbac4;
+  border-color: #a9b5c0;
+}
+.settingsbar .btn.btn-primary:active,
+.settingsbar .btn.btn-primary.active,
+.open > .dropdown-toggle.settingsbar .btn.btn-primary {
+  background-image: none;
+}
+.settingsbar .btn.btn-primary.disabled,
+.settingsbar .btn.btn-primary[disabled],
+fieldset[disabled] .settingsbar .btn.btn-primary,
+.settingsbar .btn.btn-primary.disabled:hover,
+.settingsbar .btn.btn-primary[disabled]:hover,
+fieldset[disabled] .settingsbar .btn.btn-primary:hover,
+.settingsbar .btn.btn-primary.disabled:focus,
+.settingsbar .btn.btn-primary[disabled]:focus,
+fieldset[disabled] .settingsbar .btn.btn-primary:focus,
+.settingsbar .btn.btn-primary.disabled:active,
+.settingsbar .btn.btn-primary[disabled]:active,
+fieldset[disabled] .settingsbar .btn.btn-primary:active,
+.settingsbar .btn.btn-primary.disabled.active,
+.settingsbar .btn.btn-primary[disabled].active,
+fieldset[disabled] .settingsbar .btn.btn-primary.active {
+  background-color: #ccd3da;
+  border-color: #ccd3da;
+}
+.settingsbar .btn.btn-primary .badge {
+  color: #ccd3da;
+  background-color: #545f69;
 }
 .profile-pic {
   height: 18px;

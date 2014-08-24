@@ -38,9 +38,9 @@ class CoursePlan(models.Model):
 
   subset = models.IntegerField(default=0)
 
-  def save(self, commit=True):
+  def save(self, *args, **kwargs):
     self.subset = self.id % 32768
-    return super(Person, self).save(commit)
+    return super(CoursePlan, self).save(*args, **kwargs)
 
 
 

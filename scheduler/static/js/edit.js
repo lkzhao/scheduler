@@ -77,7 +77,7 @@ SaveBtnGroup=React.createClass({
   },
   save:function(e){
     var that = this
-    this.setState({saveTime:this.defaultSaveInterval, saving:true})
+    this.setState({saveText:"", saveTime:this.defaultSaveInterval, saving:true})
     $.ajax({
       url:"/save/"+data.coursePlanId+"/",
       type:"post",
@@ -102,24 +102,24 @@ SaveBtnGroup=React.createClass({
   render: function() {
     saveText=this.state.saveText
     if(data.autoSave){
-      saveText = this.state.saveText!=""?this.state.saveText:"Auto Save in "+this.state.saveTime+"s"
+      saveText = this.state.saveText!=""?this.state.saveText:<span>Auto Save in <strong className="important">{this.state.saveTime}</strong>s</span>
     }
     if(this.state.saving){
       var saveBtn = (
-        <a className="btn btn-default btn-xs disabled">
-          <i className="pe-7s-disk fa-spin"></i> Saving
+        <a className="btn btn-primary disabled">
+          <i className="fa fa-save fa-fw fa-spin"></i> Saving
         </a>
         )
     }else{
       var saveBtn = (
-        <a className="btn btn-default btn-xs" onClick={this.save}>
-          Save
+        <a className="btn btn-primary" onClick={this.save}>
+          <i className="fa fa-save fa-fw"></i> Save
         </a>
         )
     }
     return(
       <span>
-        {saveText}&nbsp;
+        {saveText}&nbsp;&nbsp;&nbsp;&nbsp;
         {saveBtn}
       </span>
     );
@@ -299,7 +299,7 @@ MainView=React.createClass({
         <div className="settingsbar">
           <div className="container">
             Total credits:&nbsp;
-            <strong className="credit">{courseTaken.length*0.5}</strong>
+            <strong className="important">{courseTaken.length*0.5}</strong>
             <div className="pull-right">
               <SaveBtnGroup />
             </div>

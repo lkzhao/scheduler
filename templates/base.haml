@@ -10,9 +10,48 @@
     %script{:src => "{{STATIC_URL}}js/lib/react/react-with-addons.js"}
     %script{:src => "{{STATIC_URL}}js/lib/react/JSXTransformer.js"}
   %body
+    %nav.navbar.navbar-default.navbar-fixed-top
+      .container
+        .navbar-header
+          %a.navbar-brand{:href => "/"} 
+            UW Course Scheduler
+          %button.navbar-toggle{:data-toggle => "collapse", :data-target => "#navbar-collapse"}
+            %i.fa.fa-bars
+        #navbar-collapse.collapse.navbar-collapse
+            #searchBtnWrapper
+            %ul.nav.navbar-nav.navbar-right
+              - if user.pk
+                %li.dropdown
+                  %a{:data-toggle => "dropdown", :href => "#"}
+                    %img.profile-pic{:src => "{%if user.image%}{{user.image.url}}{%else%}/static/images/no-profile.jpg{%endif%}"}
+                    -if user.first_name
+                      = user.first_name
+                      = user.last_name
+                    -else
+                      = user.username
+                    %b.caret
+                  %ul.dropdown-menu
+                    - if user.is_superuser
+                      %li
+                        %a#admin-btn{:href => "/admin"}
+                          Admin
+                      %li.divider
+                    %li
+                      %a{:href => "/accounts/logout"}
+                        Logout
+    - if errors
+      - for error in errors
+        .alert.alert-danger
+          = error
     - block body
       %nav
         .brand
           UW Course Scheduler
       - block main
+
+    :javascript
+      window.data={
+        courseInfo: {},
+      }
+      window.allSubjects={{allSubjects|safe}}
     - block js
