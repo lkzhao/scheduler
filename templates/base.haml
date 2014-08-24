@@ -5,9 +5,11 @@
     %link{:href => "{{STATIC_URL}}css/pe-icon-7-stroke.css", :rel => "stylesheet"}
     - block css
     %script{:src => "{{STATIC_URL}}js/lib/jquery-2.0.3.min.js"}
+    %script{:src => "{{STATIC_URL}}js/lib/jquery.form.min.js"}
     %script{:src => "{{STATIC_URL}}js/lib/bootstrap.min.js"}
     %script{:src => "{{STATIC_URL}}js/lib/moment.min.js"}
     %script{:src => "{{STATIC_URL}}js/lib/react/react-with-addons.js"}
+    - include 'django_facebook/_facebook_js.html'
   %body
     %nav.navbar.navbar-default.navbar-fixed-top
       .container
@@ -39,6 +41,10 @@
                     %li
                       %a{:href => "/accounts/logout"}
                         Logout
+              - else
+                %li
+                  %a{:onclick => "F.connect(this.parentNode); return false;", :type => "button"}
+                    Login with Facebook
     - if errors
       - for error in errors
         .alert.alert-danger

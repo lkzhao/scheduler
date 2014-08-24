@@ -5,7 +5,6 @@
 
 
 - block body
-  - include 'django_facebook/_facebook_js.html'
   #main
     .container
       -if user.pk
@@ -34,7 +33,7 @@
       %h3.page-header
         See your collegue's plan
       - for courseplan in sharedCoursePlan
-        %a{:href => "{% url 'share' courseplan.id %}"}
+        %a{:href => "{% url 'view' courseplan.id %}"}
           CoursePlan - 
           -if courseplan.user.first_name
             = courseplan.user.first_name

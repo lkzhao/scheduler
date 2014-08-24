@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.decorators import method_decorator, available_attrs
 
+from django import forms
 from django.shortcuts import get_object_or_404
 from django.views.generic.edit import (CreateView, DeleteView, UpdateView,
                                        FormView)
@@ -87,7 +88,7 @@ class IndexView(SearchCourseMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
-        context['sharedCoursePlan'] = CoursePlan.objects.get_random_subset(20)
+        context['sharedCoursePlan'] = CoursePlan.objects.get_random_subset(20).filter(share=True)
         context['form'] = AuthenticationForm()
         return context
 
@@ -112,8 +113,22 @@ class ShareView(SearchCourseMixin, DetailView):
             context['username'] = self.object.user.first_name + self.object.user.last_name 
         else:
             context['username'] = self.object.user.username
+        context['userid'] = self.object.user.id
         get_context(context, self.object)
+        if not self.object.share:
+            context['private'] = True
         return context
+
+class ShareConfirmView(UpdateView):
+    template_name = 'share_confirm.html'
+    model = CoursePlan
+    fields = ['share']
+    slug_field = 'pk'
+    success_url = "/"
+
+    def form_valid(self, form):
+        super(ShareConfirmView, self).form_valid(form)
+        return HttpResponse(json.dumps({'success':True}))
 
 @ajax_request
 @login_required
@@ -133,6 +148,7 @@ def Save(request, coursePlanId):
     coursePlan.courseList=courseList
     coursePlan.save()
     return {'success':True}
+
 
 @ajax_request
 def CourseInfo(request, subjectName, catalog_number):

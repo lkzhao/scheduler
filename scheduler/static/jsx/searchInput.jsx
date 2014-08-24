@@ -30,7 +30,7 @@ AddCourseModal=React.createClass({
           }
         })
       }
-    }else if(this.state.searched&&this.state.message==""&&data&&data.courseList){
+    }else if(this.state.searched&&this.state.message==""&&window.editing){
       this.setState({searched:false,input:"",subject:"",catalog_number:""})
       this.handleAddCourse(e);
       return;
@@ -86,7 +86,7 @@ AddCourseModal=React.createClass({
       subject:this.state.subject,
       catalog_number:this.state.catalog_number
     }
-    if(data&&data.courseList){
+    if(window.editing){
       if(hasCourse(course)){
         alert("Course already added")
       }else{
@@ -157,7 +157,7 @@ AddCourseModal=React.createClass({
                 <div><strong>Terms offered: </strong>{getTermNameArray(course.terms_offered).join(", ")}</div>
                 <div className="pull-right col-xs-12 col-md-6">
                   {($("#admin-btn").length)?<div className="col-xs-4"><a className="btn btn-default btn-block" href={"/admin/app/course/"+course.id}>Edit</a></div>:{}}
-                  {(data&&data.courseList)?<div className="col-xs-8"><button className="btn btn-primary btn-block">Add to list</button></div>:{}}
+                  {(window.editing)?<div className="col-xs-8"><button className="btn btn-primary btn-block">Add to list</button></div>:{}}
                 </div>
               </div>
               )
@@ -210,7 +210,7 @@ AddCourseModal=React.createClass({
           <input id='searchInput' type='text' placeholder='Search for Course' className={'form-control'+(this.state.focus?" focused":"")} value={this.state.input} onChange={this.handleChange} onFocus={this.handleFocus} ref="searchInput" onKeyDown={this.handleKeydown}/>
           <i className={"fa fa-spin fa-spinner searchIndicator "+(this.state.loading?"":"hide")} />
         </div>
-        {(data&&data.courseList)?<div className="form-group deleteBtn" data-toggle="tooltip" title="Drag course here to delete" data-placement="bottom" ref="deleteBtn" onDrop={this.drop} onDragOver={this.dragOver}>
+        {(window.editing)?<div className="form-group deleteBtn" data-toggle="tooltip" title="Drag course here to delete" data-placement="bottom" ref="deleteBtn" onDrop={this.drop} onDragOver={this.dragOver}>
           <i className="pe-7s-trash fa-fw"/>
         </div>:{}}
         <div className={cName} >

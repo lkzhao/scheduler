@@ -99,6 +99,9 @@ SaveBtnGroup=React.createClass({
       }
     })
   },
+  loadModal:function(){
+    $("#modalContainer").load("/share/"+data.coursePlanId+"/")
+  },
   render: function() {
     saveText=this.state.saveText
     if(data.autoSave){
@@ -120,7 +123,10 @@ SaveBtnGroup=React.createClass({
     return(
       <span>
         {saveText}&nbsp;&nbsp;&nbsp;&nbsp;
-        {saveBtn}
+        {saveBtn}&nbsp;&nbsp;&nbsp;&nbsp;
+        <a className="btn btn-primary" onClick={this.loadModal}>
+          <i className="fa fa-share fa-fw"></i> Share
+        </a>
       </span>
     );
   }
@@ -321,6 +327,7 @@ MainView=React.createClass({
 });
 
 
+window.editing=true;
 $(function(){
   React.renderComponent(
     <MainView />,

@@ -19,13 +19,20 @@
 
 
 - block navbar-right
-  %li
-    %a{href: '#'}
-      Create your schedule
-  - if not private
+  
+  - if not user.pk
     %li
       %a{href: '#'}
-        Use this as template
+        Create new
+  - if not private
+    - if user.pk and user.pk == userid
+        %li
+          %a{href: '{% url "edit" coursePlanId %}'}
+            Edit
+    - else
+      %li
+        %a{href: '#'}
+          Use this as template
 
 - block body
   #main
