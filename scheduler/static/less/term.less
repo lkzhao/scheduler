@@ -97,32 +97,35 @@
       }
     }
   }
-  &:hover{
-    .skipTermBtn,.removeTermBtn,.insertTermBtn{
-      opacity: 1;
-      pointer-events:all;
-    }
-    .term-title{
-      top:0;
-    }
-    .term-menu{
-      .btn{
-        opacity:1;
+}
+.edit{
+  .term{
+    &:hover{
+      .skipTermBtn,.removeTermBtn,.insertTermBtn{
+        opacity: 1;
+        pointer-events:all;
       }
-      .removeTermBtn{
-        background:#e74c3c;
-        left: -10px - (@timeline-node-size+10px);
-      }.insertTermBtn{
-        background:#2ecc71;
-        left: -10px - 2*(@timeline-node-size+10px);
-      }.skipTermBtn{
-        background:#34495e;
-        left: -10px - 3*(@timeline-node-size+10px);
+      .term-title{
+        top:0;
+      }
+      .term-menu{
+        .btn{
+          opacity:1;
+        }
+        .removeTermBtn{
+          background:#e74c3c;
+          left: -10px - (@timeline-node-size+10px);
+        }.insertTermBtn{
+          background:#2ecc71;
+          left: -10px - 2*(@timeline-node-size+10px);
+        }.skipTermBtn{
+          background:#34495e;
+          left: -10px - 3*(@timeline-node-size+10px);
+        }
       }
     }
   }
 }
-
 .backgroundText{
   position: absolute;
   top:10px;

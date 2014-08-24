@@ -6635,27 +6635,27 @@ fieldset[disabled] .paper-btn-group .btn-primary-inverse.active {
 .term.skiped .courses:before {
   border: none;
 }
-.term:hover .skipTermBtn,
-.term:hover .removeTermBtn,
-.term:hover .insertTermBtn {
+.edit .term:hover .skipTermBtn,
+.edit .term:hover .removeTermBtn,
+.edit .term:hover .insertTermBtn {
   opacity: 1;
   pointer-events: all;
 }
-.term:hover .term-title {
+.edit .term:hover .term-title {
   top: 0;
 }
-.term:hover .term-menu .btn {
+.edit .term:hover .term-menu .btn {
   opacity: 1;
 }
-.term:hover .term-menu .removeTermBtn {
+.edit .term:hover .term-menu .removeTermBtn {
   background: #e74c3c;
   left: -50px;
 }
-.term:hover .term-menu .insertTermBtn {
+.edit .term:hover .term-menu .insertTermBtn {
   background: #2ecc71;
   left: -90px;
 }
-.term:hover .term-menu .skipTermBtn {
+.edit .term:hover .term-menu .skipTermBtn {
   background: #34495e;
   left: -130px;
 }

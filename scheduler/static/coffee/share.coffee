@@ -1,6 +1,5 @@
 
 div = -> React.DOM.div arguments...
-h2 = -> React.DOM.h2 arguments...
 h3 = -> React.DOM.h3 arguments...
 
 
@@ -19,13 +18,18 @@ SimpleTermView = React.createClass
           onMouseEnter: @showPreview.bind @, course
           onMouseLeave: @hidePreview
           }, getCourseName(courseInfo))
-      div({className:"panel panel-default"}, 
-        div({className: "panel-heading"}, 
-          h3({className: "panel-title"}, termName)),
-        div({className: "panel-body"}, currentTermCourses))
-    div({className: "paper"},
-      h2({className: "page-header"}, "#{data.user.name}'s Course Schedule"),
-      terms)
+      if term.courses.length == 0
+        currentTermCourses = div(null, 
+          div({className: "course moveBlock invisible"}),
+          div({className: "backgroundText"}, "No course for this term."))
+      div({className:"term"}, 
+        div({className: "term-title"}, termName),
+        div({className: "term-menu"}),
+        div({className: "courses"}, currentTermCourses),
+        div({className: "clearfix"}))
+    div({className: "container"},
+      h3({className: "page-header"}, "#{data.user.name}'s Course Schedule"),
+      div({className: "col-xs-12 terms"}, terms))
 
 $(->
   React.renderComponent SimpleTermView(null), $("#main").get(0)

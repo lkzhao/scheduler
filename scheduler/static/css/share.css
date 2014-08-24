@@ -6534,36 +6534,198 @@ fieldset[disabled] .paper-btn-group .btn-primary-inverse.active {
 .modal .paper-btn-group {
   margin: 5px 0 0 ;
 }
-body {
-  background: #445;
+.terms {
+  padding: 0;
+  margin: 0;
 }
-.paper {
-  margin: 20px;
-  background: white;
-  padding: 20px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+.terms:before {
+  content: '';
+  position: absolute;
+  background: #d5d8da;
+  width: 4px;
+  left: 18%;
+  margin-left: -2px;
+  top: 0;
+  border-radius: 2px;
+  bottom: 0;
+}
+.term {
+  position: relative;
   border-radius: 7px;
-  transition: margin .3s;
+  padding: 20px;
+  transition: border .3s;
+  color: #7f8c97;
+}
+.term .skipTermBtn,
+.term .insertTermBtn,
+.term .removeTermBtn {
+  opacity: 0;
+  pointer-events: none;
+}
+.term .term-title {
+  position: absolute;
+  transition: top .4s;
+  top: 35px;
+  right: 85%;
+  margin-top: -10px;
+  line-height: 20px;
+  font-size: 20px;
+}
+.term .courses {
+  background: #ffffff;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 7px;
+  width: 79%;
+  float: right;
+  position: relative;
+}
+.term .courses:before {
+  content: " ";
+  position: absolute;
+  top: 15px;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  left: -10px;
+  border-left-width: 0;
+  border-right-color: #ffffff;
+}
+.term .term-menu,
+.term .term-menu .btn {
+  position: absolute;
+  left: 18%;
+  top: 45px;
+  height: 30px;
+  width: 30px;
+  border: 4px solid white;
+  background: #d5d8da;
+  margin-left: -15px;
+  margin-top: -15px;
+  border-radius: 30px;
+  box-shadow: 0 0 4px #d5d8da;
+}
+.term .term-menu .btn {
+  transition: opacity .4s, left .4s;
+  opacity: 0;
+  top: -4px;
+  left: -4px;
+  margin-left: 0;
+  margin-top: 0;
+  outline: none;
+}
+.term .term-menu .btn i {
+  color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 24px;
+  text-align: center;
+  line-height: 24px;
+}
+.term.skiped {
+  color: #aaa;
+}
+.term.skiped .courses {
+  height: 40px;
+  padding: 15px;
+  font-size: 16px;
+  background: none;
+  box-shadow: none;
+}
+.term.skiped .courses:before {
+  border: none;
+}
+.edit .term:hover .skipTermBtn,
+.edit .term:hover .removeTermBtn,
+.edit .term:hover .insertTermBtn {
+  opacity: 1;
+  pointer-events: all;
+}
+.edit .term:hover .term-title {
+  top: 0;
+}
+.edit .term:hover .term-menu .btn {
+  opacity: 1;
+}
+.edit .term:hover .term-menu .removeTermBtn {
+  background: #e74c3c;
+  left: -50px;
+}
+.edit .term:hover .term-menu .insertTermBtn {
+  background: #2ecc71;
+  left: -90px;
+}
+.edit .term:hover .term-menu .skipTermBtn {
+  background: #34495e;
+  left: -130px;
+}
+.backgroundText {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 22px;
+  line-height: 50px;
+  color: #ddd;
 }
 .course {
-  width: 20%;
-  text-align: center;
-  font-weight: 700;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
   display: inline-block;
-  font-size: 24px;
-  margin-bottom: 5px;
+  vertical-align: top;
+  text-align: center;
+  position: relative;
+  min-width: 150px;
+  margin-bottom: 20px;
+  width: 23%;
+  margin: 1%;
 }
-@media (max-width: 767px) {
-  .course {
-    width: 50%;
-  }
-  .paper {
-    margin: 5px;
-  }
+.course .panel {
+  margin: 0;
 }
-@media (min-width: 940px) {
-  .paper {
-    width: 900px;
-    margin: 100px auto 50px;
-  }
+.course .panel-body {
+  padding: 10px;
+  font-size: 20px;
+}
+.course .panel-footer {
+  min-height: 20px;
+  padding: 3px 10px;
+}
+.course .panel-danger > .panel-footer {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+.course:before {
+  content: "";
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  border: 1px solid #555559;
+  box-shadow: inset 0 4px 15px rgba(0, 0, 0, 0.35), 0 1px 0 #ffffff;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 4px;
+  transition: opacity .3s;
+}
+.draging .course:before {
+  opacity: 1;
+}
+.moveBlock {
+  height: 50px;
+  font-size: 20px;
+  line-height: 50px;
+}
+body {
+  background: #eeeeee;
+}
+.course {
+  padding: 10px;
+  font-size: 20px;
+  color: #7f8c97;
+  font-weight: 600;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
