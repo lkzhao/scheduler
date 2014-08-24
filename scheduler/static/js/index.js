@@ -106,7 +106,7 @@ AddCourseModal=React.createClass({
     $(".navbar-form").on('mousedown', this.blockClick);
   },
   handleSubmit:function(e){
-    e.preventDefault();
+    if(e) e.preventDefault();
     var that=this;
     if(this.state.dataList.length>0){
       var selected = this.state.dataList[this.state.dataListSelected]
@@ -124,7 +124,7 @@ AddCourseModal=React.createClass({
         })
       }
     }else if(this.state.searched&&this.state.message==""){
-      this.setState({searched:false})
+      this.setState({searched:false,input:"",subject:"",catalog_number:""})
       this.handleAddCourse(e);
       return;
     }
@@ -163,7 +163,10 @@ AddCourseModal=React.createClass({
     if(this.state.input!=inputValue){
       state.dataListSelected=0
     }
-    this.setState(state,function(){});
+    this.setState(state,function(){
+      $('.searchResult .container').scrollTop(0)
+    });
+
   },
   handleBlur:function(e){
     this.setState({focus:false})
@@ -181,7 +184,7 @@ AddCourseModal=React.createClass({
     }else{
       data.courseList.push(course)
       $(document).trigger("dataUpdated")
-      $("body").trigger('mousedown')
+      $("#searchInput").focus()
     }
   },
   blockClick:function(e){
@@ -203,37 +206,49 @@ AddCourseModal=React.createClass({
     e.preventDefault();
   },
   handleKeydown:function(e){
+    scrolled = false
     if(e.keyCode==40){//down
       if(this.state.dataListSelected<this.state.dataList.length-1)
-        this.setState({dataListSelected:this.state.dataListSelected+1})
+        this.setState({dataListSelected:this.state.dataListSelected+1},function(){
+          $('.searchResult .container').scrollTop(($(".suggestion.active").index()-5)*28)
+        })
       e.preventDefault()
     }else if(e.keyCode==38){//up
       if(this.state.dataListSelected>0)
-        this.setState({dataListSelected:this.state.dataListSelected-1})
+        this.setState({dataListSelected:this.state.dataListSelected-1},function(){
+          $('.searchResult .container').scrollTop(($(".suggestion.active").index()-5)*28)
+        })
       e.preventDefault()
     }
+  },
+  handleClick:function(indexSelected){
+    var that=this;
+    this.setState({dataListSelected:indexSelected},function(){
+      $("#searchInput").focus()
+      that.handleSubmit()
+    })
   },
   render: function() {
     var cName = "searchResult"+(this.state.focus?"":" hideUp")
     var that = this;
     if(this.state.message!=""){
       var content=(
-              <div className={cName}>
+              <div className="container">
                 {this.state.message}
               </div>)
     }else if(this.state.searched){
       var course=uwapi.getInfo({subject:this.state.subject,
         catalog_number:this.state.catalog_number});
       var content=(
-              <div className={cName}>
+              <div className="container">
                 <h3><a target="_blank" href={course.url}>{course.subject+" "+course.catalog_number+" - "+course.title}</a></h3>
                 <p>{course.description}</p>
                 <div><strong>Antireq: </strong>{course.antirequisite||"none"}</div>
                 <div><strong>Prereq: </strong>{course.prerequisites||"none"}</div>
                 <div><strong>Terms offered: </strong>{getTermNameArray(course.terms_offered).join(", ")}</div>
-                <div className="pull-right">
-                  <a className="btn btn-default" href={"/admin/app/course/"+course.id}>Edit</a>
-                  <button className="btn btn-primary">Add to list</button>
+                <div className="pull-right col-xs-12 col-md-6">
+                  {($("#admin-btn").length)?<div className="col-xs-4"><a className="btn btn-default btn-block" href={"/admin/app/course/"+course.id}>Edit</a></div>:{}}
+                  <div className="col-xs-8"><button className="btn btn-primary btn-block">Add to list</button></div>
                 </div>
               </div>
               )
@@ -241,16 +256,15 @@ AddCourseModal=React.createClass({
       //show suggestion
       if(this.state.dataListType=="Subject"){
         var dataList = this.state.dataList
-        if(dataList.length>10) dataList=dataList.slice(0, 10)
         var subjectEls = dataList.map(function(subject,i){
           return(
-            <div className={"suggestion"+(that.state.dataListSelected==i?" active":"")}>
+            <div className={"suggestion"+(that.state.dataListSelected==i?" active":"")} onClick={that.handleClick.bind(that,i)}>
               <strong>{subject.name}</strong> - {subject.description}
             </div>
             )
         })
         var content=(
-          <div className={cName} >
+          <div className="container" >
             {subjectEls.length>0?subjectEls:(
               "Subject not found "+that.state.subject
               )}
@@ -258,16 +272,15 @@ AddCourseModal=React.createClass({
           )
       }else if(this.state.dataListType=="Course"){
         var dataList = this.state.dataList
-        if(dataList.length>10) dataList=dataList.slice(0, 10)
         var courseEls = dataList.map(function(course,i){
           return(
-            <div className={"suggestion"+(that.state.dataListSelected==i?" active":"")}>
+            <div className={"suggestion"+(that.state.dataListSelected==i?" active":"")} onClick={that.handleClick.bind(that,i)}>
               <strong>{that.state.subject+course.catalog_number}</strong> - {course.title}
             </div>
             )
         })
         var content=(
-          <div className={cName} >
+          <div className="container" >
             {courseEls.length>0?courseEls:(
               "Course not found: "+that.state.subject+" "+that.state.catalog_number
               )}
@@ -275,8 +288,8 @@ AddCourseModal=React.createClass({
           )
       }else{
         var content=(
-          <div className={cName} >
-            Enter Course Code: i.e CS241, ENGL109, ...
+          <div className="container" >
+            Enter Course Code: i.e <strong>CS241</strong>, <strong>ENGL109</strong>, ...
           </div>
         )
       }
@@ -291,7 +304,9 @@ AddCourseModal=React.createClass({
         <div className="form-group deleteBtn" data-toggle="tooltip" title="Drag course here to delete" data-placement="bottom" ref="deleteBtn" onDrop={this.drop} onDragOver={this.dragOver}>
           <i className="pe-7s-trash fa-fw"/>
         </div>
-        {content}
+        <div className={cName} >
+          {content}
+        </div>
       </form>
     );
   }

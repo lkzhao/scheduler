@@ -30,7 +30,7 @@
               %ul.dropdown-menu
                 - if user.is_superuser
                   %li
-                    %a{:href => "/admin"}
+                    %a#admin-btn{:href => "/admin"}
                       Admin
                   %li.divider
                 %li
@@ -49,7 +49,7 @@
       courseList: {{courseList|safe}},
       startYear: {{startYear|safe}},
       startTerm: {{startTerm|safe}},
-      autoSave: {{user.profile.autosave|lower}}
+      autoSave: {{user.profile.autosave|lower}},
     }
     window.data=data
     allSubjects={{allSubjects|safe}}
