@@ -1,3 +1,4 @@
+
 function isAllString(list){
   for (var i = 0; i < list.length; i++) {
     if(typeof list[i]!="string")return false

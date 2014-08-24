@@ -2,3 +2,4 @@ venv
 *.pyc
 staticfiles
 scheduler/media
+node_modules

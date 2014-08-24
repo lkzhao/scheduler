@@ -22,7 +22,7 @@ strong = -> React.DOM.strong arguments...
 
 
 
-uwapi = 
+window.uwapi = 
   courseInfo: window.data.courseInfo||{},
   getCourse: (subject, catalog_number, callback)->
     course = {}
@@ -40,10 +40,10 @@ uwapi =
   getInfo: (course)->
     @courseInfo[getCourseName(course)]
 
-getCourseName = (obj) -> 
+window.getCourseName = (obj) -> 
   obj.subject + obj.catalog_number
 
-calculateTerm = (startYear, startTerm, i) ->
+window.calculateTerm = (startYear, startTerm, i) ->
   startYear = startYear + Math.floor((startTerm + i) / 3)
   startTerm = (startTerm + i) % 3
   switch startTerm
@@ -51,14 +51,12 @@ calculateTerm = (startYear, startTerm, i) ->
     when 1 then startYear + " Spring"
     when 2 then startYear + " Fall"
 
-getTermNameArray = (terms_offered) ->
+window.getTermNameArray = (terms_offered) ->
   terms_offered.map (i) ->
     switch i
       when "F" then "Fall"
       when "W" then "Winter"
       else "Spring"
-
-
 
 Preview = React.createClass
   getInitialState: ->

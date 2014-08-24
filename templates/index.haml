@@ -2,11 +2,10 @@
 - block css
   %link{:href => "{{STATIC_URL}}css/index.css", :type => "text/css", :rel => "stylesheet"}
   %link{:href => "{{ STATIC_URL }}django_facebook/css/facebook.css", :type => "text/css", :rel => "stylesheet"}
-- block js
-  - include 'django_facebook/_facebook_js.html'
 
 
 - block body
+  - include 'django_facebook/_facebook_js.html'
   #main
     .container
       -if user.pk

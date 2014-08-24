@@ -1,3 +1,4 @@
+
 AddCourseModal=React.createClass({
   getInitialState: function() {
     return {input:"",focus:false,loading:false,searched:false,subject:"",catalog_number:"",message:"",dataList:[],dataListSelected:0, dataListType:"None"};

@@ -1,4 +1,9 @@
 
+div = -> React.DOM.div arguments...
+h2 = -> React.DOM.h2 arguments...
+h3 = -> React.DOM.h3 arguments...
+
+
 SimpleTermView = React.createClass
   showPreview: (course)->
     window.showCoursePreview(course)
@@ -13,7 +18,7 @@ SimpleTermView = React.createClass
           className: "course"
           onMouseEnter: @showPreview.bind @, course
           onMouseLeave: @hidePreview
-          }, name(courseInfo))
+          }, getCourseName(courseInfo))
       div({className:"panel panel-default"}, 
         div({className: "panel-heading"}, 
           h3({className: "panel-title"}, termName)),
