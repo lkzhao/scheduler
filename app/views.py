@@ -88,9 +88,11 @@ class IndexView(SearchCourseMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
-        context['sharedCoursePlan'] = CoursePlan.objects.get_random_subset(20).filter(share=True)
+        context['sharedCoursePlan'] = CoursePlan.objects.get_random_subset(20).filter(share=True).exclude(user=self.request.user)
         context['form'] = AuthenticationForm()
         return context
+
+
 
 class EditView(SearchCourseMixin, ProtectedView, DetailView):
     template_name = 'edit.html'
@@ -119,7 +121,63 @@ class ShareView(SearchCourseMixin, DetailView):
             context['private'] = True
         return context
 
-class ShareConfirmView(UpdateView):
+
+class CreateCoursePlanForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        return super(CreateCoursePlanForm, self).__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        instance = super(CreateCoursePlanForm, self).save(commit=False)
+        if not instance.id:
+            instance.user = self.user
+        if commit:
+            instance.save()
+        return instance
+
+    class Meta:
+        model = CoursePlan
+        fields = ('name', 'share', )
+
+class CreateCoursePlanView(ProtectedView, CreateView):
+    template_name = 'create.html'
+    model = CoursePlan
+    form_class = CreateCoursePlanForm
+
+    def get_success_url(self):
+        return reverse('edit', args=(self.object.id,))
+
+    def get_form_kwargs(self):
+        kwargs = super(CreateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        super(CreateCoursePlanView, self).form_valid(form)
+        return HttpResponse(json.dumps({'success':True, 'url':self.get_success_url()}))
+
+class DeleteCoursePlanView(ProtectedView, DeleteView):
+    template_name = 'delete.html'
+    model = CoursePlan
+    slug_field = 'pk'
+    success_url = "/"
+
+    def form_valid(self, form):
+        if self.object.user==self.request.user:
+            return super(DeleteCoursePlanView, self).form_valid(form)
+        else:
+            self.form_invalid(form)
+
+class ProfileView(ProtectedView, UpdateView):
+    template_name = 'profile.html'
+    model = Profile
+    fields = ['autosave', 'startYear', 'startTerm']
+    success_url = "/"
+
+    def get_object(self):
+        return self.request.user.profile
+
+class ShareConfirmView(ProtectedView, UpdateView):
     template_name = 'share_confirm.html'
     model = CoursePlan
     fields = ['share']

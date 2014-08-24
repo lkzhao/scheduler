@@ -32,17 +32,19 @@
           try{
             if(!JSON.parse(data).success){
               showError()
+            }else{
+              $("#error").remove()
+              if($("#id_share").is(":checked")){
+                $("#shareLink").removeClass("hide")
+              }else{
+                $("#shareLink").addClass("hide")
+              }
             }
           }catch(err){
-            $("#sharemodal").on('bs.hidden.modal',function(){
+            $("#sharemodal").on('hidden.bs.modal',function(){
               $("#modalContainer").html(data)
             })
-          }
-          $("#error").remove()
-          if($("#id_share").is(":checked")){
-            $("#shareLink").removeClass("hide")
-          }else{
-            $("#shareLink").addClass("hide")
+            $("#sharemodal").hide()
           }
         },
         error:function(){

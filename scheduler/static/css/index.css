@@ -6177,6 +6177,9 @@ body {
 a {
   cursor: pointer;
 }
+.validate-error {
+  color: #a94442;
+}
 .profile-pic {
   height: 18px;
 }
@@ -6342,4 +6345,192 @@ a {
   background: #e1e5e9;
   color: #545F69;
   border-radius: 3px;
+}
+.settingsbar {
+  background: #e1e5e9;
+  margin: 0 -15px 20px;
+  padding: 5px 0;
+  line-height: 40px;
+  color: #545F69;
+}
+.settingsbar .important {
+  font-size: 22px;
+  line-height: 12px;
+}
+.settingsbar .modal {
+  color: #333;
+}
+.settingsbar .btn.btn-primary {
+  color: #545f69;
+  background-color: #ccd3da;
+  border-color: #ccd3da;
+  border-radius: 6px;
+  padding: 6px 15px;
+}
+.settingsbar .btn.btn-primary:hover,
+.settingsbar .btn.btn-primary:focus,
+.settingsbar .btn.btn-primary:active,
+.settingsbar .btn.btn-primary.active,
+.open > .dropdown-toggle.settingsbar .btn.btn-primary {
+  color: #545f69;
+  background-color: #afbac4;
+  border-color: #a9b5c0;
+}
+.settingsbar .btn.btn-primary:active,
+.settingsbar .btn.btn-primary.active,
+.open > .dropdown-toggle.settingsbar .btn.btn-primary {
+  background-image: none;
+}
+.settingsbar .btn.btn-primary.disabled,
+.settingsbar .btn.btn-primary[disabled],
+fieldset[disabled] .settingsbar .btn.btn-primary,
+.settingsbar .btn.btn-primary.disabled:hover,
+.settingsbar .btn.btn-primary[disabled]:hover,
+fieldset[disabled] .settingsbar .btn.btn-primary:hover,
+.settingsbar .btn.btn-primary.disabled:focus,
+.settingsbar .btn.btn-primary[disabled]:focus,
+fieldset[disabled] .settingsbar .btn.btn-primary:focus,
+.settingsbar .btn.btn-primary.disabled:active,
+.settingsbar .btn.btn-primary[disabled]:active,
+fieldset[disabled] .settingsbar .btn.btn-primary:active,
+.settingsbar .btn.btn-primary.disabled.active,
+.settingsbar .btn.btn-primary[disabled].active,
+fieldset[disabled] .settingsbar .btn.btn-primary.active {
+  background-color: #ccd3da;
+  border-color: #ccd3da;
+}
+.settingsbar .btn.btn-primary .badge {
+  color: #ccd3da;
+  background-color: #545f69;
+}
+.profile-pic {
+  height: 18px;
+}
+.paper-btn-group {
+  margin: 25px -20px -20px;
+  display: table;
+  table-layout: fixed;
+}
+.paper-btn-group > .btn {
+  border-radius: 0;
+  float: none;
+  display: table-cell;
+  width: 1%;
+  border-width: 1px 0 0;
+}
+.paper-btn-group > .btn:first-child {
+  border-bottom-left-radius: 5px;
+}
+.paper-btn-group > .btn:last-child {
+  border-bottom-right-radius: 5px;
+}
+.paper-btn-group .btn-default,
+.paper-btn-group .btn-danger-inverse,
+.paper-btn-group .btn-primary-inverse {
+  color: #333333;
+  background-color: #f2f2f2;
+  border-color: #cccccc;
+}
+.paper-btn-group .btn-default:hover,
+.paper-btn-group .btn-danger-inverse:hover,
+.paper-btn-group .btn-primary-inverse:hover,
+.paper-btn-group .btn-default:focus,
+.paper-btn-group .btn-danger-inverse:focus,
+.paper-btn-group .btn-primary-inverse:focus,
+.paper-btn-group .btn-default:active,
+.paper-btn-group .btn-danger-inverse:active,
+.paper-btn-group .btn-primary-inverse:active,
+.paper-btn-group .btn-default.active,
+.paper-btn-group .btn-danger-inverse.active,
+.paper-btn-group .btn-primary-inverse.active,
+.open > .dropdown-toggle.paper-btn-group .btn-default,
+.open > .dropdown-toggle.paper-btn-group .btn-danger-inverse,
+.open > .dropdown-toggle.paper-btn-group .btn-primary-inverse {
+  color: #333333;
+  background-color: #d9d9d9;
+  border-color: #adadad;
+}
+.paper-btn-group .btn-default:active,
+.paper-btn-group .btn-danger-inverse:active,
+.paper-btn-group .btn-primary-inverse:active,
+.paper-btn-group .btn-default.active,
+.paper-btn-group .btn-danger-inverse.active,
+.paper-btn-group .btn-primary-inverse.active,
+.open > .dropdown-toggle.paper-btn-group .btn-default,
+.open > .dropdown-toggle.paper-btn-group .btn-danger-inverse,
+.open > .dropdown-toggle.paper-btn-group .btn-primary-inverse {
+  background-image: none;
+}
+.paper-btn-group .btn-default.disabled,
+.paper-btn-group .btn-danger-inverse.disabled,
+.paper-btn-group .btn-primary-inverse.disabled,
+.paper-btn-group .btn-default[disabled],
+.paper-btn-group .btn-danger-inverse[disabled],
+.paper-btn-group .btn-primary-inverse[disabled],
+fieldset[disabled] .paper-btn-group .btn-default,
+fieldset[disabled] .paper-btn-group .btn-danger-inverse,
+fieldset[disabled] .paper-btn-group .btn-primary-inverse,
+.paper-btn-group .btn-default.disabled:hover,
+.paper-btn-group .btn-danger-inverse.disabled:hover,
+.paper-btn-group .btn-primary-inverse.disabled:hover,
+.paper-btn-group .btn-default[disabled]:hover,
+.paper-btn-group .btn-danger-inverse[disabled]:hover,
+.paper-btn-group .btn-primary-inverse[disabled]:hover,
+fieldset[disabled] .paper-btn-group .btn-default:hover,
+fieldset[disabled] .paper-btn-group .btn-danger-inverse:hover,
+fieldset[disabled] .paper-btn-group .btn-primary-inverse:hover,
+.paper-btn-group .btn-default.disabled:focus,
+.paper-btn-group .btn-danger-inverse.disabled:focus,
+.paper-btn-group .btn-primary-inverse.disabled:focus,
+.paper-btn-group .btn-default[disabled]:focus,
+.paper-btn-group .btn-danger-inverse[disabled]:focus,
+.paper-btn-group .btn-primary-inverse[disabled]:focus,
+fieldset[disabled] .paper-btn-group .btn-default:focus,
+fieldset[disabled] .paper-btn-group .btn-danger-inverse:focus,
+fieldset[disabled] .paper-btn-group .btn-primary-inverse:focus,
+.paper-btn-group .btn-default.disabled:active,
+.paper-btn-group .btn-danger-inverse.disabled:active,
+.paper-btn-group .btn-primary-inverse.disabled:active,
+.paper-btn-group .btn-default[disabled]:active,
+.paper-btn-group .btn-danger-inverse[disabled]:active,
+.paper-btn-group .btn-primary-inverse[disabled]:active,
+fieldset[disabled] .paper-btn-group .btn-default:active,
+fieldset[disabled] .paper-btn-group .btn-danger-inverse:active,
+fieldset[disabled] .paper-btn-group .btn-primary-inverse:active,
+.paper-btn-group .btn-default.disabled.active,
+.paper-btn-group .btn-danger-inverse.disabled.active,
+.paper-btn-group .btn-primary-inverse.disabled.active,
+.paper-btn-group .btn-default[disabled].active,
+.paper-btn-group .btn-danger-inverse[disabled].active,
+.paper-btn-group .btn-primary-inverse[disabled].active,
+fieldset[disabled] .paper-btn-group .btn-default.active,
+fieldset[disabled] .paper-btn-group .btn-danger-inverse.active,
+fieldset[disabled] .paper-btn-group .btn-primary-inverse.active {
+  background-color: #f2f2f2;
+  border-color: #cccccc;
+}
+.paper-btn-group .btn-default .badge,
+.paper-btn-group .btn-danger-inverse .badge,
+.paper-btn-group .btn-primary-inverse .badge {
+  color: #f2f2f2;
+  background-color: #333333;
+}
+.paper-btn-group .btn-danger-inverse {
+  color: #d9534f;
+}
+.paper-btn-group .btn-primary-inverse {
+  color: #428bca;
+}
+.modal .modal-header {
+  border: none;
+}
+.modal .paper-seperator {
+  margin: 15px -15px;
+}
+.modal .paper-fold {
+  margin: 15px -15px;
+  padding: 15px;
+}
+.modal .paper-btn-group {
+  margin: 5px 0 0 ;
 }

@@ -8,7 +8,7 @@ from django.contrib import admin
 from django.conf.urls.static import static
 admin.autodiscover()
 
-from app.views import (IndexView, EditView, ShareView, ShareConfirmView, CourseInfo, ListLookup, Save)
+from app.views import (IndexView, EditView, ShareView, ShareConfirmView, CreateCoursePlanView, ProfileView, DeleteCoursePlanView, CourseInfo, ListLookup, Save)
 
 urlpatterns = patterns('',
     # Examples:
@@ -16,6 +16,9 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^$', IndexView.as_view(), name='index'),
+    url(r'^profile/$', ProfileView.as_view(), name='profile'),
+    url(r'^create/$', CreateCoursePlanView.as_view(), name='create'),
+    url(r'^delete/(?P<slug>[-_\w]+)/$', DeleteCoursePlanView.as_view(), name='delete'),
     url(r'^edit/(?P<slug>[-_\w]+)/$', EditView.as_view(), name='edit'),
     url(r'^view/(?P<slug>[-_\w]+)/$', ShareView.as_view(), name='view'),
     url(r'^share/(?P<slug>[-_\w]+)/$', ShareConfirmView.as_view(), name='shareconfirm'),

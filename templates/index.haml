@@ -5,14 +5,35 @@
 
 
 - block body
+  #modalContainer
   #main
     .container
       -if user.pk
         %h3.page-header
-          Your course plans
-        - for courseplan in user.courseplan_set.all
-          %a{:href => "{% url 'edit' courseplan.id %}"}
-            CoursePlan
+          Your course schedules
+          %a.btn.btn-default{:onclick => "$(\"#modalContainer\").load(\"{% url 'create' %}\")"}
+            Create New
+        %table.table
+          %thead
+            %tr
+              %th Name
+              %th Created
+              %th Last Modified
+              %th
+          %tbody
+            - for courseplan in user.courseplan_set.all
+              %tr
+                %td
+                  %a{:href => "{% url 'edit' courseplan.id %}"}
+                    = courseplan.name
+                %td
+                    = courseplan.created
+                %td
+                    = courseplan.last_modified
+                %td
+                  %a.btn.btn-danger.btn-sm.pull-right{:onclick => "$(\"#modalContainer\").load(\"{% url 'delete' courseplan.id %}\")"}
+                    %i.fa.fa-trash-o.fa-fw
+
       -else
           = form.non_field_errors
           %form{:action => "{% url 'auth_login' %}", :method => "post"}
@@ -31,7 +52,7 @@
               %button{:onclick => "F.connect(this.parentNode); return false;", :type => "button"}
                 Login with Facebook
       %h3.page-header
-        See your collegue's plan
+        See your collegues' schedules
       - for courseplan in sharedCoursePlan
         %a{:href => "{% url 'view' courseplan.id %}"}
           CoursePlan - 

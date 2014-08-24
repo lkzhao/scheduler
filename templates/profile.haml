@@ -1,0 +1,23 @@
+- extends "base.haml"
+
+- load form_group
+
+- block css
+  %link{:href => "{{STATIC_URL}}css/index.css", :type => "text/css", :rel => "stylesheet"}
+  %link{:href => "{{ STATIC_URL }}django_facebook/css/facebook.css", :type => "text/css", :rel => "stylesheet"}
+
+
+- block body
+  #modalContainer
+  #main
+    .container
+      %h3.page-header
+        Profile Settings
+      %form#createForm{:action => "{{request.path}}", :method => "POST"}
+        -csrf_token
+        %p
+          - form_group form.startYear 
+          - form_group form.startTerm
+          - form_group form.autosave label="Auto Save Schedule"
+        %button.btn.btn-block.btn-primary.btn-lg
+          Save

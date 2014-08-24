@@ -1,0 +1,16 @@
+%i.fa.fa-info-circle.info-tooltip{
+    data-html: "true",
+    data-title: "{{html|force_escape}}",
+    data-placement: "right",
+}
+
+%script{type: 'text/javascript'}
+  var $tooltip = $(".info-tooltip:not(.info-tooltip-ready)");
+  $tooltip.tooltip();
+  $tooltip.addClass('info-tooltip-ready');
+
+  var stopProp = function(e) { e.stopPropagation(); };
+  $tooltip.on('hide', stopProp);
+  $tooltip.on('show', stopProp);
+  $tooltip.on('toggle', stopProp);
+  $tooltip.on('destroy', stopProp);
