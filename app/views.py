@@ -2,8 +2,10 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
 from django.utils.decorators import method_decorator, available_attrs
 
+from django.shortcuts import get_object_or_404
 from django.views.generic.edit import (CreateView, DeleteView, UpdateView,
                                        FormView)
 from django.views.generic.base import View, TemplateView
@@ -11,7 +13,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from annoying.decorators import ajax_request
 from annoying.functions import get_object_or_None
-from .models import Course,Subject,Profile
+from .models import Course,Subject,Profile,CoursePlan
 import urllib2
 import json
 
@@ -20,20 +22,41 @@ class ProtectedView(View):
     def dispatch(self, *args, **kwargs):
         return super(ProtectedView, self).dispatch(*args, **kwargs)
 
-def get_context(context, profile):
+def getCourseInfo(subjectName, catalog_number):
+    subjectName = subjectName.upper()
+    catalog_number = catalog_number.upper()
+    course = get_object_or_None(
+        Course, 
+        subject__name=subjectName,
+        catalog_number=catalog_number
+        )
+    if not course:
+        return None
+
+    course.course_data.update(course.course_data_override)
+    course.course_data.update({"id":course.id})
+    return course.course_data
+
+def get_allSubject_context(context):
     context['allSubjects'] = json.dumps([{"name":s.name,"description":s.description,"courses":[{"catalog_number":c.catalog_number,"title":(c.course_data['title'] if 'title' in c.course_data else "")} for c in s.course_set.all().order_by("catalog_number")]} for s in Subject.objects.all()])
+    return context
+
+def get_context(context, coursePlan):
+    profile = coursePlan.user.profile
+    get_allSubject_context(context)
+    context['coursePlanId'] = coursePlan.id
     try:
         courseInfo={}
-        context['schedule'] = json.dumps(profile.schedule)
-        context['courseList'] = json.dumps(profile.courseList)
-        for course in profile.courseList:
+        context['schedule'] = json.dumps(coursePlan.schedule)
+        context['courseList'] = json.dumps(coursePlan.courseList)
+        for course in coursePlan.courseList:
             courseData = getCourseInfo(
                             course['subject'],
                             course['catalog_number']
                             )
             courseInfo[course['subject']+course['catalog_number']] = courseData
 
-        for term in profile.schedule:
+        for term in coursePlan.schedule:
             for course in term['courses']:
                 courseData = getCourseInfo(
                                 course['subject'],
@@ -52,19 +75,30 @@ def get_context(context, profile):
         context['startTerm'] = 0
     return context
 
-
-class IndexView(ProtectedView, TemplateView):
+class IndexView(TemplateView):
     template_name = 'index.html'
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
-        get_context(context,self.request.user.profile)
+        context['sharedCoursePlan'] = CoursePlan.objects.get_random_subset(20)
+        context['form'] = AuthenticationForm()
+        get_allSubject_context(context)
+        return context
+
+class EditView(ProtectedView, DetailView):
+    template_name = 'edit.html'
+    model = CoursePlan
+    slug_field = 'pk'
+
+    def get_context_data(self, **kwargs):
+        context = super(EditView, self).get_context_data(**kwargs)
+        get_context(context, self.object)
         return context
 
 class ShareView(DetailView):
     template_name = 'share.html'
-    model = Profile
-    slug_field = 'user__pk'
+    model = CoursePlan
+    slug_field = 'pk'
 
     def get_context_data(self, **kwargs):
         context = super(ShareView, self).get_context_data(**kwargs)
@@ -80,43 +114,22 @@ class ShareView(DetailView):
 
 @ajax_request
 @login_required
-def Save(request):
+def Save(request, coursePlanId):
     if not request.POST:
         return {'success': False}
-    for requiredField in ['schedule','autosave','courseList','startYear','startTerm']:
+    coursePlan = get_object_or_404(CoursePlan, id=coursePlanId)
+    if request.user != coursePlan.user:
+        return {'success': False}
+    for requiredField in ['schedule','courseList']:
         if requiredField not in request.POST:
             return {'success': False, 'error':"missing required fields"}
 
     schedule = request.POST['schedule']
-    autosave = request.POST['autosave']
     courseList = request.POST['courseList']
-    startYear = request.POST['startYear']
-    startTerm = request.POST['startTerm']
-    request.user.profile.schedule=schedule
-    request.user.profile.autosave=autosave=="true"
-    request.user.profile.courseList=courseList
-    request.user.profile.startYear=startYear
-    request.user.profile.startTerm=startTerm
-    request.user.profile.save()
+    coursePlan.schedule=schedule
+    coursePlan.courseList=courseList
+    coursePlan.save()
     return {'success':True}
-
-
-
-
-def getCourseInfo(subjectName, catalog_number):
-    subjectName = subjectName.upper()
-    catalog_number = catalog_number.upper()
-    course = get_object_or_None(
-        Course, 
-        subject__name=subjectName,
-        catalog_number=catalog_number
-        )
-    if not course:
-        return None
-
-    course.course_data.update(course.course_data_override)
-    course.course_data.update({"id":course.id})
-    return course.course_data
 
 @ajax_request
 def CourseInfo(request, subjectName, catalog_number):

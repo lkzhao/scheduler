@@ -8,6 +8,12 @@ class Migration(DataMigration):
 
     def forwards(self, orm):
         "Write your forwards methods here."
+        # Note: Don't use "from appname.models import ModelName". 
+        # Use orm.ModelName to refer to models in this application,
+        # and orm['appname.ModelName'] for models in other applications.
+        for p in orm.Profile.objects.all():
+            o = orm.CoursePlan(user=p.user, schedule=p.schedule, courseList=p.courseList)
+            o.save()
 
     def backwards(self, orm):
         "Write your backwards methods here."
@@ -17,15 +23,26 @@ class Migration(DataMigration):
             'Meta': {'unique_together': "(('subject', 'catalog_number'),)", 'object_name': 'Course'},
             'catalog_number': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
             'course_data': ('annoying.fields.JSONField', [], {'default': '{}', 'null': 'True', 'blank': 'True'}),
+            'course_data_override': ('annoying.fields.JSONField', [], {'default': '{}', 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'lastUpdate': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'subject': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['app.Subject']"})
+        },
+        u'app.courseplan': {
+            'Meta': {'object_name': 'CoursePlan'},
+            'courseList': ('annoying.fields.JSONField', [], {'default': '[]', 'null': 'True', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'schedule': ('annoying.fields.JSONField', [], {'default': '[]', 'null': 'True', 'blank': 'True'}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['django_facebook.FacebookCustomUser']"})
         },
         u'app.profile': {
             'Meta': {'object_name': 'Profile'},
             'autosave': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'courseList': ('annoying.fields.JSONField', [], {'default': '[]', 'null': 'True', 'blank': 'True'}),
             'schedule': ('annoying.fields.JSONField', [], {'default': '[]', 'null': 'True', 'blank': 'True'}),
+            'share': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'startTerm': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'startYear': ('django.db.models.fields.IntegerField', [], {'default': '2012'}),
             'user': ('annoying.fields.AutoOneToOneField', [], {'to': u"orm['django_facebook.FacebookCustomUser']", 'unique': 'True', 'primary_key': 'True'})
         },
         u'app.subject': {

@@ -6343,3 +6343,423 @@ a {
   color: #545F69;
   border-radius: 3px;
 }
+.settingsbar {
+  background: #e1e5e9;
+  margin: 0 -15px 20px;
+  padding: 20px;
+  color: #545F69;
+}
+.settingsbar .container {
+  padding: 0 30px;
+}
+.settingsbar .credit {
+  font-size: 24px;
+  line-height: 12px;
+}
+.settingsbar .modal {
+  color: #333;
+}
+.profile-pic {
+  height: 18px;
+}
+.paper-btn-group {
+  margin: 25px -20px -20px;
+  display: table;
+  table-layout: fixed;
+}
+.paper-btn-group > .btn {
+  border-radius: 0;
+  float: none;
+  display: table-cell;
+  width: 1%;
+  border-width: 1px 0 0;
+}
+.paper-btn-group > .btn:first-child {
+  border-bottom-left-radius: 5px;
+}
+.paper-btn-group > .btn:last-child {
+  border-bottom-right-radius: 5px;
+}
+.paper-btn-group .btn-default,
+.paper-btn-group .btn-danger-inverse,
+.paper-btn-group .btn-primary-inverse {
+  color: #333333;
+  background-color: #f2f2f2;
+  border-color: #cccccc;
+}
+.paper-btn-group .btn-default:hover,
+.paper-btn-group .btn-danger-inverse:hover,
+.paper-btn-group .btn-primary-inverse:hover,
+.paper-btn-group .btn-default:focus,
+.paper-btn-group .btn-danger-inverse:focus,
+.paper-btn-group .btn-primary-inverse:focus,
+.paper-btn-group .btn-default:active,
+.paper-btn-group .btn-danger-inverse:active,
+.paper-btn-group .btn-primary-inverse:active,
+.paper-btn-group .btn-default.active,
+.paper-btn-group .btn-danger-inverse.active,
+.paper-btn-group .btn-primary-inverse.active,
+.open > .dropdown-toggle.paper-btn-group .btn-default,
+.open > .dropdown-toggle.paper-btn-group .btn-danger-inverse,
+.open > .dropdown-toggle.paper-btn-group .btn-primary-inverse {
+  color: #333333;
+  background-color: #d9d9d9;
+  border-color: #adadad;
+}
+.paper-btn-group .btn-default:active,
+.paper-btn-group .btn-danger-inverse:active,
+.paper-btn-group .btn-primary-inverse:active,
+.paper-btn-group .btn-default.active,
+.paper-btn-group .btn-danger-inverse.active,
+.paper-btn-group .btn-primary-inverse.active,
+.open > .dropdown-toggle.paper-btn-group .btn-default,
+.open > .dropdown-toggle.paper-btn-group .btn-danger-inverse,
+.open > .dropdown-toggle.paper-btn-group .btn-primary-inverse {
+  background-image: none;
+}
+.paper-btn-group .btn-default.disabled,
+.paper-btn-group .btn-danger-inverse.disabled,
+.paper-btn-group .btn-primary-inverse.disabled,
+.paper-btn-group .btn-default[disabled],
+.paper-btn-group .btn-danger-inverse[disabled],
+.paper-btn-group .btn-primary-inverse[disabled],
+fieldset[disabled] .paper-btn-group .btn-default,
+fieldset[disabled] .paper-btn-group .btn-danger-inverse,
+fieldset[disabled] .paper-btn-group .btn-primary-inverse,
+.paper-btn-group .btn-default.disabled:hover,
+.paper-btn-group .btn-danger-inverse.disabled:hover,
+.paper-btn-group .btn-primary-inverse.disabled:hover,
+.paper-btn-group .btn-default[disabled]:hover,
+.paper-btn-group .btn-danger-inverse[disabled]:hover,
+.paper-btn-group .btn-primary-inverse[disabled]:hover,
+fieldset[disabled] .paper-btn-group .btn-default:hover,
+fieldset[disabled] .paper-btn-group .btn-danger-inverse:hover,
+fieldset[disabled] .paper-btn-group .btn-primary-inverse:hover,
+.paper-btn-group .btn-default.disabled:focus,
+.paper-btn-group .btn-danger-inverse.disabled:focus,
+.paper-btn-group .btn-primary-inverse.disabled:focus,
+.paper-btn-group .btn-default[disabled]:focus,
+.paper-btn-group .btn-danger-inverse[disabled]:focus,
+.paper-btn-group .btn-primary-inverse[disabled]:focus,
+fieldset[disabled] .paper-btn-group .btn-default:focus,
+fieldset[disabled] .paper-btn-group .btn-danger-inverse:focus,
+fieldset[disabled] .paper-btn-group .btn-primary-inverse:focus,
+.paper-btn-group .btn-default.disabled:active,
+.paper-btn-group .btn-danger-inverse.disabled:active,
+.paper-btn-group .btn-primary-inverse.disabled:active,
+.paper-btn-group .btn-default[disabled]:active,
+.paper-btn-group .btn-danger-inverse[disabled]:active,
+.paper-btn-group .btn-primary-inverse[disabled]:active,
+fieldset[disabled] .paper-btn-group .btn-default:active,
+fieldset[disabled] .paper-btn-group .btn-danger-inverse:active,
+fieldset[disabled] .paper-btn-group .btn-primary-inverse:active,
+.paper-btn-group .btn-default.disabled.active,
+.paper-btn-group .btn-danger-inverse.disabled.active,
+.paper-btn-group .btn-primary-inverse.disabled.active,
+.paper-btn-group .btn-default[disabled].active,
+.paper-btn-group .btn-danger-inverse[disabled].active,
+.paper-btn-group .btn-primary-inverse[disabled].active,
+fieldset[disabled] .paper-btn-group .btn-default.active,
+fieldset[disabled] .paper-btn-group .btn-danger-inverse.active,
+fieldset[disabled] .paper-btn-group .btn-primary-inverse.active {
+  background-color: #f2f2f2;
+  border-color: #cccccc;
+}
+.paper-btn-group .btn-default .badge,
+.paper-btn-group .btn-danger-inverse .badge,
+.paper-btn-group .btn-primary-inverse .badge {
+  color: #f2f2f2;
+  background-color: #333333;
+}
+.paper-btn-group .btn-danger-inverse {
+  color: #d9534f;
+}
+.paper-btn-group .btn-primary-inverse {
+  color: #428bca;
+}
+.modal .modal-header {
+  border: none;
+}
+.modal .paper-seperator {
+  margin: 15px -15px;
+}
+.modal .paper-fold {
+  margin: 15px -15px;
+  padding: 15px;
+}
+.modal .paper-btn-group {
+  margin: 5px 0 0 ;
+}
+.terms {
+  padding: 0;
+  margin: 0;
+}
+.terms:before {
+  content: '';
+  position: absolute;
+  background: #d5d8da;
+  width: 4px;
+  left: 18%;
+  margin-left: -2px;
+  top: 0;
+  border-radius: 2px;
+  bottom: 0;
+}
+.term {
+  position: relative;
+  border-radius: 7px;
+  padding: 20px;
+  transition: border .3s;
+  color: #7f8c97;
+}
+.term .skipTermBtn,
+.term .insertTermBtn,
+.term .removeTermBtn {
+  opacity: 0;
+  pointer-events: none;
+}
+.term .term-title {
+  position: absolute;
+  transition: top .4s;
+  top: 35px;
+  right: 85%;
+  margin-top: -10px;
+  line-height: 20px;
+  font-size: 20px;
+}
+.term .courses {
+  background: #ffffff;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 7px;
+  width: 79%;
+  float: right;
+  position: relative;
+}
+.term .courses:before {
+  content: " ";
+  position: absolute;
+  top: 15px;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  left: -10px;
+  border-left-width: 0;
+  border-right-color: #ffffff;
+}
+.term .term-menu,
+.term .term-menu .btn {
+  position: absolute;
+  left: 18%;
+  top: 45px;
+  height: 30px;
+  width: 30px;
+  border: 4px solid white;
+  background: #d5d8da;
+  margin-left: -15px;
+  margin-top: -15px;
+  border-radius: 30px;
+  box-shadow: 0 0 4px #d5d8da;
+}
+.term .term-menu .btn {
+  transition: opacity .4s, left .4s;
+  opacity: 0;
+  top: -4px;
+  left: -4px;
+  margin-left: 0;
+  margin-top: 0;
+  outline: none;
+}
+.term .term-menu .btn i {
+  color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 24px;
+  text-align: center;
+  line-height: 24px;
+}
+.term.skiped {
+  color: #aaa;
+}
+.term.skiped .courses {
+  height: 40px;
+  padding: 15px;
+  font-size: 16px;
+  background: none;
+  box-shadow: none;
+}
+.term.skiped .courses:before {
+  border: none;
+}
+.term:hover .skipTermBtn,
+.term:hover .removeTermBtn,
+.term:hover .insertTermBtn {
+  opacity: 1;
+  pointer-events: all;
+}
+.term:hover .term-title {
+  top: 0;
+}
+.term:hover .term-menu .btn {
+  opacity: 1;
+}
+.term:hover .term-menu .removeTermBtn {
+  background: #e74c3c;
+  left: -50px;
+}
+.term:hover .term-menu .insertTermBtn {
+  background: #2ecc71;
+  left: -90px;
+}
+.term:hover .term-menu .skipTermBtn {
+  background: #34495e;
+  left: -130px;
+}
+.backgroundText {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 22px;
+  line-height: 50px;
+  color: #ddd;
+}
+.course {
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+  position: relative;
+  min-width: 150px;
+  margin-bottom: 20px;
+  width: 23%;
+  margin: 1%;
+}
+.course .panel {
+  margin: 0;
+}
+.course .panel-body {
+  padding: 10px;
+  font-size: 20px;
+}
+.course .panel-footer {
+  min-height: 20px;
+  padding: 3px 10px;
+}
+.course .panel-danger > .panel-footer {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+.course:before {
+  content: "";
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  border: 1px solid #555559;
+  box-shadow: inset 0 4px 15px rgba(0, 0, 0, 0.35), 0 1px 0 #ffffff;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 4px;
+  transition: opacity .3s;
+}
+.draging .course:before {
+  opacity: 1;
+}
+.moveBlock {
+  height: 50px;
+  font-size: 20px;
+  line-height: 50px;
+}
+.bucket {
+  position: fixed;
+  background: white;
+  left: -170px;
+  top: 200px;
+  border-radius: 0 7px 7px 0;
+  padding: 10px;
+  z-index: 10;
+  width: 200px;
+  transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.bucket .course {
+  width: 100%;
+}
+.bucket:hover {
+  left: 0;
+}
+.draging .bucket {
+  left: 0;
+}
+.btn.btn-default:active,
+.btn.btn-default:focus {
+  outline: none;
+}
+.skipTermBtn,
+.removeTermBtn,
+.addTermBtn,
+.moveBlock,
+.insertTermBtn {
+  transition: opacity .3s;
+}
+.draging {
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+}
+.draging .term:hover {
+  border-color: transparent;
+}
+.draging .term:hover .skipTermBtn,
+.draging .term:hover .removeTermBtn,
+.draging .term:hover .insertTermBtn {
+  opacity: 0;
+  pointer-events: none;
+}
+.draging .skipTermBtn,
+.draging .removeTermBtn,
+.draging .addTermBtn {
+  opacity: 0 !important;
+}
+.userInfo {
+  background: #222222;
+  padding: 0;
+}
+.userInfo .name {
+  font-size: 30px;
+}
+.userInfo a {
+  padding: 10px 20px;
+  display: block;
+  color: white;
+  text-decoration: none;
+}
+.userInfo ul {
+  border-top: 1px solid #444;
+}
+.page-header {
+  margin: 10px 15px 0;
+  border: none;
+}
+.hide {
+  display: none;
+}
+.invisible {
+  opacity: 0;
+}
+.courseInputGroup {
+  margin-bottom: 10px;
+  height: 34px;
+}
+.courseInputGroup.hideBtn {
+  display: block;
+}
+.courseInputGroup.hideBtn input.form-control {
+  width: 100%;
+  border-radius: 4px !important;
+}
+.courseInputGroup.hideBtn .btn {
+  display: none;
+}

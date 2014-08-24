@@ -46,11 +46,7 @@ class Command(BaseCommand):
   def handle(self, *args, **options):
     self.write("Getting list of all subjects")
     subjects = self.getJSON("codes/subjects")
-    get = False
     for subjectData in subjects:
-      if subjectData['subject'].upper()=="REC":
-        get=True
-      if not get: continue
       subject, created = Subject.objects.get_or_create(
         name = subjectData['subject'].upper()
         )

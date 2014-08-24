@@ -60,34 +60,23 @@
 	"\/scheduler\/static\/coffee\/helper.coffee": {
 		"createSourceMap": 0,
 		"fileType": 32,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
+		"ignore": 0,
+		"ignoreWasSetByUser": 1,
 		"inputAbbreviatedPath": "\/scheduler\/static\/coffee\/helper.coffee",
 		"minifyOutput": 1,
 		"outputAbbreviatedPath": "\/scheduler\/static\/js\/helper.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 1,
-		"outputStyle": 0,
-		"syntaxCheckerStyle": 1
-		},
-	"\/scheduler\/static\/coffee\/helper.js": {
-		"fileType": 64,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/scheduler\/static\/coffee\/helper.js",
-		"outputAbbreviatedPath": "\/scheduler\/static\/coffee\/min\/helper-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
+		"syntaxCheckerStyle": 0
 		},
 	"\/scheduler\/static\/coffee\/share.coffee": {
-		"createSourceMap": 1,
+		"createSourceMap": 0,
 		"fileType": 32,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/scheduler\/static\/coffee\/share.coffee",
-		"minifyOutput": 0,
+		"minifyOutput": 1,
 		"outputAbbreviatedPath": "\/scheduler\/static\/js\/share.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 1,
@@ -144,6 +133,15 @@
 		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/scheduler\/static\/css\/course.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/scheduler\/static\/css\/edit.css": {
+		"fileType": 16,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/scheduler\/static\/css\/edit.css",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
@@ -249,6 +247,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/scheduler\/static\/js\/edit.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 1,
+		"inputAbbreviatedPath": "\/scheduler\/static\/js\/edit.js",
+		"outputAbbreviatedPath": "\/scheduler\/static\/js\/min\/edit-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
 	"\/scheduler\/static\/js\/forms.js": {
 		"fileType": 64,
 		"ignore": 1,
@@ -270,17 +279,6 @@
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
-		},
-	"\/scheduler\/static\/js\/index.js": {
-		"fileType": 64,
-		"ignore": 1,
-		"ignoreWasSetByUser": 1,
-		"inputAbbreviatedPath": "\/scheduler\/static\/js\/index.js",
-		"outputAbbreviatedPath": "\/scheduler\/static\/js\/min\/index-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 0
 		},
 	"\/scheduler\/static\/js\/lib\/bootstrap-switch.min.js": {
 		"fileType": 64,
@@ -392,18 +390,16 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
-	"\/scheduler\/static\/js\/share-ck-sourcemap-source.coffee": {
-		"createSourceMap": 0,
-		"fileType": 32,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/scheduler\/static\/js\/share-ck-sourcemap-source.coffee",
-		"minifyOutput": 1,
-		"outputAbbreviatedPath": "\/scheduler\/static\/js\/share-ck-sourcemap-source.js",
+	"\/scheduler\/static\/js\/searchInput.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 1,
+		"inputAbbreviatedPath": "\/scheduler\/static\/js\/searchInput.js",
+		"outputAbbreviatedPath": "\/scheduler\/static\/js\/min\/searchInput-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 0,
-		"syntaxCheckerStyle": 1
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 0
 		},
 	"\/scheduler\/static\/js\/share.js": {
 		"fileType": 64,
@@ -1856,6 +1852,26 @@
 		"strictMath": 0,
 		"strictUnits": 0
 		},
+	"\/scheduler\/static\/less\/edit.less": {
+		"allowInsecureImports": 0,
+		"createSourceMap": 0,
+		"disableJavascript": 0,
+		"fileType": 1,
+		"ieCompatibility": 1,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/scheduler\/static\/less\/edit.less",
+		"outputAbbreviatedPath": "\/scheduler\/static\/css\/edit.css",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"relativeURLS": 0,
+		"shouldRunAutoprefixer": 0,
+		"shouldRunBless": 0,
+		"strictImports": 0,
+		"strictMath": 0,
+		"strictUnits": 0
+		},
 	"\/scheduler\/static\/less\/index.less": {
 		"allowInsecureImports": 0,
 		"createSourceMap": 0,
@@ -1986,26 +2002,6 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/scheduler\/static\/less\/share.less",
 		"outputAbbreviatedPath": "\/scheduler\/static\/css\/share.css",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 0,
-		"relativeURLS": 0,
-		"shouldRunAutoprefixer": 0,
-		"shouldRunBless": 0,
-		"strictImports": 0,
-		"strictMath": 0,
-		"strictUnits": 0
-		},
-	"\/scheduler\/static\/less\/switch.less": {
-		"allowInsecureImports": 0,
-		"createSourceMap": 0,
-		"disableJavascript": 0,
-		"fileType": 1,
-		"ieCompatibility": 1,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/scheduler\/static\/less\/switch.less",
-		"outputAbbreviatedPath": "\/scheduler\/static\/css\/switch.css",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,

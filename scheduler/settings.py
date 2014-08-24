@@ -149,6 +149,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-
+LOGIN_REDIRECT_URL = "/"
 # django facebook settings
 FACEBOOK_LOGIN_DEFAULT_REDIRECT = "/"
+FACEBOOK_STORE_FRIENDS = True

@@ -1,31 +1,55 @@
 # -*- coding: utf-8 -*-
 from south.utils import datetime_utils as datetime
 from south.db import db
-from south.v2 import DataMigration
+from south.v2 import SchemaMigration
 from django.db import models
 
-class Migration(DataMigration):
+
+class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        "Write your forwards methods here."
+        # Deleting field 'Profile.courseList'
+        db.delete_column(u'app_profile', 'courseList')
+
+        # Deleting field 'Profile.schedule'
+        db.delete_column(u'app_profile', 'schedule')
+
 
     def backwards(self, orm):
-        "Write your backwards methods here."
+        # Adding field 'Profile.courseList'
+        db.add_column(u'app_profile', 'courseList',
+                      self.gf('annoying.fields.JSONField')(default=[], null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'Profile.schedule'
+        db.add_column(u'app_profile', 'schedule',
+                      self.gf('annoying.fields.JSONField')(default=[], null=True, blank=True),
+                      keep_default=False)
+
 
     models = {
         u'app.course': {
             'Meta': {'unique_together': "(('subject', 'catalog_number'),)", 'object_name': 'Course'},
             'catalog_number': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
             'course_data': ('annoying.fields.JSONField', [], {'default': '{}', 'null': 'True', 'blank': 'True'}),
+            'course_data_override': ('annoying.fields.JSONField', [], {'default': '{}', 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'lastUpdate': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'subject': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['app.Subject']"})
         },
+        u'app.courseplan': {
+            'Meta': {'object_name': 'CoursePlan'},
+            'courseList': ('annoying.fields.JSONField', [], {'default': '[]', 'null': 'True', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'schedule': ('annoying.fields.JSONField', [], {'default': '[]', 'null': 'True', 'blank': 'True'}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['django_facebook.FacebookCustomUser']"})
+        },
         u'app.profile': {
             'Meta': {'object_name': 'Profile'},
             'autosave': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'courseList': ('annoying.fields.JSONField', [], {'default': '[]', 'null': 'True', 'blank': 'True'}),
-            'schedule': ('annoying.fields.JSONField', [], {'default': '[]', 'null': 'True', 'blank': 'True'}),
+            'share': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'startTerm': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'startYear': ('django.db.models.fields.IntegerField', [], {'default': '2012'}),
             'user': ('annoying.fields.AutoOneToOneField', [], {'to': u"orm['django_facebook.FacebookCustomUser']", 'unique': 'True', 'primary_key': 'True'})
         },
         u'app.subject': {
@@ -87,4 +111,3 @@ class Migration(DataMigration):
     }
 
     complete_apps = ['app']
-    symmetrical = True

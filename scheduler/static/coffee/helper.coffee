@@ -22,7 +22,25 @@ strong = -> React.DOM.strong arguments...
 
 
 
-name = (obj) ->
+uwapi = 
+  courseInfo: window.data.courseInfo||{},
+  getCourse: (subject, catalog_number, callback)->
+    course = {}
+    that = this
+    $.getJSON("/course/"+subject+"/"+catalog_number, (course)->
+        if not course
+          callback(null)
+        console.log course
+        if course.prerequisites&&course.prerequisites.substr(0,7)=="Prereq:"
+          course.prerequisites=course.prerequisites.substr(8)
+        course.name=getCourseName(course)
+        that.courseInfo[course.name]=course
+        callback(course.name)
+    ).fail(-> callback(null))
+  getInfo: (course)->
+    @courseInfo[getCourseName(course)]
+
+getCourseName = (obj) -> 
   obj.subject + obj.catalog_number
 
 calculateTerm = (startYear, startTerm, i) ->
@@ -40,23 +58,7 @@ getTermNameArray = (terms_offered) ->
       when "W" then "Winter"
       else "Spring"
 
-uwapi = 
-  courseInfo: data.courseInfo||{},
-  getCourse: (subject, catalog_number, callback)->
-    course = {}
-    that = this
-    $.getJSON("/course/"+subject+"/"+catalog_number, (course)->
-        if not course
-          callback(null)
-        console.log course
-        if course.prerequisites&&course.prerequisites.substr(0,7)=="Prereq:"
-          course.prerequisites=course.prerequisites.substr(8)
-        course.name=name(course)
-        that.courseInfo[course.name]=course
-        callback(course.name)
-    ).fail(-> callback(null))
-  getInfo: (course)->
-    @courseInfo[name(course)]
+
 
 Preview = React.createClass
   getInitialState: ->

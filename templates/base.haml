@@ -9,10 +9,10 @@
     %script{:src => "{{STATIC_URL}}js/lib/moment.min.js"}
     %script{:src => "{{STATIC_URL}}js/lib/react/react-with-addons.js"}
     %script{:src => "{{STATIC_URL}}js/lib/react/JSXTransformer.js"}
-    - block js
   %body
     - block body
       %nav
         .brand
           UW Course Scheduler
       - block main
+    - block js

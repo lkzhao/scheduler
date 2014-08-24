@@ -13,7 +13,7 @@ SimpleTermView = React.createClass
         courseInfo = uwapi.getInfo(course)
         div({
           className: "course"
-          onMouseEnter: @showPreview.bind @, courseInfo
+          onMouseEnter: @showPreview.bind @, course
           onMouseLeave: @hidePreview
           }, name(courseInfo))
       div({className:"panel panel-default"}, 

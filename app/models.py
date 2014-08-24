@@ -4,20 +4,45 @@ from django.conf import settings
 from annoying.fields import (AutoOneToOneField, JSONField)
 
 class Profile(models.Model):
+  """
+  stores User settings
+  """
   user = AutoOneToOneField(settings.AUTH_USER_MODEL, primary_key=True)
   
+  autosave = models.BooleanField(default=True)
+
+  startYear = models.IntegerField(default=2012)
+  startTerm = models.IntegerField(default=0)
+
+
+
+class CoursePlanManager(models.Manager):
+  def get_random_subset(self, count):
+    queryset = super(CoursePlanManager, self).get_queryset()
+    total_count = queryset.count()
+    no_of_subsets= count*32768/total_count
+    return queryset.filter( subset__lte=no_of_subsets )
+
+class CoursePlan(models.Model):
+  user = models.ForeignKey(settings.AUTH_USER_MODEL)
+
   # user's term schedule in a json array
   # sample:
   #   [{courses:[]skiped:true}, {courses:[{subject:"CS",catalog_number:"115"}]skiped:false}]
   schedule = JSONField(default=[], null=True, blank=True)
 
-  # user's selected course that are not added to schedule
+  # user's shortList
   courseList = JSONField(default=[], null=True, blank=True)
-  autosave = models.BooleanField(default=True)
   share = models.BooleanField(default=False)
+  objects = CoursePlanManager()
 
-  startYear = models.IntegerField(default=2012)
-  startTerm = models.IntegerField(default=0)
+  subset = models.IntegerField(default=0)
+
+  def save(self, commit=True):
+    self.subset = self.id % 32768
+    return super(Person, self).save(commit)
+
+
 
 
 class Subject(models.Model):

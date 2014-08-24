@@ -1,10 +1,11 @@
 - extends "base.haml"
 - block css
-  %link{:href => "{{STATIC_URL}}css/switchery.min.css", :type => "text/css", :rel => "stylesheet"}
   %link{:href => "{{STATIC_URL}}css/index.css", :type => "text/css", :rel => "stylesheet"}
+  %link{:href => "{{ STATIC_URL }}django_facebook/css/facebook.css", :type => "text/css", :rel => "stylesheet"}
 - block js
-  %script{:src => "{{STATIC_URL}}js/lib/switchery.min.js", :type => "text/jsx"}
-  %script{:src => "{{STATIC_URL}}js/index.js", :type => "text/jsx"}
+  %script{:src => "{{STATIC_URL}}js/helper.js", :type => "text/javascript"}
+  %script{:src => "{{STATIC_URL}}js/searchInput.js", :type => "text/jsx"}
+  - include 'django_facebook/_facebook_js.html'
 
 
 - block body
@@ -18,38 +19,68 @@
       #navbar-collapse.collapse.navbar-collapse
           #searchBtnWrapper
           %ul.nav.navbar-nav.navbar-right
-            %li.dropdown
-              %a{:data-toggle => "dropdown", :href => "#"}
-                %img.profile-pic{:src => "{%if user.image%}{{user.image.url}}{%else%}static/images/no-profile.jpg{%endif%}"}
-                -if user.first_name
-                  = user.first_name
-                  = user.last_name
-                -else
-                  = user.username
-                %b.caret
-              %ul.dropdown-menu
-                - if user.is_superuser
+            - if user.pk
+              %li.dropdown
+                %a{:data-toggle => "dropdown", :href => "#"}
+                  %img.profile-pic{:src => "{%if user.image%}{{user.image.url}}{%else%}static/images/no-profile.jpg{%endif%}"}
+                  -if user.first_name
+                    = user.first_name
+                    = user.last_name
+                  -else
+                    = user.username
+                  %b.caret
+                %ul.dropdown-menu
+                  - if user.is_superuser
+                    %li
+                      %a#admin-btn{:href => "/admin"}
+                        Admin
+                    %li.divider
                   %li
-                    %a#admin-btn{:href => "/admin"}
-                      Admin
-                  %li.divider
-                %li
-                  %a{:href => "/accounts/logout"}
-                    Logout
+                    %a{:href => "/accounts/logout"}
+                      Logout
   - if errors
     - for error in errors
       .alert.alert-danger
         = error
   #main
+    .container
+      -if user.pk
+        %h3.page-header
+          Your course plans
+        - for courseplan in user.courseplan_set.all
+          %a{:href => "{% url 'edit' courseplan.id %}"}
+            CoursePlan
+      -else
+          = form.non_field_errors
+          %form{:action => "{% url 'auth_login' %}", :method => "post"}
+            - csrf_token
+            = form.username.label_tag
+            = form.username
+            = form.password.label_tag
+            = form.password
+            %input{:type => "submit", :value => "login"}
+            %input{:type => "hidden", :value => "{{ next }}", :name => "next"}
+          %form{:action => "{% url 'facebook_connect' %}?facebook_login=1", :method => "post"}
+              %input{:type => "hidden", :value => "{{ request.path }}", :name => "next"}
+              %input{:type => "hidden", :value => "{{ request.path }}", :name => "register_next"}
+              %input{:type => "hidden", :value => "{{ request.path }}", :name => "error_next"}
+              - csrf_token
+              %button{:onclick => "F.connect(this.parentNode); return false;", :type => "button"}
+                Login with Facebook
+      %h3.page-header
+        See your collegue's plan
+      - for courseplan in sharedCoursePlan
+        %a{:href => "{% url 'edit' courseplan.id %}"}
+          CoursePlan - 
+          -if courseplan.user.first_name
+            = courseplan.user.first_name
+            = courseplan.user.last_name
+          -else
+            = courseplan.user.username
+
+
   :javascript
-    data={
-      csrf_token: "{{csrf_token}}",
-      courseInfo: {{courseInfo|safe}},
-      schedule: {{schedule|safe}},
-      courseList: {{courseList|safe}},
-      startYear: {{startYear|safe}},
-      startTerm: {{startTerm|safe}},
-      autoSave: {{user.profile.autosave|lower}},
+    window.data={
+      courseInfo: {},
     }
-    window.data=data
-    allSubjects={{allSubjects|safe}}
+    window.allSubjects={{allSubjects|safe}}
