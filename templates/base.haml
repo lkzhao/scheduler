@@ -20,6 +20,7 @@
         #navbar-collapse.collapse.navbar-collapse
             #searchBtnWrapper
             %ul.nav.navbar-nav.navbar-right
+              -block navbar-right
               - if user.pk
                 %li.dropdown
                   %a{:data-toggle => "dropdown", :href => "#"}
@@ -49,9 +50,10 @@
           UW Course Scheduler
       - block main
 
-    :javascript
-      window.data={
-        courseInfo: {},
-      }
-      window.allSubjects={{allSubjects|safe}}
     - block js
+      :javascript
+        window.data={
+          courseInfo: {},
+        }
+        window.allSubjects={{allSubjects|safe}}
+      %script{:src => "{{STATIC_URL}}js/basic.js", :type => "text/javascript"}

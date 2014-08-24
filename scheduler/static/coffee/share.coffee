@@ -1,5 +1,3 @@
-# @codekit-prepend "helper.coffee";
-
 
 SimpleTermView = React.createClass
   showPreview: (course)->

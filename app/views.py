@@ -37,13 +37,10 @@ def getCourseInfo(subjectName, catalog_number):
     course.course_data.update({"id":course.id})
     return course.course_data
 
-def get_allSubject_context(context):
-    context['allSubjects'] = json.dumps([{"name":s.name,"description":s.description,"courses":[{"catalog_number":c.catalog_number,"title":(c.course_data['title'] if 'title' in c.course_data else "")} for c in s.course_set.all().order_by("catalog_number")]} for s in Subject.objects.all()])
-    return context
+
 
 def get_context(context, coursePlan):
     profile = coursePlan.user.profile
-    get_allSubject_context(context)
     context['coursePlanId'] = coursePlan.id
     try:
         courseInfo={}
@@ -75,17 +72,26 @@ def get_context(context, coursePlan):
         context['startTerm'] = 0
     return context
 
-class IndexView(TemplateView):
+
+class SearchCourseMixin(object):
+    def get_allSubject(context):
+        return json.dumps([{"name":s.name,"description":s.description,"courses":[{"catalog_number":c.catalog_number,"title":(c.course_data['title'] if 'title' in c.course_data else "")} for c in s.course_set.all().order_by("catalog_number")]} for s in Subject.objects.all()])
+
+    def get_context_data(self, **kwargs):
+        context = super(SearchCourseMixin, self).get_context_data(**kwargs)
+        context['allSubjects'] = self.get_allSubject()
+        return context
+
+class IndexView(SearchCourseMixin, TemplateView):
     template_name = 'index.html'
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
         context['sharedCoursePlan'] = CoursePlan.objects.get_random_subset(20)
         context['form'] = AuthenticationForm()
-        get_allSubject_context(context)
         return context
 
-class EditView(ProtectedView, DetailView):
+class EditView(SearchCourseMixin, ProtectedView, DetailView):
     template_name = 'edit.html'
     model = CoursePlan
     slug_field = 'pk'
@@ -95,7 +101,7 @@ class EditView(ProtectedView, DetailView):
         get_context(context, self.object)
         return context
 
-class ShareView(DetailView):
+class ShareView(SearchCourseMixin, DetailView):
     template_name = 'share.html'
     model = CoursePlan
     slug_field = 'pk'
