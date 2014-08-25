@@ -88,11 +88,11 @@ class IndexView(SearchCourseMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
-        context['sharedCoursePlan'] = CoursePlan.objects.get_random_subset(20).filter(share=True).exclude(user=self.request.user)
+        context['sharedCoursePlan'] = CoursePlan.objects.get_random_subset(20).filter(share=True)
+        if self.request.user.pk:
+            context['sharedCoursePlan']=context['sharedCoursePlan'].exclude(user=self.request.user)
         context['form'] = AuthenticationForm()
         return context
-
-
 
 class EditView(SearchCourseMixin, ProtectedView, DetailView):
     template_name = 'edit.html'

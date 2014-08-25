@@ -6,12 +6,13 @@
 
 - block body
   #modalContainer
-  #main
-    .container
-      -if user.pk
+
+  -if user.pk
+    #main
+      .container
         %h3.page-header
           Your course schedules
-          %a.btn.btn-default{:onclick => "$(\"#modalContainer\").load(\"{% url 'create' %}\")"}
+          %a.btn.btn-default.pull-right{:onclick => "$(\"#modalContainer\").load(\"{% url 'create' %}\")"}
             Create New
         %table.table
           %thead
@@ -19,6 +20,7 @@
               %th Name
               %th Created
               %th Last Modified
+              %th Course Count
               %th
           %tbody
             - for courseplan in user.courseplan_set.all
@@ -31,33 +33,13 @@
                 %td
                     = courseplan.last_modified
                 %td
+                  .progress
+                    .progress-bar.progress-bar-info.progress-bar-striped.active{:style => "width: {%widthratio courseplan.schedule|length 1 5%}%; color:#555"}
+                      %strong 
+                        &nbsp;{{courseplan.schedule|length}}&nbsp;/&nbsp;20
+
+                %td
                   %a.btn.btn-danger.btn-sm.pull-right{:onclick => "$(\"#modalContainer\").load(\"{% url 'delete' courseplan.id %}\")"}
                     %i.fa.fa-trash-o.fa-fw
-
-      -else
-          = form.non_field_errors
-          %form{:action => "{% url 'auth_login' %}", :method => "post"}
-            - csrf_token
-            = form.username.label_tag
-            = form.username
-            = form.password.label_tag
-            = form.password
-            %input{:type => "submit", :value => "login"}
-            %input{:type => "hidden", :value => "{{ next }}", :name => "next"}
-          %form{:action => "{% url 'facebook_connect' %}?facebook_login=1", :method => "post"}
-              %input{:type => "hidden", :value => "{{ request.path }}", :name => "next"}
-              %input{:type => "hidden", :value => "{{ request.path }}", :name => "register_next"}
-              %input{:type => "hidden", :value => "{{ request.path }}", :name => "error_next"}
-              - csrf_token
-              %button{:onclick => "F.connect(this.parentNode); return false;", :type => "button"}
-                Login with Facebook
-      %h3.page-header
-        See your collegues' schedules
-      - for courseplan in sharedCoursePlan
-        %a{:href => "{% url 'view' courseplan.id %}"}
-          CoursePlan - 
-          -if courseplan.user.first_name
-            = courseplan.user.first_name
-            = courseplan.user.last_name
-          -else
-            = courseplan.user.username
+  -else
+    - include "home.html"

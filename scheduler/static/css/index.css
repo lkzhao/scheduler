@@ -6534,3 +6534,47 @@ fieldset[disabled] .paper-btn-group .btn-primary-inverse.active {
 .modal .paper-btn-group {
   margin: 5px 0 0 ;
 }
+header.home {
+  background: linear-gradient(to bottom, #372c3f, #2c1925);
+  height: 85%;
+  margin: 0 -15px;
+  padding: 30px 20px;
+  color: white;
+}
+.schedule-suggest {
+  padding: 3vh 0 2vh;
+  margin-bottom: -15px;
+}
+.schedule-suggest .container {
+  position: relative;
+}
+.schedule-suggest .schedule-header {
+  position: absolute;
+  top: -55px;
+  font-size: 24px;
+  color: white;
+}
+.schedule-suggest .schedule-showmore {
+  position: absolute;
+  top: -2.5vh;
+  right: 0;
+  font-weight: 600;
+  color: #333;
+}
+.schedule-suggest .schedule {
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  padding: 1.5vh;
+  height: 10vh;
+}
+.schedule-suggest .schedule .schedule-icon {
+  font-size: 7vh;
+  color: #A599AD;
+  float: left;
+  margin-right: 20px;
+}
+.schedule-suggest .schedule .schedule-title {
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+}

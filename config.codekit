@@ -34827,6 +34827,15 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/scheduler\/static\/css\/home.css": {
+		"fileType": 16,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/scheduler\/static\/css\/home.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/scheduler\/static\/css\/index.css": {
 		"fileType": 16,
 		"ignore": 1,
@@ -34889,6 +34898,17 @@
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
+		},
+	"\/scheduler\/static\/images\/bg.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 40012,
+		"inputAbbreviatedPath": "\/scheduler\/static\/images\/bg.jpg",
+		"outputAbbreviatedPath": "\/scheduler\/static\/images\/bg.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
 		},
 	"\/scheduler\/static\/images\/no-profile.jpg": {
 		"fileType": 16384,
@@ -36351,6 +36371,26 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/scheduler\/static\/less\/edit.less",
 		"outputAbbreviatedPath": "\/scheduler\/static\/css\/edit.css",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"relativeURLS": 0,
+		"shouldRunAutoprefixer": 0,
+		"shouldRunBless": 0,
+		"strictImports": 0,
+		"strictMath": 0,
+		"strictUnits": 0
+		},
+	"\/scheduler\/static\/less\/home.less": {
+		"allowInsecureImports": 0,
+		"createSourceMap": 0,
+		"disableJavascript": 0,
+		"fileType": 1,
+		"ieCompatibility": 1,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/scheduler\/static\/less\/home.less",
+		"outputAbbreviatedPath": "\/scheduler\/static\/css\/home.css",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,
