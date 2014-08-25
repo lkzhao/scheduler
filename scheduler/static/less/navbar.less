@@ -53,7 +53,7 @@
   transform-origin:50% 0%;
   transition:transform .5s @animationTiming;
   -webkit-transform-origin:50% 0%;
-  -webkit-transition:-webkit-transform .5s @animationTiming;
+  -webkit-transition:-webkit-transform .5s @animationTiming, border .5s @animationTiming;
   h3{
     margin: 0 0 10px;
     a{
@@ -63,7 +63,6 @@
   p,div:not(.container){
     transition:opacity .5s;
   }
-  transition:border .5s;
   &.hideUp{
     -webkit-transform:rotateX(90deg);
     transform:rotateX(90deg);

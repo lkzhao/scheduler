@@ -6316,8 +6316,7 @@ a {
   transform-origin: 50% 0%;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-transform-origin: 50% 0%;
-  -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  transition: border .5s;
+  -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), border 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .searchResult h3 {
   margin: 0 0 10px;
