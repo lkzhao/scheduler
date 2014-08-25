@@ -56,7 +56,14 @@
   -webkit-transition:-webkit-transform .5s @animationTiming;
   h3{
     margin: 0 0 10px;
+    a{
+      transition:color .5s;
+    }
   }
+  p,div:not(.container){
+    transition:opacity .5s;
+  }
+  transition:border .5s;
   &.hideUp{
     -webkit-transform:rotateX(90deg);
     transform:rotateX(90deg);
@@ -67,6 +74,15 @@
   .container{
     max-height: 280px;
     overflow: auto;
+  }
+  &.animate-course{
+    border:1px solid #ccc;
+    h3 a{
+      color:#333;
+    }
+    p,div:not(.container){
+      opacity: 0;
+    }
   }
 }
 

@@ -6317,9 +6317,17 @@ a {
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-transform-origin: 50% 0%;
   -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: border .5s;
 }
 .searchResult h3 {
   margin: 0 0 10px;
+}
+.searchResult h3 a {
+  transition: color .5s;
+}
+.searchResult p,
+.searchResult div:not(.container) {
+  transition: opacity .5s;
 }
 .searchResult.hideUp {
   -webkit-transform: rotateX(90deg);
@@ -6331,6 +6339,16 @@ a {
 .searchResult .container {
   max-height: 280px;
   overflow: auto;
+}
+.searchResult.animate-course {
+  border: 1px solid #ccc;
+}
+.searchResult.animate-course h3 a {
+  color: #333;
+}
+.searchResult.animate-course p,
+.searchResult.animate-course div:not(.container) {
+  opacity: 0;
 }
 .suggestion {
   padding: 4px 10px;

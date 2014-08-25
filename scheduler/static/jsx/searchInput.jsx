@@ -91,6 +91,22 @@ AddCourseModal=React.createClass({
         alert("Course already added")
       }else{
         data.courseList.push(course)
+        animateElem = $(".searchResult").clone().addClass("animate-course")
+        animateElem.removeAttr("data-reactid").find("[data-reactid]").removeAttr("data-reactid")
+        $("body").append(animateElem)
+        animateElem.css({
+          top:$(".searchResult").offset().top,
+          left:$(".searchResult").offset().left,
+          width:$(".searchResult").outerWidth(),
+          height:$(".searchResult").outerHeight()
+        }).animate({
+          top:$(".bucket .moveBlock").offset().top,
+          left:$(".bucket .moveBlock").offset().left,
+          width:$(".bucket .moveBlock").outerWidth(),
+          height:$(".bucket .moveBlock").outerHeight()
+        }, 500, function(){
+          animateElem.remove()
+        })
         $(document).trigger("dataUpdated")
         $("#searchInput").focus()
       }

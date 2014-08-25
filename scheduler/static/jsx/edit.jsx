@@ -299,7 +299,7 @@ MainView=React.createClass({
     return(
       <div className={that.state.dragingCourse!=""?"draging":""}>
         <div className="bucket">
-          <h3>Bucket</h3>
+          <strong>Course Short List</strong>
           {listEl}
         </div>
         <div className="settingsbar">

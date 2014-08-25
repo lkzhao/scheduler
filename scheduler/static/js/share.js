@@ -1,1 +1,72 @@
-(function(){var e,a,r;a=function(){var e;return(e=React.DOM).div.apply(e,arguments)},r=function(){var e;return(e=React.DOM).h3.apply(e,arguments)},e=React.createClass({showPreview:function(e){return window.showCoursePreview(e)},hidePreview:function(){return window.hidePreview()},render:function(){var e;return e=data.schedule.map(function(e){return function(r,s){var t,n;return n=calculateTerm(data.startYear,data.startTerm,s),t=r.courses.map(function(r,s){var t;return t=uwapi.getInfo(r),a({className:"course",onMouseEnter:e.showPreview.bind(e,r),onMouseLeave:e.hidePreview},getCourseName(t))}),0===r.courses.length&&(t=a(null,a({className:"course moveBlock invisible"}),a({className:"backgroundText"},"No course for this term."))),a({className:"term"},a({className:"term-title"},n),a({className:"term-menu"}),a({className:"courses"},t),a({className:"clearfix"}))}}(this)),a({className:"container"},r({className:"page-header"},""+data.user.name+"'s Course Schedule"),a({className:"col-xs-12 terms"},e))}}),$(function(){return React.renderComponent(e(null),$("#main").get(0))})}).call(this);
+(function() {
+  var SimpleTermView, div, h3;
+
+  div = function() {
+    var _ref;
+    return (_ref = React.DOM).div.apply(_ref, arguments);
+  };
+
+  h3 = function() {
+    var _ref;
+    return (_ref = React.DOM).h3.apply(_ref, arguments);
+  };
+
+  SimpleTermView = React.createClass({
+    showPreview: function(course) {
+      return window.showCoursePreview(course);
+    },
+    hidePreview: function() {
+      return window.hidePreview();
+    },
+    render: function() {
+      var terms;
+      terms = data.schedule.map((function(_this) {
+        return function(term, i) {
+          var currentTermCourses, termName;
+          termName = calculateTerm(data.startYear, data.startTerm, i);
+          currentTermCourses = term.courses.map(function(course, j) {
+            var courseInfo;
+            courseInfo = uwapi.getInfo(course);
+            return div({
+              className: "course",
+              onMouseEnter: _this.showPreview.bind(_this, course),
+              onMouseLeave: _this.hidePreview
+            }, getCourseName(courseInfo));
+          });
+          if (term.courses.length === 0) {
+            currentTermCourses = div(null, div({
+              className: "course moveBlock invisible"
+            }), div({
+              className: "backgroundText"
+            }, "No course for this term."));
+          }
+          return div({
+            className: "term"
+          }, div({
+            className: "term-title"
+          }, termName), div({
+            className: "term-menu"
+          }), div({
+            className: "courses"
+          }, currentTermCourses), div({
+            className: "clearfix"
+          }));
+        };
+      })(this));
+      return div({
+        className: "container"
+      }, h3({
+        className: "page-header"
+      }, "" + data.user.name + "'s Course Schedule"), div({
+        className: "col-xs-12 terms"
+      }, terms));
+    }
+  });
+
+  $(function() {
+    return React.renderComponent(SimpleTermView(null), $("#main").get(0));
+  });
+
+}).call(this);
+
+//# sourceMappingURL=data:application/json;base64,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LElBQVosR0FBa0Isb0JBQWpELENBREYsRUFFRSxHQUFBLENBQUk7QUFBQSxRQUFDLFNBQUEsRUFBVyxpQkFBWjtPQUFKLEVBQW9DLEtBQXBDLENBRkYsRUFuQk07SUFBQSxDQUpSO0dBRGUsQ0FKakIsQ0FBQTs7QUFBQSxFQWdDQSxDQUFBLENBQUUsU0FBQSxHQUFBO1dBQ0EsS0FBSyxDQUFDLGVBQU4sQ0FBc0IsY0FBQSxDQUFlLElBQWYsQ0FBdEIsRUFBNEMsQ0FBQSxDQUFFLE9BQUYsQ0FBVSxDQUFDLEdBQVgsQ0FBZSxDQUFmLENBQTVDLEVBREE7RUFBQSxDQUFGLENBaENBLENBQUE7QUFBQSIsImZpbGUiOiJzaGFyZS5qcyIsInNvdXJjZVJvb3QiOiIvc291cmNlLyIsInNvdXJjZXNDb250ZW50IjpbIlxuZGl2ID0gLT4gUmVhY3QuRE9NLmRpdiBhcmd1bWVudHMuLi5cbmgzID0gLT4gUmVhY3QuRE9NLmgzIGFyZ3VtZW50cy4uLlxuXG5cblNpbXBsZVRlcm1WaWV3ID0gUmVhY3QuY3JlYXRlQ2xhc3NcbiAgc2hvd1ByZXZpZXc6IChjb3Vyc2UpLT5cbiAgICB3aW5kb3cuc2hvd0NvdXJzZVByZXZpZXcoY291cnNlKVxuICBoaWRlUHJldmlldzogLT5cbiAgICB3aW5kb3cuaGlkZVByZXZpZXcoKVxuICByZW5kZXI6IC0+XG4gICAgdGVybXMgPSBkYXRhLnNjaGVkdWxlLm1hcCAodGVybSwgaSk9PlxuICAgICAgdGVybU5hbWUgPSBjYWxjdWxhdGVUZXJtIGRhdGEuc3RhcnRZZWFyLCBkYXRhLnN0YXJ0VGVybSwgaVxuICAgICAgY3VycmVudFRlcm1Db3Vyc2VzID0gdGVybS5jb3Vyc2VzLm1hcCAoY291cnNlLCBqKT0+XG4gICAgICAgIGNvdXJzZUluZm8gPSB1d2FwaS5nZXRJbmZvKGNvdXJzZSlcbiAgICAgICAgZGl2KHtcbiAgICAgICAgICBjbGFzc05hbWU6IFwiY291cnNlXCJcbiAgICAgICAgICBvbk1vdXNlRW50ZXI6IEBzaG93UHJldmlldy5iaW5kIEAsIGNvdXJzZVxuICAgICAgICAgIG9uTW91c2VMZWF2ZTogQGhpZGVQcmV2aWV3XG4gICAgICAgICAgfSwgZ2V0Q291cnNlTmFtZShjb3Vyc2VJbmZvKSlcbiAgICAgIGlmIHRlcm0uY291cnNlcy5sZW5ndGggPT0gMFxuICAgICAgICBjdXJyZW50VGVybUNvdXJzZXMgPSBkaXYobnVsbCwgXG4gICAgICAgICAgZGl2KHtjbGFzc05hbWU6IFwiY291cnNlIG1vdmVCbG9jayBpbnZpc2libGVcIn0pLFxuICAgICAgICAgIGRpdih7Y2xhc3NOYW1lOiBcImJhY2tncm91bmRUZXh0XCJ9LCBcIk5vIGNvdXJzZSBmb3IgdGhpcyB0ZXJtLlwiKSlcbiAgICAgIGRpdih7Y2xhc3NOYW1lOlwidGVybVwifSwgXG4gICAgICAgIGRpdih7Y2xhc3NOYW1lOiBcInRlcm0tdGl0bGVcIn0sIHRlcm1OYW1lKSxcbiAgICAgICAgZGl2KHtjbGFzc05hbWU6IFwidGVybS1tZW51XCJ9KSxcbiAgICAgICAgZGl2KHtjbGFzc05hbWU6IFwiY291cnNlc1wifSwgY3VycmVudFRlcm1Db3Vyc2VzKSxcbiAgICAgICAgZGl2KHtjbGFzc05hbWU6IFwiY2xlYXJmaXhcIn0pKVxuICAgIGRpdih7Y2xhc3NOYW1lOiBcImNvbnRhaW5lclwifSxcbiAgICAgIGgzKHtjbGFzc05hbWU6IFwicGFnZS1oZWFkZXJcIn0sIFwiI3tkYXRhLnVzZXIubmFtZX0ncyBDb3Vyc2UgU2NoZWR1bGVcIiksXG4gICAgICBkaXYoe2NsYXNzTmFtZTogXCJjb2wteHMtMTIgdGVybXNcIn0sIHRlcm1zKSlcblxuJCgtPlxuICBSZWFjdC5yZW5kZXJDb21wb25lbnQgU2ltcGxlVGVybVZpZXcobnVsbCksICQoXCIjbWFpblwiKS5nZXQoMClcbikiXX0=
