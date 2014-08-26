@@ -20,7 +20,9 @@ thead = -> React.DOM.thead arguments...
 tr = -> React.DOM.tr arguments...
 strong = -> React.DOM.strong arguments...
 
-
+window.facebookConnect = ->
+  F.connect $('#facebookForm').get(0)
+  false
 
 window.uwapi = 
   courseInfo: window.data.courseInfo||{},

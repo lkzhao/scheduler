@@ -55,6 +55,12 @@ class CoursePlan(models.Model):
       self.subset = self.id % 32768
     return super(CoursePlan, self).save()
 
+  
+  def _course_count(self):
+    return sum(map(lambda term:len(term['courses']), self.schedule))
+  
+  course_count = property(_course_count)
+
 
 
 

@@ -1,22 +1,22 @@
+- extends "modal.haml"
 - load form_group
 
+{%block id%}createmodal{%endblock%}
 
-#createmodal.modal.fade{:tabindex => "-1"}
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %button.close{:data-dismiss => "modal", :type => "button"} &times;
-        %h3.modal-title Create new schedule
-      .modal-body
-        %form#createForm{:action => "{{request.path}}", :method => "POST"}
-          -csrf_token
-          - form_group form.name 
-          - form_group form.share label="Share to public" tooltip_string="if checked, this schedule will be viewable by everyone"
-      .paper-btn-group.btn-group
-        %a.btn.btn-primary.btn-lg{:onclick => "$(\"#createForm\").submit()", :type => "button"} Create
-        %a.btn.btn-default.btn-lg{:data-dismiss => "modal", :type => "button"} Close
+- block title
+  Create new schedule
 
+- block body
+  %form#createForm{:action => "{{request.path}}", :method => "POST"}
+    -csrf_token
+    - form_group form.name 
+    - form_group form.share label="Share to public" tooltip_string="if checked, this schedule will be viewable by everyone"
 
+- block footer
+  %a.btn.btn-primary.btn-lg{:onclick => "$(\"#createForm\").submit()", :type => "button"} Create
+  %a.btn.btn-default.btn-lg{:data-dismiss => "modal", :type => "button"} Close
+
+- block js
   :javascript
     $(function(){
       $("#createmodal").modal('show')

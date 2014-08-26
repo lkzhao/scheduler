@@ -1,6 +1,7 @@
 - extends "base.haml"
 - block css
   %link{:href => "{{STATIC_URL}}css/share.css", :type => "text/css", :rel => "stylesheet"}
+  %link{:href => "{{ STATIC_URL }}django_facebook/css/facebook.css", :type => "text/css", :rel => "stylesheet"}
 - block js
   - if not private
   :javascript
@@ -19,7 +20,6 @@
 
 
 - block navbar-right
-  
   - if not user.pk
     %li
       %a{href: '#'}
@@ -30,6 +30,9 @@
           %a{href: '{% url "edit" coursePlanId %}'}
             Edit
     - else
+      %li
+        %a#likeBtn{href: '#'}
+          %i.fa.fa-heart
       %li
         %a{href: '#'}
           Use this as template

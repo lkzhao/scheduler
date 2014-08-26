@@ -152,3 +152,4 @@ LOGIN_REDIRECT_URL = "/"
 # django facebook settings
 FACEBOOK_LOGIN_DEFAULT_REDIRECT = "/"
 FACEBOOK_STORE_FRIENDS = True
+FACEBOOK_REGISTRATION_TEMPLATE = "registration/register.haml"

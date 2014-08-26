@@ -1,22 +1,41 @@
-- extends "base.haml"
-- block css
-	%link{:href => "{{ STATIC_URL }}django_facebook/css/facebook.css", :type => "text/css", :rel => "stylesheet"}
-- block js
-	- include 'django_facebook/_facebook_js.html'
-- block main
-	= form.non_field_errors
-	%form{:action => "{% url 'auth_login' %}", :method => "post"}
+- extends "modal.haml"
+- load form_group
+
+{%block id%}loginModal{%endblock%}
+{%block size%}modal-sm{%endblock%}
+
+- block title
+  Login
+
+- block body
+  = form.non_field_errors
+  %button.btn.btn-primary.btn-lg.btn-block{:onclick => "facebookConnect()", :type => "button"}
+    Login with Facebook
+	%hr
+	%form#loginForm{:action => "{% url 'auth_login' %}", :method => "post"}
 		- csrf_token
-		= form.username.label_tag
-		= form.username
-		= form.password.label_tag
-		= form.password
-		%input{:type => "submit", :value => "login"}
+		- form_group form.username
+		- form_group form.password
+		%input{:type => "submit", :style => "display:none"}
 		%input{:type => "hidden", :value => "{{ next }}", :name => "next"}
-	%form{:action => "{% url 'facebook_connect' %}?facebook_login=1", :method => "post"}
-			%input{:type => "hidden", :value => "{{ request.path }}", :name => "next"}
-			%input{:type => "hidden", :value => "{{ request.path }}", :name => "register_next"}
-			%input{:type => "hidden", :value => "{{ request.path }}", :name => "error_next"}
-			- csrf_token
-			%button{:onclick => "F.connect(this.parentNode); return false;", :type => "button"}
-				Login with Facebook
+
+- block footer
+  %a.btn.btn-primary.btn-lg{:onclick => "$(\"#loginForm\").submit()", :type => "button"} Login
+
+- block js
+  :javascript
+    $(function(){
+      $("#loginModal").modal('show')
+      $("#loginForm").ajaxForm({
+        success:function(data){
+        	if(data.indexOf("loginForm")===-1){
+        		window.location.href = "/";
+        	}else{
+	          $("#loginModal").on('hidden.bs.modal',function(){
+	            $("#modalContainer").html(data)
+	          })
+	          $("#loginModal").modal('hide')
+        	}
+        }
+      })
+    })

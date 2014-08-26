@@ -1,11 +1,9 @@
 - extends "base.haml"
 - block css
   %link{:href => "{{STATIC_URL}}css/index.css", :type => "text/css", :rel => "stylesheet"}
-  %link{:href => "{{ STATIC_URL }}django_facebook/css/facebook.css", :type => "text/css", :rel => "stylesheet"}
 
 
 - block body
-  #modalContainer
 
   -if user.pk
     #main
@@ -34,9 +32,9 @@
                     = courseplan.last_modified
                 %td
                   .progress
-                    .progress-bar.progress-bar-info.progress-bar-striped.active{:style => "width: {%widthratio courseplan.schedule|length 1 5%}%; color:#555"}
+                    .progress-bar.progress-bar-info.progress-bar-striped.active{:style => "width: {%widthratio courseplan.course_count 1 5%}%; color:#555"}
                       %strong 
-                        &nbsp;{{courseplan.schedule|length}}&nbsp;/&nbsp;20
+                        &nbsp;{{courseplan.course_count}}&nbsp;/&nbsp;20
 
                 %td
                   %a.btn.btn-danger.btn-sm.pull-right{:onclick => "$(\"#modalContainer\").load(\"{% url 'delete' courseplan.id %}\")"}
