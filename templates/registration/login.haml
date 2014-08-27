@@ -8,10 +8,13 @@
   Login
 
 - block body
-  = form.non_field_errors
   %button.btn.btn-primary.btn-lg.btn-block{:onclick => "facebookConnect()", :type => "button"}
     Login with Facebook
 	%hr
+  - if form.non_field_errors
+  	- for err in form.non_field_errors
+  		.alert.alert-danger
+  			=err
 	%form#loginForm{:action => "{% url 'auth_login' %}", :method => "post"}
 		- csrf_token
 		- form_group form.username

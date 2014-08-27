@@ -6186,6 +6186,13 @@ a {
 #facebook_wrapper {
   z-index: 2000 !important;
 }
+.form-control:focus {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 3px rgba(102, 175, 233, 0.5);
+}
+.has-error .form-control:focus {
+  border-color: #a94442 !important;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 3px #ce8483 !important;
+}
 .preview {
   position: fixed;
   padding: 10px;
@@ -6555,13 +6562,42 @@ fieldset[disabled] .paper-btn-group .btn-primary-inverse.active {
   margin: 5px 0 0 ;
 }
 header.home {
-  background: linear-gradient(to bottom, #372c3f, #2c1925);
-  height: 85%;
   margin: 0 -15px;
-  padding: 30px 20px;
-  color: white;
+  padding: 70px 20px;
+}
+header.home .header-title,
+header.home .header-subtitle {
+  display: block;
+  margin: 5px auto;
+  text-align: center;
+}
+header.home .header-title {
+  font-size: 22px;
+  width: 400px;
+  color: #444;
+}
+header.home .header-title .highlight {
+  color: #F17C6F;
+}
+header.home .header-subtitle {
+  font-size: 16px;
+  width: 450px;
+  color: #545f69;
+  margin-bottom: 30px;
+}
+header.home .header-subtext {
+  font-size: 10px;
+  width: 200px;
+  margin: 5px auto;
+}
+#headerImg {
+  margin: 30px auto;
+  width: 200px;
+  display: block;
 }
 .schedule-suggest {
+  margin: 0 -15px;
+  background: white;
   padding: 3vh 0 2vh;
   margin-bottom: -15px;
 }
@@ -6572,29 +6608,31 @@ header.home {
   position: absolute;
   top: -55px;
   font-size: 24px;
-  color: white;
+  color: #545f69;
 }
 .schedule-suggest .schedule-showmore {
   position: absolute;
   top: -2.5vh;
-  right: 0;
+  right: 15px;
   font-weight: 600;
-  color: #333;
+  color: #545f69;
 }
 .schedule-suggest .schedule {
   border: 2px solid #ddd;
   border-radius: 4px;
   padding: 1.5vh;
   height: 10vh;
+  margin-bottom: 10px;
+  min-height: 70px;
 }
 .schedule-suggest .schedule .schedule-icon {
   font-size: 7vh;
-  color: #A599AD;
+  color: #F17C6F;
   float: left;
-  margin-right: 20px;
+  margin-right: 10px;
 }
 .schedule-suggest .schedule .schedule-title {
-  font-size: 16px;
+  font-size: 13px;
   color: #333;
   font-weight: 600;
 }
