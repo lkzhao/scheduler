@@ -18,5 +18,9 @@
   %script{:src => "{{STATIC_URL}}js/edit.js", :type => "text/javascript"}
 
 - block body
+  / if tour
+  %link{:href => "{{ STATIC_URL }}css/bootstrap-tour.min.css", :type => "text/css", :rel => "stylesheet"}
+  %script{:src => "{{STATIC_URL}}js/lib/bootstrap-tour.min.js"}
+  %script{:src => "{{STATIC_URL}}js/editTour.js", :type => "text/javascript"}
   #main.edit
 

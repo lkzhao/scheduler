@@ -14,42 +14,28 @@ jsxRoot = "#{staticRoot}jsx/"
 coffeeRoot = "#{staticRoot}coffee/"
 
 
-gulp.task 'helpers', ->
-  gulp.src ["#{coffeeRoot}helpers.coffee"]
+gulp.task 'coffee', ->
+  gulp.src ["#{coffeeRoot}*.coffee"]
       .pipe sourcemaps.init()
       .pipe coffee()
       .pipe sourcemaps.write()
       .pipe gulp.dest(jsRoot)
 
-gulp.task 'searchInput', ->
-  gulp.src ["#{jsxRoot}searchInput.jsx"]
+gulp.task 'jsx', ->
+  gulp.src ["#{jsxRoot}*.jsx"]
       .pipe sourcemaps.init()
       .pipe react()
       .pipe sourcemaps.write()
       .pipe gulp.dest(jsRoot)
 
-gulp.task 'edit', ->
-  gulp.src ["#{jsxRoot}edit.jsx"]
-      .pipe sourcemaps.init()
-      .pipe react()
-      .pipe sourcemaps.write()
-      .pipe gulp.dest(jsRoot)
-
-gulp.task 'share', ->
-  gulp.src ["#{coffeeRoot}share.coffee"]
-      .pipe sourcemaps.init()
-      .pipe coffee()
-      .pipe sourcemaps.write()
-      .pipe gulp.dest(jsRoot)
-
-gulp.task 'basic', ['helpers', 'searchInput'], ->
+gulp.task 'basic', ['coffee', 'jsx'], ->
   gulp.src ["#{jsRoot}helpers.js", "#{jsRoot}searchInput.js"]
       .pipe sourcemaps.init(loadMaps: yes)
       .pipe concat('basic.js')
       .pipe sourcemaps.write()
       .pipe gulp.dest(jsRoot)
 
-gulp.task 'build', ['basic', 'edit', 'share', 'watch']
+gulp.task 'build', ['basic']
 gulp.task 'default', ['build', 'watch']
 
 gulp.task 'watch', ->

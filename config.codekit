@@ -5,15 +5,15 @@
 	"\/gulpfile.coffee": {
 		"createSourceMap": 0,
 		"fileType": 32,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
+		"ignore": 1,
+		"ignoreWasSetByUser": 1,
 		"inputAbbreviatedPath": "\/gulpfile.coffee",
-		"minifyOutput": 1,
+		"minifyOutput": 0,
 		"outputAbbreviatedPath": "\/gulpfile.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,
-		"syntaxCheckerStyle": 1
+		"syntaxCheckerStyle": 0
 		},
 	"\/node_modules\/coffee-script\/CONTRIBUTING.md": {
 		"enableFootnoteSupport": 0,
@@ -34711,32 +34711,6 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/scheduler\/static\/coffee\/helpers.coffee": {
-		"createSourceMap": 0,
-		"fileType": 32,
-		"ignore": 0,
-		"ignoreWasSetByUser": 1,
-		"inputAbbreviatedPath": "\/scheduler\/static\/coffee\/helpers.coffee",
-		"minifyOutput": 1,
-		"outputAbbreviatedPath": "\/scheduler\/static\/js\/helper.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 1,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 0
-		},
-	"\/scheduler\/static\/coffee\/share.coffee": {
-		"createSourceMap": 0,
-		"fileType": 32,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/scheduler\/static\/coffee\/share.coffee",
-		"minifyOutput": 1,
-		"outputAbbreviatedPath": "\/scheduler\/static\/js\/share.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 1,
-		"outputStyle": 0,
-		"syntaxCheckerStyle": 0
-		},
 	"\/scheduler\/static\/css\/bootstrap-switch.css": {
 		"fileType": 16,
 		"ignore": 0,
@@ -34760,6 +34734,15 @@
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/scheduler\/static\/css\/bootstrap-theme.min.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/scheduler\/static\/css\/bootstrap-tour.min.css": {
+		"fileType": 16,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/scheduler\/static\/css\/bootstrap-tour.min.css",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
@@ -34890,6 +34873,15 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/scheduler\/static\/css\/shepherd-theme-arrows.css": {
+		"fileType": 16,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/scheduler\/static\/css\/shepherd-theme-arrows.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/scheduler\/static\/css\/switchery.min.css": {
 		"fileType": 16,
 		"ignore": 0,
@@ -34906,6 +34898,17 @@
 		"initialSize": 40012,
 		"inputAbbreviatedPath": "\/scheduler\/static\/images\/bg.jpg",
 		"outputAbbreviatedPath": "\/scheduler\/static\/images\/bg.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/scheduler\/static\/images\/header.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 9685,
+		"inputAbbreviatedPath": "\/scheduler\/static\/images\/header.png",
+		"outputAbbreviatedPath": "\/scheduler\/static\/images\/header.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -36560,6 +36563,26 @@
 		"strictImports": 0,
 		"strictMath": 0,
 		"strictUnits": 0
+		},
+	"\/scheduler\/static\/less\/tour.less": {
+		"allowInsecureImports": 0,
+		"createSourceMap": 0,
+		"disableJavascript": 0,
+		"fileType": 1,
+		"ieCompatibility": 1,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/scheduler\/static\/less\/tour.less",
+		"outputAbbreviatedPath": "\/scheduler\/static\/css\/tour.css",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"relativeURLS": 0,
+		"shouldRunAutoprefixer": 0,
+		"shouldRunBless": 0,
+		"strictImports": 0,
+		"strictMath": 0,
+		"strictUnits": 0
 		}
 	},
 "hooks": [
@@ -37154,7 +37177,7 @@
 	"sassUseLibsass": 0,
 	"shouldRunAutoprefixer": 0,
 	"shouldRunBless": 0,
-	"skippedItemsString": "_cache, logs, .hg, _logs, cache, \/scheduler\/static\/js, .git, log, venv, \/templates, .svn",
+	"skippedItemsString": "_logs, venv, \/scheduler\/static\/js, _cache, log, .hg, \/scheduler\/static\/coffee, logs, cache, .svn, .git, \/templates, \/scheduler\/static\/jsx",
 	"slimAutoOutputPathEnabled": 1,
 	"slimAutoOutputPathFilenamePattern": "*.html",
 	"slimAutoOutputPathRelativePath": "",

@@ -6183,7 +6183,8 @@ a {
 .profile-pic {
   height: 18px;
 }
-#facebook_wrapper {
+#facebook_wrapper,
+.shepherd-step {
   z-index: 2000 !important;
 }
 .form-control:focus {
@@ -6572,9 +6573,9 @@ header.home .header-subtitle {
   text-align: center;
 }
 header.home .header-title {
-  font-size: 22px;
-  width: 400px;
-  color: #444;
+  font-size: 24px;
+  width: 550px;
+  color: #333;
 }
 header.home .header-title .highlight {
   color: #F17C6F;
@@ -6590,6 +6591,10 @@ header.home .header-subtext {
   width: 200px;
   margin: 5px auto;
 }
+.home-list {
+  min-height: 571px;
+  padding: 0 0 50px;
+}
 #headerImg {
   margin: 30px auto;
   width: 200px;
@@ -6598,22 +6603,19 @@ header.home .header-subtext {
 .schedule-suggest {
   margin: 0 -15px;
   background: white;
-  padding: 3vh 0 2vh;
+  padding: 20px;
   margin-bottom: -15px;
 }
 .schedule-suggest .container {
   position: relative;
 }
 .schedule-suggest .schedule-header {
-  position: absolute;
-  top: -55px;
   font-size: 24px;
   color: #545f69;
+  margin-bottom: 10px;
 }
 .schedule-suggest .schedule-showmore {
-  position: absolute;
-  top: -2.5vh;
-  right: 15px;
+  line-height: 40px;
   font-weight: 600;
   color: #545f69;
 }

@@ -1,19 +1,20 @@
 .bucket{
   position: fixed;
   background: white;
-  left:-170px;
+  left:0;
   top:200px;
   border-radius: 0 7px 7px 0;
   padding: 10px;
   z-index: 10;
-  width: 200px;
+  width: 120px;
+  font-size: 12px;
   .course{
-    width: 100%;
+    width:100px;
+    min-width: 0;
   }
   transition:left .5s @animationTiming;
-
-  &:hover{
-    left:0;
+  &.hide{
+    left:-70px;
   }
 }
 .draging .bucket{

@@ -140,6 +140,7 @@ MainView=React.createClass({
   },
   componentDidMount:function(){
     $(document).on('dataUpdated', this.refresh);
+    $(document).trigger('ready.uwcs')
   },
   componentWillUnmount: function() {
     $(document).off('dataUpdated', this.refresh);
@@ -178,11 +179,14 @@ MainView=React.createClass({
     this.setState({dragingCourse:{
       termIndex:termIndex,
       courseIndex:courseIndex
-    }});
+    }},function(){
+      $(document).trigger('course.move.uwcs')
+    });
     return true;
   },
   dragEnd:function(e){
     this.setState({dragingCourse:""});
+    $(document).trigger('course.movecanceled.uwcs')
   },
   dragOver:function(e){
     e.preventDefault();
@@ -194,11 +198,13 @@ MainView=React.createClass({
     if(getTermList(termIndex).length==courseIndex){
       this.removeCourse(fromTermIndex, fromCourseIndex);
       this.addCourse(termIndex, fromCourse);
+      $(document).trigger('course.moved.uwcs')
     }else{
       //swap
       var destCourse = getTermList(termIndex)[courseIndex]
       getTermList(termIndex)[courseIndex] = fromCourse
       getTermList(fromTermIndex)[fromCourseIndex] = destCourse
+      $(document).trigger('course.swaped.uwcs')
     }
     this.setState({dragingCourse:""});
   },
@@ -316,8 +322,10 @@ MainView=React.createClass({
             <div className="col-xs-12 terms">
               {termsEl}
             </div>
-            <div className="col-xs-12">
-              <button className='btn btn-default addTermBtn btn-lg btn-block' onClick={that.addTerm.bind(that,data.schedule.length)}>Add a Term</button>
+            <div className="col-xs-12 text-center">
+              <button className='btn btn-default addTermBtn btn-lg' onClick={that.addTerm.bind(that,data.schedule.length)}>
+                <i className="fa fa-plus fa-fw"></i> Add a Term
+              </button>
             </div>
           </div>
         </div>

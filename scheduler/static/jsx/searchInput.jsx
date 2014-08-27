@@ -3,6 +3,9 @@ AddCourseModal=React.createClass({
   getInitialState: function() {
     return {input:"",focus:false,loading:false,searched:false,subject:"",catalog_number:"",message:"",dataList:[],dataListSelected:0, dataListType:"None"};
   },
+  componentDidUpdate:function(){
+    $(document).trigger("result.updated.uwcs", this.state)
+  },
   componentDidMount:function(){
     $("body").on('mousedown', this.handleBlur);
     $(".navbar-form").on('mousedown', this.blockClick);
@@ -25,6 +28,7 @@ AddCourseModal=React.createClass({
         uwapi.getCourse(this.state.subject,selected.catalog_number,function(course){
           if(course){
             that.setState({loading:false,searched:true,message:"",dataListType:"None",dataList:""});
+            $(document).trigger("result.searched.uwcs")
           }else{
             that.setState({loading:false,searched:true,dataListType:"None",dataList:"",message:"Error loading course info"});
           }
@@ -73,7 +77,6 @@ AddCourseModal=React.createClass({
     this.setState(state,function(){
       $('.searchResult .container').scrollTop(0)
     });
-
   },
   handleBlur:function(e){
     this.setState({focus:false})
@@ -108,6 +111,7 @@ AddCourseModal=React.createClass({
           animateElem.remove()
         })
         $(document).trigger("dataUpdated")
+        $(document).trigger("course.added.uwcs")
         $("#searchInput").focus()
       }
     }
@@ -120,7 +124,7 @@ AddCourseModal=React.createClass({
     for (var termIndex = -1; termIndex < data.schedule.length; termIndex++) {
       var term = getTermList(termIndex)
       for (var courseIndex = 0; courseIndex < term.length; courseIndex++) {
-        if(name(term[courseIndex])==courseName){
+        if(getCourseName(term[courseIndex])==courseName){
           term.splice(courseIndex,1);
           return;
         }
@@ -173,7 +177,7 @@ AddCourseModal=React.createClass({
                 <div><strong>Terms offered: </strong>{getTermNameArray(course.terms_offered).join(", ")}</div>
                 <div className="pull-right col-xs-12 col-md-6">
                   {($("#admin-btn").length)?<div className="col-xs-4"><a className="btn btn-default btn-block" href={"/admin/app/course/"+course.id}>Edit</a></div>:{}}
-                  {(window.editing)?<div className="col-xs-8"><button className="btn btn-primary btn-block">Add to list</button></div>:{}}
+                  {(window.editing)?<div className="col-xs-8"><button className="btn btn-primary btn-block addToListBtn">Add to list</button></div>:{}}
                 </div>
               </div>
               )

@@ -6183,7 +6183,8 @@ a {
 .profile-pic {
   height: 18px;
 }
-#facebook_wrapper {
+#facebook_wrapper,
+.shepherd-step {
   z-index: 2000 !important;
 }
 .form-control:focus {

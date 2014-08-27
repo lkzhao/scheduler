@@ -16,26 +16,3 @@
         %a{:onclick => "$(\"#modalContainer\").load(\"{% url 'registration_register' %}\")"}
           register an email account
         = "."
-.schedule-suggest
-  .container
-    .schedule-header
-      Schedules created by others
-    
-    %a.schedule-showmore{:href => "#"}
-      Show more
-      %i.fa.fa-chevron-right
-    .row
-      - for courseplan in sharedCoursePlan
-        .col-sm-4.col-md-3
-          .schedule
-            %i.pe-7s-news-paper.schedule-icon
-            .right
-              %a.schedule-title{:href => "{% url 'view' courseplan.id %}"}
-                = courseplan.name
-              .info
-                by
-                - if courseplan.user.first_name
-                  = courseplan.user.first_name
-                  = courseplan.user.last_name
-                - else
-                  = courseplan.user.username

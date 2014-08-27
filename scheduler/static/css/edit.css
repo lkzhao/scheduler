@@ -6183,7 +6183,8 @@ a {
 .profile-pic {
   height: 18px;
 }
-#facebook_wrapper {
+#facebook_wrapper,
+.shepherd-step {
   z-index: 2000 !important;
 }
 .form-control:focus {
@@ -6695,6 +6696,88 @@ fieldset[disabled] .paper-btn-group .btn-primary-inverse.active {
   line-height: 50px;
   color: #ddd;
 }
+.tour {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  text-align: center;
+  border: none;
+}
+.tour.bottom > .arrow {
+  border-bottom-color: transparent;
+}
+.tour.bottom > .arrow::after {
+  border-bottom-color: rgba(0, 0, 0, 0.8);
+}
+.tour.right > .arrow {
+  border-right-color: transparent;
+}
+.tour.right > .arrow::after {
+  border-right-color: rgba(0, 0, 0, 0.8);
+}
+.tour.left > .arrow {
+  border-left-color: transparent;
+}
+.tour.left > .arrow::after {
+  border-left-color: rgba(0, 0, 0, 0.8);
+}
+.tour.top > .arrow {
+  border-top-color: transparent;
+}
+.tour.top > .arrow::after {
+  border-top-color: rgba(0, 0, 0, 0.8);
+}
+.tour .popover-title {
+  background: none;
+  font-weight: 600;
+  border-bottom: 1px solid #555;
+}
+.tour .popover-content {
+  padding: 8px;
+}
+.tour .popover-btns {
+  margin: 10px;
+}
+.tour .btn.btn-default {
+  color: #ffffff;
+  background-color: #333333;
+  border-color: #666666;
+}
+.tour .btn.btn-default:hover,
+.tour .btn.btn-default:focus,
+.tour .btn.btn-default:active,
+.tour .btn.btn-default.active,
+.open > .dropdown-toggle.tour .btn.btn-default {
+  color: #ffffff;
+  background-color: #1a1a1a;
+  border-color: #474747;
+}
+.tour .btn.btn-default:active,
+.tour .btn.btn-default.active,
+.open > .dropdown-toggle.tour .btn.btn-default {
+  background-image: none;
+}
+.tour .btn.btn-default.disabled,
+.tour .btn.btn-default[disabled],
+fieldset[disabled] .tour .btn.btn-default,
+.tour .btn.btn-default.disabled:hover,
+.tour .btn.btn-default[disabled]:hover,
+fieldset[disabled] .tour .btn.btn-default:hover,
+.tour .btn.btn-default.disabled:focus,
+.tour .btn.btn-default[disabled]:focus,
+fieldset[disabled] .tour .btn.btn-default:focus,
+.tour .btn.btn-default.disabled:active,
+.tour .btn.btn-default[disabled]:active,
+fieldset[disabled] .tour .btn.btn-default:active,
+.tour .btn.btn-default.disabled.active,
+.tour .btn.btn-default[disabled].active,
+fieldset[disabled] .tour .btn.btn-default.active {
+  background-color: #333333;
+  border-color: #666666;
+}
+.tour .btn.btn-default .badge {
+  color: #333333;
+  background-color: #ffffff;
+}
 .course {
   cursor: -webkit-grab;
   cursor: -moz-grab;
@@ -6748,19 +6831,21 @@ fieldset[disabled] .paper-btn-group .btn-primary-inverse.active {
 .bucket {
   position: fixed;
   background: white;
-  left: -170px;
+  left: 0;
   top: 200px;
   border-radius: 0 7px 7px 0;
   padding: 10px;
   z-index: 10;
-  width: 200px;
+  width: 120px;
+  font-size: 12px;
   transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .bucket .course {
-  width: 100%;
+  width: 100px;
+  min-width: 0;
 }
-.bucket:hover {
-  left: 0;
+.bucket.hide {
+  left: -70px;
 }
 .draging .bucket {
   left: 0;
