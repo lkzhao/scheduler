@@ -38,10 +38,11 @@ tour = new Tour
     placement: "bottom"
     container: ".navbar.navbar-default.navbar-fixed-top"
     onShow: ->
+      current = tour.getCurrentStep()
       $(document).on "result.updated.uwcs", (e, state)->
         if state.searched and state.focus
           $(document).off "result.updated.uwcs"
-          tour.goTo tour.getCurrentStep() + 2
+          tour.goTo current + 2
         else if state.input isnt ""
           $(document).off "result.updated.uwcs"
           setTimeout ->
@@ -54,11 +55,12 @@ tour = new Tour
     container: ".navbar.navbar-default.navbar-fixed-top"
     animation: no
     onShow: ->
+      current = tour.getCurrentStep()
       $(document).on "result.updated.uwcs", (e, state)->
         if state.input is "" or (not state.focus)
-          tour.goTo tour.getCurrentStep() - 1
+          tour.goTo current - 1
         else
-          tour.goTo tour.getCurrentStep()
+          tour.goTo current
       $(document).one "result.searched.uwcs", ->
         setTimeout ->
           tour.next()
@@ -72,11 +74,12 @@ tour = new Tour
     placement: "bottom"
     container: ".navbar.navbar-default.navbar-fixed-top"
     onShow: ->
+      current = tour.getCurrentStep()
       $(document).one "result.updated.uwcs", (e, state)->
         if state.input is "" or (not state.focus)
-          tour.goTo tour.getCurrentStep() - 2
+          tour.goTo current - 2
         else
-          tour.goTo tour.getCurrentStep() - 1
+          tour.goTo current - 1
       $(document).one "course.added.uwcs", -> tour.next()
     onHide: ->
       $(document).off "result.updated.uwcs"
