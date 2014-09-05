@@ -155,6 +155,7 @@ MainView=React.createClass({
   },
   refresh:function(e){
     console.log("force refresh")
+    this.refs.saveBtnGroup.forceUpdate()
     this.forceUpdate()
   },
   addTerm:function(termIndex){
@@ -313,7 +314,7 @@ MainView=React.createClass({
             Total credits:&nbsp;
             <strong className="important">{courseTaken.length*0.5}</strong>
             <div className="pull-right">
-              <SaveBtnGroup />
+              <SaveBtnGroup ref="saveBtnGroup" />
             </div>
           </div>
         </div>

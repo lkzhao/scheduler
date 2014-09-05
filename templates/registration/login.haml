@@ -19,7 +19,7 @@
 		- csrf_token
 		- form_group form.username
 		- form_group form.password
-		%input{:type => "submit", :style => "display:none"}
+		%input.hide{:type => "submit"}
 		%input{:type => "hidden", :value => "{{ next }}", :name => "next"}
 
 - block footer

@@ -177,6 +177,14 @@ class ProfileView(ProtectedView, UpdateView):
     def get_object(self):
         return self.request.user.profile
 
+    def form_valid(self, form):
+        super(ProfileView, self).form_valid(form)
+        return HttpResponse(json.dumps({
+            'startTerm':self.object.startTerm,
+            'startYear':self.object.startYear,
+            'autosave':self.object.autosave,
+            }))
+
 class ShareConfirmView(ProtectedView, UpdateView):
     template_name = 'share_confirm.html'
     model = CoursePlan

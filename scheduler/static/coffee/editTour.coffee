@@ -1,4 +1,5 @@
 tour = new Tour
+  storage: no
   template:"""
     <div class='popover tour'>
       <div class='arrow'></div>
@@ -32,35 +33,33 @@ tour = new Tour
       $(".addTermBtn").one "click", -> 
         $(".addTermBtn").off "click"
         tour.next()
-  ,
+  ,#2
     content: "Search for a course you would like to take"
     element: "#searchInput"
     placement: "bottom"
     container: ".navbar.navbar-default.navbar-fixed-top"
     onShow: ->
-      current = tour.getCurrentStep()
       $(document).on "result.updated.uwcs", (e, state)->
         if state.searched and state.focus
           $(document).off "result.updated.uwcs"
-          tour.goTo current + 2
+          tour.goTo 4
         else if state.input isnt ""
           $(document).off "result.updated.uwcs"
           setTimeout ->
             tour.next()
           , 200
-  ,
+  ,#3
     content: "Select a subject / course"
     element: ".searchResult"
     placement: "bottom"
     container: ".navbar.navbar-default.navbar-fixed-top"
     animation: no
     onShow: ->
-      current = tour.getCurrentStep()
       $(document).on "result.updated.uwcs", (e, state)->
         if state.input is "" or (not state.focus)
-          tour.goTo current - 1
+          tour.goTo 2
         else
-          tour.goTo current
+          tour.goTo 3
       $(document).one "result.searched.uwcs", ->
         setTimeout ->
           tour.next()
@@ -68,18 +67,17 @@ tour = new Tour
     onHide: ->
       $(document).off "result.updated.uwcs"
       $(document).off "result.searched.uwcs"
-  ,
+  ,#4
     content: "Click here to add this course to the short-list"
     element: ".addToListBtn"
     placement: "bottom"
     container: ".navbar.navbar-default.navbar-fixed-top"
     onShow: ->
-      current = tour.getCurrentStep()
       $(document).one "result.updated.uwcs", (e, state)->
         if state.input is "" or (not state.focus)
-          tour.goTo current - 2
+          tour.goTo 2
         else
-          tour.goTo current - 1
+          tour.goTo 3
       $(document).one "course.added.uwcs", -> tour.next()
     onHide: ->
       $(document).off "result.updated.uwcs"

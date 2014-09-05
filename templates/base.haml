@@ -47,7 +47,7 @@
                           Admin
                       %li.divider
                     %li
-                      %a{:href => "/profile"}
+                      %a{:onclick => "$(\"#modalContainer\").load(\"{% url 'profile' %}\")"}
                         Profile
                     %li
                       %a{:href => "/accounts/logout"}

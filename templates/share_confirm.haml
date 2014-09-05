@@ -44,7 +44,7 @@
             $("#sharemodal").on('hidden.bs.modal',function(){
               $("#modalContainer").html(data)
             })
-            $("#sharemodal").hide()
+            $("#sharemodal").modal('hide')
           }
         },
         error:function(){

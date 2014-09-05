@@ -1,22 +1,46 @@
-- extends "base.haml"
-
+- extends "modal.haml"
 - load form_group
 
-- block css
-  %link{:href => "{{STATIC_URL}}css/index.css", :type => "text/css", :rel => "stylesheet"}
-  %link{:href => "{{ STATIC_URL }}django_facebook/css/facebook.css", :type => "text/css", :rel => "stylesheet"}
+{%block id%}profileModal{%endblock%}
+{%block size%}modal-sm{%endblock%}
 
+- block title
+  Profile Setting
 
 - block body
-  #main
-    .container
-      %h3.page-header
-        Profile Settings
-      %form#createForm{:action => "{{request.path}}", :method => "POST"}
-        -csrf_token
-        %p
-          - form_group form.startYear 
-          - form_group form.startTerm
-          - form_group form.autosave label="Auto Save Schedule"
-        %button.btn.btn-block.btn-primary.btn-lg
-          Save
+  - if form.non_field_errors
+    - for err in form.non_field_errors
+      .alert.alert-danger
+        =err
+  %form#profileForm{:action => "{{request.path}}", :method => "POST"}
+    -csrf_token
+    %p
+      - form_group form.startYear 
+      - form_group form.startTerm
+      - form_group form.autosave label="Auto Save Schedule"
+      %input.hide{:type => "submit"}
+
+- block footer
+  %a.btn.btn-primary.btn-lg{:onclick => "$(\"#profileForm\").submit()", :type => "button"} Save
+
+- block js
+  :javascript
+    $(function(){
+      $("#profileModal").modal('show')
+      $("#profileForm").ajaxForm({
+        success:function(data){
+          try{
+            data = JSON.parse(data)
+            window.data.startYear = data.startYear,
+            window.data.startTerm = data.startTerm,
+            window.data.autoSave = data.autoSave,
+            $(document).trigger('dataUpdated')
+          }catch(err){
+            $("#profileModal").on('hidden.bs.modal',function(){
+              $("#modalContainer").html(data)
+            })
+          }
+          $("#profileModal").modal('hide')
+        }
+      })
+    })
