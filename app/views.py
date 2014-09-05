@@ -88,9 +88,7 @@ class IndexView(SearchCourseMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
-        context['sharedCoursePlan'] = CoursePlan.objects.get_random_subset(20).filter(share=True)
-        if self.request.user.pk:
-            context['sharedCoursePlan']=context['sharedCoursePlan'].exclude(user=self.request.user)
+        context['sharedCoursePlan'] = CoursePlan.objects.get_random_subset(20, self.request.user, share=True)
         context['form'] = AuthenticationForm()
         return context
 
@@ -184,6 +182,15 @@ class ProfileView(ProtectedView, UpdateView):
             'startYear':self.object.startYear,
             'autosave':self.object.autosave,
             }))
+
+class SchedulerListView(ListView):
+    template_name = 'list.html'
+    model = CoursePlan
+    def get_queryset(self):
+        query_set = CoursePlan.objects.filter(share = True)
+        if self.request.user.pk:
+            query_set = query_set.exclude(user = self.request.user)
+        return query_set;
 
 class ShareConfirmView(ProtectedView, UpdateView):
     template_name = 'share_confirm.html'
