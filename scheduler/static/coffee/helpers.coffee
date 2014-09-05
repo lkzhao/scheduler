@@ -60,6 +60,42 @@ window.getTermNameArray = (terms_offered) ->
       when "W" then "Winter"
       else "Spring"
 
+
+window.EditLabel = React.createClass
+  getInitialState: ->
+    loading:no
+    text:@props.initialValue
+  handleChange: (e) ->
+    @setState text: e.target.value
+  endEdit: (e) ->
+    @setState
+      loading: yes
+    $.ajax
+      url:"/save/"+data.coursePlanId+"/"
+      type:"post"
+      dataType:"json"
+      data:
+        name:@state.text,
+        csrfmiddlewaretoken:data.csrf_token
+      success:(json)=>
+        if(json.success)
+          @setState loading:no
+        else
+          alert("Failed to save")
+      error:()=>
+        alert("Failed to save")
+  render: ->
+    inputProp =
+      ref: "input"
+      className:"form-control editlabel"
+      value:@state.text
+      onChange:@handleChange
+      onBlur:@endEdit
+    if @state.loading
+      inputProp.disabled = yes
+    input(inputProp)
+
+
 Preview = React.createClass
   getInitialState: ->
     top:0
