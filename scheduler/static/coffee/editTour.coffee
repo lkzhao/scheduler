@@ -1,5 +1,4 @@
 tour = new Tour
-  storage: no
   template:"""
     <div class='popover tour'>
       <div class='arrow'></div>
