@@ -21,18 +21,27 @@
 		- form_group form.password
 		%input.hide{:type => "submit"}
 		%input{:type => "hidden", :value => "{{ next }}", :name => "next"}
+    %small
+      %a{:onclick => "onregister()"}
+          register an email account
 
 - block footer
   %a.btn.btn-primary.btn-lg{:onclick => "$(\"#loginForm\").submit()", :type => "button"} Login
 
 - block js
   :javascript
+    function onregister(e){
+      $("#loginModal").on('hidden.bs.modal',function(){
+        $("#modalContainer").load("{% url 'registration_register' %}")
+      })
+      $("#loginModal").modal('hide')
+    }
     $(function(){
       $("#loginModal").modal('show')
       $("#loginForm").ajaxForm({
         success:function(data){
         	if(data.indexOf("loginForm")===-1){
-        		window.location.href = "/";
+        		window.location.reload();
         	}else{
 	          $("#loginModal").on('hidden.bs.modal',function(){
 	            $("#modalContainer").html(data)

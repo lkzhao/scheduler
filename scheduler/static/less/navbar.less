@@ -1,5 +1,4 @@
 .navbar.navbar-default{
-  background: @navbarBgColor;
   height: @navbarHeight;
   box-shadow:0 0 0 1px @navbarBorderColor;
   border:none;
@@ -19,14 +18,14 @@
       border-radius: 20px;
       background: @navbarBorderColor;
       border-color: @navbarBorderColor;
-      color:#545F69;
+      color:@navbar-default-color;
       box-shadow: none;
       transition:width .5s @animationTiming;
       width: 250px;
       &:hover,&:active,&:focus{
         box-shadow: none;
       }
-      .placeholder(#545F69);
+      .placeholder(@navbar-default-color);
       &.focused{
         width: 400px;
         .placeholder(@navbarBorderColor);
@@ -46,7 +45,8 @@
   top: @navbarHeight;
   left:0;
   right:0;
-  background: @navbarBgColor;
+  background: @navbar-default-bg;
+  color:@navbar-default-color;
   padding: 20px;
   border-bottom:1px solid @navbarBorderColor;
   border-radius: 0 0 3px 3px;
@@ -90,12 +90,12 @@
   cursor: pointer;
   &:hover{
     background: lighten(@navbarBorderColor, 5%);
-    color:#545F69;
+    color:@navbar-default-color;
     border-radius: 3px;
   }
   &.active{
     background: @navbarBorderColor;
-    color:#545F69;
+    color:@navbar-default-color;
     border-radius: 3px;
   }
 }

@@ -12,6 +12,7 @@
       courseList: {{courseList|safe}},
       startYear: {{startYear|safe}},
       startTerm: {{startTerm|safe}},
+      name: "{{object.name}}"
     }
     window.data=data
     allSubjects={{allSubjects|safe}}
@@ -30,9 +31,6 @@
           %a{href: '{% url "edit" coursePlanId %}'}
             Edit
     - else
-      %li
-        %a#likeBtn{href: '#'}
-          %i.fa.fa-heart
       %li
         %a{href: '#'}
           Use this as template

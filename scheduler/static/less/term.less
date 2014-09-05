@@ -36,12 +36,24 @@
   }
   .courses{
     background:@timeline-block-bg;
+    border:1px solid @timeline-block-border-color;
     box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
     border-radius:7px;
     width: 100% - @timeline-position - @timeline-center-padding;
     float: right;
     position:relative;
     &:before{
+      content: " ";
+      position: absolute;
+      top:@timeline-arrow-top;
+      width: 0;
+      height: 0;
+      border: 10px solid transparent;
+      left:-11px;
+      border-left-width:  0;
+      border-right-color: @timeline-block-border-color;
+    }
+    &:after{
       content: " ";
       position: absolute;
       top:@timeline-arrow-top;
@@ -114,13 +126,13 @@
         }
         .removeTermBtn{
           background:#e74c3c;
-          left: -10px - (@timeline-node-size+10px);
+          left: -5px - (@timeline-node-size+5px);
         }.insertTermBtn{
           background:#2ecc71;
-          left: -10px - 2*(@timeline-node-size+10px);
+          left: -5px - 2*(@timeline-node-size+5px);
         }.skipTermBtn{
           background:#34495e;
-          left: -10px - 3*(@timeline-node-size+10px);
+          left: -5px - 3*(@timeline-node-size+5px);
         }
       }
     }
@@ -128,10 +140,10 @@
 }
 .backgroundText{
   position: absolute;
-  top:10px;
+  top:5px;
   width: 100%;
   text-align: center;
-  font-size: 22px;
+  font-size: 14px;
   line-height:50px;
-  color:#ddd;
+  color:#e5e5e5;
 }

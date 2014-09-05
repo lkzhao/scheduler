@@ -11,6 +11,13 @@
   .course{
     width:100px;
     min-width: 0;
+    color: @timeline-color;
+    .panel-default{
+      border-color:@timeline-block-border-color;
+    }
+    &.moveBlock{
+      font-size: 12px;
+    }
   }
   transition:left .5s @animationTiming;
   &.hide{

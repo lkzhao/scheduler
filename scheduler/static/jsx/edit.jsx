@@ -324,7 +324,7 @@ MainView=React.createClass({
               {termsEl}
             </div>
             <div className="col-xs-12 text-center">
-              <button className='btn btn-default addTermBtn btn-lg' onClick={that.addTerm.bind(that,data.schedule.length)}>
+              <button className='btn btn-primary addTermBtn' onClick={that.addTerm.bind(that,data.schedule.length)}>
                 <i className="fa fa-plus fa-fw"></i> Add a Term
               </button>
             </div>

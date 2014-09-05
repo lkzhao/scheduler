@@ -1,6 +1,7 @@
 
 div = -> React.DOM.div arguments...
 h3 = -> React.DOM.h3 arguments...
+small = -> React.DOM.small arguments...
 
 
 SimpleTermView = React.createClass
@@ -28,7 +29,8 @@ SimpleTermView = React.createClass
         div({className: "courses"}, currentTermCourses),
         div({className: "clearfix"}))
     div({className: "container"},
-      h3({className: "page-header"}, "#{data.user.name}'s Course Schedule"),
+      h3({className: "page-header"}, data.name, " ",
+        small(null, "by #{data.user.name}")),
       div({className: "col-xs-12 terms"}, terms))
 
 $(->

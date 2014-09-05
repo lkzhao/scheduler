@@ -1,20 +1,22 @@
 .settingsbar{
-  background: @navbarBorderColor;
+  background: @settingBarBgColor;
+  color: @settingBarColor;
   margin:0 -15px 20px;
-  padding: 5px 0;
+  padding: 0;
   line-height: 40px;
-  color:#545F69;
+  font-size: 12px;
   .important{
-    font-size: 22px;
+    font-size: 15px;
     line-height: 12px;
   }
   .modal{
     color:#333;
   }
   .btn.btn-primary{
-    .button-variant(#545F69; darken(@navbarBorderColor, 7%); darken(@navbarBorderColor, 7%));
+    .button-variant(@settingBarColor; darken(@settingBarBgColor, 7%); darken(@settingBarBgColor, 7%));
     border-radius: 6px; 
-    padding: 6px 15px;
+    font-size: 12px;
+    padding: 3px 15px;
   }
 }
 
