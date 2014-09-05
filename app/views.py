@@ -213,6 +213,8 @@ def Save(request, coursePlanId):
         return {'success': False}
     if 'name' in request.POST:
         name = request.POST['name']
+        if name == "":
+            return {'success':False,'name':coursePlan.name}
         coursePlan.name=name
         coursePlan.save()
         return {'success':True}

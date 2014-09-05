@@ -78,8 +78,10 @@ window.EditLabel = React.createClass
         name:@state.text,
         csrfmiddlewaretoken:data.csrf_token
       success:(json)=>
-        if(json.success)
+        if json.success
           @setState loading:no
+        else if json.name
+          @setState text:json.name, loading:no
         else
           alert("Failed to save")
       error:()=>
