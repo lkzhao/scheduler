@@ -2,20 +2,21 @@
 - block css
   %link{:href => "{{STATIC_URL}}css/edit.css", :type => "text/css", :rel => "stylesheet"}
 - block js
-  :javascript
-    window.data={
-      csrf_token: "{{csrf_token}}",
-      coursePlanId: {{coursePlanId|safe}},
-      courseInfo: {{courseInfo|safe}},
-      schedule: {{schedule|safe}},
-      courseList: {{courseList|safe}},
-      startYear: {{startYear|safe}},
-      startTerm: {{startTerm|safe}},
-      autoSave: {{user.profile.autosave|lower}},
-    }
-    window.allSubjects={{allSubjects|safe}}
-  %script{:src => "{{STATIC_URL}}js/basic.js", :type => "text/javascript"}
-  %script{:src => "{{STATIC_URL}}js/edit.js", :type => "text/javascript"}
+  - if not private
+    :javascript
+      window.data={
+        csrf_token: "{{csrf_token}}",
+        coursePlanId: {{coursePlanId|safe}},
+        courseInfo: {{courseInfo|safe}},
+        schedule: {{schedule|safe}},
+        courseList: {{courseList|safe}},
+        startYear: {{startYear|safe}},
+        startTerm: {{startTerm|safe}},
+        autoSave: {{user.profile.autosave|lower}},
+      }
+      window.allSubjects={{allSubjects|safe}}
+    %script{:src => "{{STATIC_URL}}js/basic.js", :type => "text/javascript"}
+    %script{:src => "{{STATIC_URL}}js/edit.js", :type => "text/javascript"}
 
 - block body
   / if tour
@@ -23,4 +24,8 @@
   %script{:src => "{{STATIC_URL}}js/lib/bootstrap-tour.min.js"}
   %script{:src => "{{STATIC_URL}}js/editTour.js", :type => "text/javascript"}
   #main.edit
-
+  - if private
+    .paper
+      %h3.text-center
+        This course schedule does not belong to you.
+  - include "uservoice.html"
