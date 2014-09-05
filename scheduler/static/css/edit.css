@@ -6434,6 +6434,19 @@ fieldset[disabled] .settingsbar .btn.btn-primary.active {
   color: #b5c0d3;
   background-color: #646f84;
 }
+.editlabel {
+  font-size: 24px;
+  height: 40px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.editlabel:not(:focus) {
+  background: none;
+  box-shadow: none;
+}
+.editlabel:not(:hover) {
+  border-color: transparent;
+}
 .profile-pic {
   height: 18px;
 }

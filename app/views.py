@@ -204,16 +204,22 @@ def Save(request, coursePlanId):
     coursePlan = get_object_or_404(CoursePlan, id=coursePlanId)
     if request.user != coursePlan.user:
         return {'success': False}
-    for requiredField in ['schedule','courseList']:
-        if requiredField not in request.POST:
-            return {'success': False, 'error':"missing required fields"}
+    if 'name' in request.POST:
+        name = request.POST['name']
+        coursePlan.name=name
+        coursePlan.save()
+        return {'success':True}
+    else:
+        for requiredField in ['schedule','courseList']:
+            if requiredField not in request.POST:
+                return {'success': False, 'error':"missing required fields"}
 
-    schedule = request.POST['schedule']
-    courseList = request.POST['courseList']
-    coursePlan.schedule=schedule
-    coursePlan.courseList=courseList
-    coursePlan.save()
-    return {'success':True}
+        schedule = request.POST['schedule']
+        courseList = request.POST['courseList']
+        coursePlan.schedule=schedule
+        coursePlan.courseList=courseList
+        coursePlan.save()
+        return {'success':True}
 
 
 @ajax_request

@@ -219,6 +219,9 @@ MainView=React.createClass({
   showhelp:function(text){
     window.showPreview(text)
   },
+  handleNameChange:function(){
+
+  },
   render: function() {
     var that=this;
     var startYear=this.state.startYear;
@@ -320,6 +323,9 @@ MainView=React.createClass({
         </div>
         <div className="container">
           <div className="row">
+            <div className="col-xs-6 col-xs-offset-3">
+              <window.EditLabel initialValue={data.name} onSubmit={this.handleNameChange} />
+            </div>
             <div className="col-xs-12 terms">
               {termsEl}
             </div>
