@@ -21,14 +21,15 @@ class Profile(models.Model):
   startTerm = models.IntegerField(default=0, choices=TERM_CHOICES)
 
 class CoursePlanManager(models.Manager):
-  def get_random_subset(self, count):
+  def get_random_subset(self, count, user, **filters):
     queryset = super(CoursePlanManager, self).get_queryset()
     total_count = queryset.count()
     if total_count>0:
       no_of_subsets= count*32768/total_count
-      return queryset.filter( subset__lte=no_of_subsets )
-    else:
-      return queryset
+      if user.pk:
+        queryset = queryset.exclude(user=user)
+      queryset = queryset.filter( subset__lte=no_of_subsets, **filters )
+    return queryset
 
 class CoursePlan(models.Model):
   user = models.ForeignKey(settings.AUTH_USER_MODEL)

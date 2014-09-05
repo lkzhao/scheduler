@@ -1,0 +1,26 @@
+- extends "base.haml"
+- block css
+  %link{:href => "{{STATIC_URL}}css/index.css", :type => "text/css", :rel => "stylesheet"}
+
+
+- block body
+  .schedule-suggest
+    .container
+      .schedule-header
+        Schedules created by others
+      .row
+        - for object in object_list
+          .col-sm-4.col-md-3
+            .schedule
+              %i.pe-7s-news-paper.schedule-icon
+              .right
+                %a.schedule-title{:href => "{% url 'view' object.id %}"}
+                  = object.name
+                .info
+                  by
+                  - if object.user.first_name
+                    = object.user.first_name
+                    = object.user.last_name
+                  - else
+                    = object.user.username
+        .clearfix
