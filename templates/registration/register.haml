@@ -1,0 +1,39 @@
+- extends "modal.haml"
+- load form_group
+
+{%block id%}registerModal{%endblock%}
+{%block size%}modal-sm{%endblock%}
+
+- block title
+  Register
+
+- block body
+  = form.non_field_errors
+  %form#registerForm{:action => "{% url 'registration_register' %}", :method => "post"}
+    - csrf_token
+    - form_group form.username
+    - form_group form.email
+    - form_group form.password1
+    - form_group form.password2
+    %input{:type => "submit", :style => "display:none"}
+    %input{:type => "hidden", :value => "{{ next }}", :name => "next"}
+- block footer
+  %a.btn.btn-info.btn-lg{:onclick => "$(\"#registerForm\").submit()", :type => "button"} Register
+
+- block js
+  :javascript
+    $(function(){
+      $("#registerModal").modal('show')
+      $("#registerForm").ajaxForm({
+        success:function(data){
+          if(data.indexOf("registerForm")===-1){
+            window.location.href = "/";
+          }else{
+            $("#registerModal").on('hidden.bs.modal',function(){
+              $("#modalContainer").html(data)
+            })
+            $("#registerModal").modal('hide')
+          }
+        }
+      })
+    })

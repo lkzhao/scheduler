@@ -1,4 +1,7 @@
-# @codekit-prepend "helper.coffee";
+
+div = -> React.DOM.div arguments...
+h3 = -> React.DOM.h3 arguments...
+small = -> React.DOM.small arguments...
 
 
 SimpleTermView = React.createClass
@@ -13,16 +16,22 @@ SimpleTermView = React.createClass
         courseInfo = uwapi.getInfo(course)
         div({
           className: "course"
-          onMouseEnter: @showPreview.bind @, courseInfo
+          onMouseEnter: @showPreview.bind @, course
           onMouseLeave: @hidePreview
-          }, name(courseInfo))
-      div({className:"panel panel-default"}, 
-        div({className: "panel-heading"}, 
-          h3({className: "panel-title"}, termName)),
-        div({className: "panel-body"}, currentTermCourses))
-    div({className: "paper"},
-      h2({className: "page-header"}, "#{data.user.name}'s Course Schedule"),
-      terms)
+          }, getCourseName(courseInfo))
+      if term.courses.length == 0
+        currentTermCourses = div(null, 
+          div({className: "course moveBlock invisible"}),
+          div({className: "backgroundText"}, "No course for this term."))
+      div({className:"term"}, 
+        div({className: "term-title"}, termName),
+        div({className: "term-menu"}),
+        div({className: "courses"}, currentTermCourses),
+        div({className: "clearfix"}))
+    div({className: "container"},
+      h3({className: "page-header"}, data.name, " ",
+        small(null, "by #{data.user.name}")),
+      div({className: "col-xs-12 terms"}, terms))
 
 $(->
   React.renderComponent SimpleTermView(null), $("#main").get(0)

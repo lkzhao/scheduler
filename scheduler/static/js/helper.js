@@ -1,1 +1,0 @@
-(function(){var n,r;r=function(n){return n.subject+n.catalog_number},n=function(n,r,t){switch(n+=Math.floor((r+t)/3),r=(r+t)%3){case 0:return n+" Winter";case 1:return n+" Spring";case 2:return n+" Fall"}}}).call(this);

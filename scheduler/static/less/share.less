@@ -1,34 +1,14 @@
 @import "main.less";
+@import "term.less";
+@import "course.less";
 body{
-  background: #445;
-}
-.paper{
-  margin:20px;
-  background: white;
-  padding:20px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-  border-radius: 7px;
-  transition:margin .3s;
+  background: #eeeeee;
 }
 .course{
-  width: 20%;
-  text-align: center;
-  font-weight: 700;
-  display:inline-block;
-  font-size: 24px;
-  margin-bottom: 5px;
-}
-@media(max-width:767px){
-  .course{
-    width: 50%;
-  }
-  .paper{
-    margin:5px;
-  }
-}
-@media(min-width:940px){
-  .paper{
-    width: 900px;
-    margin:100px auto 50px;
-  }
+  padding: 10px;
+  font-size: 20px;
+  color:rgb(127, 140, 151);
+  font-weight: 600;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }

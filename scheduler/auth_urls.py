@@ -24,5 +24,5 @@ urlpatterns = patterns('',
   url(r'^password/reset/confirm/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$',auth_views.password_reset_confirm,name='auth_password_reset_confirm'),
   url(r'^password/reset/complete/$',auth_views.password_reset_complete,name='auth_password_reset_complete'),
   url(r'^password/reset/done/$',auth_views.password_reset_done,name='auth_password_reset_done'),
-  url(r'^register/$',registration_views.register,name='registration_register'),
+  url(r'^register/$',registration_views.register, name='registration_register'),
 )

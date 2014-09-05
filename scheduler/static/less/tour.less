@@ -1,0 +1,44 @@
+.tour{
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  text-align: center;
+  border:none;
+  &.bottom>.arrow{
+    border-bottom-color:transparent;
+    &::after{
+      border-bottom-color:rgba(0, 0, 0, 0.8);
+    }
+  }
+  &.right>.arrow{
+    border-right-color:transparent;
+    &::after{
+      border-right-color:rgba(0, 0, 0, 0.8);
+    }
+  }
+  &.left>.arrow{
+    border-left-color:transparent;
+    &::after{
+      border-left-color:rgba(0, 0, 0, 0.8);
+    }
+  }
+  &.top>.arrow{
+    border-top-color:transparent;
+    &::after{
+      border-top-color:rgba(0, 0, 0, 0.8);
+    }
+  }
+  .popover-title{
+    background: none;
+    font-weight: 600;
+    border-bottom: 1px solid #555;
+  }
+  .popover-content{
+    padding:8px;
+  }
+  .popover-btns{
+    margin: 10px;
+  }
+  .btn.btn-default{
+    .button-variant(#fff; #333; #666);
+  }
+}

@@ -3,3 +3,4 @@ venv
 staticfiles
 scheduler/media
 scheduler/settings.py
+node_modules

@@ -1,0 +1,18 @@
+- load form_group
+%header.home
+  .container
+    %img#headerImg{:src => "/static/images/header.png"}
+    .header-title
+      Create and plan your course schedule for 
+      %span.highlight
+        University of Waterloo
+    .header-subtitle
+      A drag and drop interface for planing your future courses, helps you keep track of pre-requisites and term offered.
+    .header-btns.text-center
+      %button.btn.btn-primary.btn-lg{:onclick => "facebookConnect()", :type => "button"}
+        Login with Facebook
+      .header-subtext
+        We'll never post to your wall without your permission. If you prefer, you can also 
+        %a{:onclick => "$(\"#modalContainer\").load(\"{% url 'registration_register' %}\")"}
+          register an email account
+        = "."

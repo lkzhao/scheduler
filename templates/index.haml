@@ -1,55 +1,67 @@
 - extends "base.haml"
 - block css
-  %link{:href => "{{STATIC_URL}}css/switchery.min.css", :type => "text/css", :rel => "stylesheet"}
   %link{:href => "{{STATIC_URL}}css/index.css", :type => "text/css", :rel => "stylesheet"}
-- block js
-  %script{:src => "{{STATIC_URL}}js/lib/switchery.min.js", :type => "text/jsx"}
-  %script{:src => "{{STATIC_URL}}js/index.js", :type => "text/jsx"}
 
 
 - block body
-  %nav.navbar.navbar-default.navbar-fixed-top
+
+  -if user.pk
+    #main.home-list
+      .container
+        %h3.page-header
+          Your course schedules
+          %a.btn.btn-default.pull-right{:onclick => "$(\"#modalContainer\").load(\"{% url 'create' %}\")"}
+            Create New
+        %table.table
+          %thead
+            %tr
+              %th Name
+              %th Created
+              %th Last Modified
+              %th Course Count
+              %th
+          %tbody
+            - for courseplan in user.courseplan_set.all
+              %tr
+                %td
+                  %a{:href => "{% url 'edit' courseplan.id %}"}
+                    = courseplan.name
+                %td
+                    = courseplan.created
+                %td
+                    = courseplan.last_modified
+                %td
+                  .progress
+                    .progress-bar.progress-bar-primary.progress-bar-striped.active{:style => "width: {%widthratio courseplan.course_count 1 5%}%; color:#555"}
+                      %strong 
+                        &nbsp;{{courseplan.course_count}}&nbsp;/&nbsp;20
+
+                %td
+                  %a.btn.btn-danger.btn-sm.pull-right{:onclick => "$(\"#modalContainer\").load(\"{% url 'delete' courseplan.id %}\")"}
+                    %i.fa.fa-trash-o.fa-fw
+  -else
+    - include "home.html"
+  .schedule-suggest
     .container
-      .navbar-header
-        .navbar-brand
-          UW Course Scheduler
-        %button.navbar-toggle{:data-toggle => "collapse", :data-target => "#navbar-collapse"}
-          %i.fa.fa-bars
-      #navbar-collapse.collapse.navbar-collapse
-          #searchBtnWrapper
-          %ul.nav.navbar-nav.navbar-right
-            %li.dropdown
-              %a{:data-toggle => "dropdown", :href => "#"}
-                %img.profile-pic{:src => "{%if user.image%}{{user.image.url}}{%else%}static/images/no-profile.jpg{%endif%}"}
-                -if user.first_name
-                  = user.first_name
-                  = user.last_name
-                -else
-                  = user.username
-                %b.caret
-              %ul.dropdown-menu
-                - if user.is_superuser
-                  %li
-                    %a{:href => "/admin"}
-                      Admin
-                  %li.divider
-                %li
-                  %a{:href => "/accounts/logout"}
-                    Logout
-  - if errors
-    - for error in errors
-      .alert.alert-danger
-        = error
-  #main
-  :javascript
-    data={
-      csrf_token: "{{csrf_token}}",
-      courseInfo: {{courseInfo|safe}},
-      schedule: {{schedule|safe}},
-      courseList: {{courseList|safe}},
-      startYear: {{startYear|safe}},
-      startTerm: {{startTerm|safe}},
-      autoSave: {{user.profile.autosave|lower}}
-    }
-    window.data=data
-    allSubjects={{allSubjects|safe}}
+      %a.schedule-showmore.pull-right{:href => "#"}
+        Show more
+        %i.fa.fa-chevron-right
+
+      .schedule-header
+        Schedules created by others
+      
+      .row
+        - for courseplan in sharedCoursePlan
+          .col-sm-4.col-md-3
+            .schedule
+              %i.pe-7s-news-paper.schedule-icon
+              .right
+                %a.schedule-title{:href => "{% url 'view' courseplan.id %}"}
+                  = courseplan.name
+                .info
+                  by
+                  - if courseplan.user.first_name
+                    = courseplan.user.first_name
+                    = courseplan.user.last_name
+                  - else
+                    = courseplan.user.username

@@ -1,0 +1,30 @@
+{
+  "name": "scheduler",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lukezhao321/scheduler.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lukezhao321/scheduler/issues"
+  },
+  "homepage": "https://github.com/lukezhao321/scheduler",
+  "devDependencies": {
+    "coffee-script": "^1.7.1",
+    "gulp": "^3.8.7",
+    "gulp-coffee": "^2.1.2",
+    "gulp-concat": "^2.3.4",
+    "gulp-if": "^1.2.4",
+    "gulp-less": "^1.3.5",
+    "gulp-react": "^1.0.0",
+    "gulp-rename": "^1.2.0",
+    "gulp-sourcemaps": "^1.1.1"
+  }
+}

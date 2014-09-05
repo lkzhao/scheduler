@@ -1,0 +1,68 @@
+@import "main.less";
+@import "term.less";
+@import "tour.less";
+@import "course.less";
+@import "bucket.less";
+
+.btn.btn-default{
+  &:active,&:focus{
+    outline:none;
+  }
+}
+.skipTermBtn,.removeTermBtn,.addTermBtn,.moveBlock,.insertTermBtn{
+  transition:opacity .3s;
+}
+.animate-course{
+  position: fixed;
+  z-index: 4000;
+  background: white;
+}
+.draging{
+  cursor: -webkit-grabbing; cursor: -moz-grabbing;
+  .term:hover{
+    border-color: transparent;
+    .skipTermBtn,.removeTermBtn,.insertTermBtn{
+      opacity: 0;
+      pointer-events:none;
+    }
+    .term-title{
+      top:@timeline-arrow-top + @timeline-row-padding;
+    }
+  }
+  .skipTermBtn,.removeTermBtn,.insertTermBtn,.addTermBtn{
+    opacity: 0 !important;
+  }
+}
+.userInfo{
+  background: #222222;
+  padding: 0;
+  .name{
+    font-size: 30px;
+  }
+  a{
+    padding: 10px 20px;
+    display: block;
+    color:white;
+    text-decoration: none;
+  }
+  ul{
+    border-top:1px solid #444;
+  }
+}
+.page-header{margin:10px 15px 0;border:none;}
+.hide{display:none}
+.invisible{opacity: 0}
+.courseInputGroup{
+  margin-bottom: 10px;
+  height:34px;
+}
+.courseInputGroup.hideBtn{
+  display:block;
+  input.form-control{
+    width: 100%;
+    border-radius: 4px !important;
+  }
+  .btn{
+    display: none;
+  }
+}

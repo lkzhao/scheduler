@@ -1,0 +1,18 @@
+
+
+
+.modal.fade{:id => "{%block id%}{%endblock%}"}
+  .modal-dialog{:class => "{%block size%}{%endblock%}"}
+    .modal-content
+      -block content
+        .modal-header
+          -block header
+            %button.close{:data-dismiss => "modal", :type => "button"} &times;
+            %h3.modal-title 
+              -block title
+        .modal-body
+          -block body
+        .paper-btn-group.btn-group
+          -block footer
+
+- block js

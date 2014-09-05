@@ -1,23 +1,67 @@
 from django.db import models
 from django.conf import settings
-
+from datetime import datetime
 from annoying.fields import (AutoOneToOneField, JSONField)
 
 class Profile(models.Model):
+  """
+  stores User settings
+  """
   user = AutoOneToOneField(settings.AUTH_USER_MODEL, primary_key=True)
   
+  autosave = models.BooleanField(default=True)
+
+  YEAR_CHOICES = tuple((n, str(n)) for n in range(datetime.now().year - 4, datetime.now().year + 4))
+  TERM_CHOICES = (
+    (0, 'Winter'),
+    (1, 'Spring'),
+    (2, 'Fall'),
+  )
+  startYear = models.IntegerField(default=datetime.now().year, choices=YEAR_CHOICES)
+  startTerm = models.IntegerField(default=0, choices=TERM_CHOICES)
+
+class CoursePlanManager(models.Manager):
+  def get_random_subset(self, count):
+    queryset = super(CoursePlanManager, self).get_queryset()
+    total_count = queryset.count()
+    if total_count>0:
+      no_of_subsets= count*32768/total_count
+      return queryset.filter( subset__lte=no_of_subsets )
+    else:
+      return queryset
+
+class CoursePlan(models.Model):
+  user = models.ForeignKey(settings.AUTH_USER_MODEL)
+
+  name = models.CharField(max_length=1024, default="Course Schedule")
+
+  created = models.DateTimeField(auto_now_add=True, null=True)
+  last_modified = models.DateTimeField(auto_now=True, null=True)
+
   # user's term schedule in a json array
   # sample:
   #   [{courses:[]skiped:true}, {courses:[{subject:"CS",catalog_number:"115"}]skiped:false}]
   schedule = JSONField(default=[], null=True, blank=True)
 
-  # user's selected course that are not added to schedule
+  # user's shortList
   courseList = JSONField(default=[], null=True, blank=True)
-  autosave = models.BooleanField(default=True)
   share = models.BooleanField(default=False)
+  objects = CoursePlanManager()
 
-  startYear = models.IntegerField(default=2012)
-  startTerm = models.IntegerField(default=0)
+  subset = models.IntegerField(default=0)
+
+  def save(self):
+    if self.id:
+      self.subset = self.id % 32768
+    return super(CoursePlan, self).save()
+
+  
+  def _course_count(self):
+    return sum(map(lambda term:len(term['courses']), self.schedule))
+  
+  course_count = property(_course_count)
+
+
 
 
 class Subject(models.Model):

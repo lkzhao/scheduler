@@ -1,0 +1,57 @@
+#sharemodal.modal.fade{:tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{:data-dismiss => "modal", :type => "button"} &times;
+        %h3.modal-title Sharing
+      .modal-body
+        %form#shareForm{:action => "{{request.path}}", :method => "POST"}
+          -csrf_token
+          =form.as_p
+          #shareLink{:class => "{%if not form.share.value %}hide{%endif%}"}
+            %p
+              Sharing for this course schedule is enabled. It is opened to public.
+              %br
+              you can use the following link to access it:
+            .well.well-sm
+              %a{:type => "button", :href => "{%url 'view' object.id%}"} 
+                http://{{request.get_host}}{%url 'view' object.id%}
+      .paper-btn-group.btn-group
+        %a.btn.btn-default.btn-lg{:data-dismiss => "modal", :type => "button"} Close
+
+  :javascript
+    function showError(){
+      if($("#error").length===0){
+        $("#shareLink").after("<div id='error'>Error saving your configuration</div>")
+      }
+    }
+    $(function(){
+      $("#sharemodal").modal('show')
+      $("#shareForm").ajaxForm({
+        success:function(data){
+          try{
+            if(!JSON.parse(data).success){
+              showError()
+            }else{
+              $("#error").remove()
+              if($("#id_share").is(":checked")){
+                $("#shareLink").removeClass("hide")
+              }else{
+                $("#shareLink").addClass("hide")
+              }
+            }
+          }catch(err){
+            $("#sharemodal").on('hidden.bs.modal',function(){
+              $("#modalContainer").html(data)
+            })
+            $("#sharemodal").modal('hide')
+          }
+        },
+        error:function(){
+          showError()
+        }
+      })
+      $("#id_share").change(function(){
+        $("#shareForm").submit()
+      })
+    })

@@ -1,0 +1,25 @@
+- load add_class
+- load tooltips
+
+%div{:class => "checkbox-list{% if input.errors %} has-error{% endif %}"}
+  %label
+    - if tooltip
+      - inserttooltip tooltip
+    - if tooltip_string
+      - inserttooltip_string tooltip_string
+    - if label
+      %label{:for => "{{ input.id_for_label }}", :class =>"{% if bold %}control-label{% endif %}"}
+        = label
+    - else
+      - if bold
+        = input|label_with_class:"control-label"
+      - else 
+        = input.label_tag
+    - if required
+      %span.note (Required)
+    = input
+  - if input.errors
+    .input_errors_list
+      - for error in input.errors
+        .validate-error
+          = error|escape
