@@ -16,7 +16,8 @@
         autoSave: {{user.profile.autosave|lower}},
       }
       window.allSubjects={{allSubjects|safe}}
-    %script{:src => "{{STATIC_URL}}js/basic.js", :type => "text/javascript"}
+    %script{:src => "{{STATIC_URL}}js/helpers.js", :type => "text/javascript"}
+    %script{:src => "{{STATIC_URL}}js/searchInput.js", :type => "text/javascript"}
     %script{:src => "{{STATIC_URL}}js/edit.js", :type => "text/javascript"}
 
 - block body
@@ -29,4 +30,3 @@
     .paper
       %h3.text-center
         This course schedule does not belong to you.
-  - include "uservoice.html"

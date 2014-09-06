@@ -33,14 +33,7 @@ gulp.task 'jsx', ->
       .pipe sourcemaps.write()
       .pipe gulp.dest(jsRoot)
 
-gulp.task 'basic', ['coffee', 'jsx'], ->
-  gulp.src ["#{jsRoot}helpers.js", "#{jsRoot}searchInput.js"]
-      .pipe sourcemaps.init(loadMaps: yes)
-      .pipe concat('basic.js')
-      .pipe sourcemaps.write()
-      .pipe gulp.dest(jsRoot)
-
-gulp.task 'build', ['basic']
+gulp.task 'build', ['coffee', 'jsx']
 gulp.task 'default', ['build', 'watch']
 
 gulp.task 'watch', ->

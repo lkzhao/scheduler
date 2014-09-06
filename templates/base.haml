@@ -5,6 +5,7 @@
     %link{:href => "{{STATIC_URL}}css/pe-icon-7-stroke.css", :rel => "stylesheet"}
     %link{:href => "{{ STATIC_URL }}django_facebook/css/facebook.css", :type => "text/css", :rel => "stylesheet"}
     - block css
+      %link{:href => "{{STATIC_URL}}css/index.css", :type => "text/css", :rel => "stylesheet"}
     %script{:src => "{{STATIC_URL}}js/lib/jquery-2.0.3.min.js"}
     %script{:src => "{{STATIC_URL}}js/lib/jquery.form.min.js"}
     %script{:src => "{{STATIC_URL}}js/lib/bootstrap.min.js"}
@@ -13,6 +14,7 @@
     
     - include 'django_facebook/_facebook_js.html'
   %body
+    - include "uservoice.html"
     #modalContainer
       - block modal
     %form#facebookForm{:action => "{% url 'facebook_connect' %}?facebook_login=1", :method => "post"}
@@ -62,12 +64,7 @@
         .alert.alert-danger
           = error
     - block body
-      - block main
+      .container
+        - block main
 
     - block js
-      :javascript
-        window.data={
-          courseInfo: {},
-        }
-        window.allSubjects={{allSubjects|safe}}
-      %script{:src => "{{STATIC_URL}}js/basic.js", :type => "text/javascript"}
