@@ -4,7 +4,10 @@
 {%block id%}createmodal{%endblock%}
 
 - block title
-  Create new schedule
+  - if object.pk
+    Use "{{object.name}}" as template
+  - else
+    Create new schedule
 
 - block body
   %form#createForm{:action => "{{request.path}}", :method => "POST"}

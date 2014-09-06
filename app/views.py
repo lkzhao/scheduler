@@ -100,6 +100,8 @@ class EditView(SearchCourseMixin, ProtectedView, DetailView):
     def get_context_data(self, **kwargs):
         context = super(EditView, self).get_context_data(**kwargs)
         get_context(context, self.object)
+        if not self.object.user == self.request.user:
+            context['private'] = True
         return context
 
 class ShareView(SearchCourseMixin, DetailView):
@@ -137,6 +139,23 @@ class CreateCoursePlanForm(forms.ModelForm):
         model = CoursePlan
         fields = ('name', 'share', )
 
+class CopyCoursePlanForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        return super(CopyCoursePlanForm, self).__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        instance = super(CopyCoursePlanForm, self).save(commit=False)
+        instance.id = None
+        instance.user = self.user
+        if commit:
+            instance.save()
+        return instance
+
+    class Meta:
+        model = CoursePlan
+        fields = ('name', 'share', )
+
 class CreateCoursePlanView(ProtectedView, CreateView):
     template_name = 'create.html'
     model = CoursePlan
@@ -146,13 +165,37 @@ class CreateCoursePlanView(ProtectedView, CreateView):
         return reverse('edit', args=(self.object.id,))
 
     def get_form_kwargs(self):
-        kwargs = super(CreateView, self).get_form_kwargs()
+        kwargs = super(CreateCoursePlanView, self).get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
 
     def form_valid(self, form):
         super(CreateCoursePlanView, self).form_valid(form)
         return HttpResponse(json.dumps({'success':True, 'url':self.get_success_url()}))
+
+class CopyCoursePlanView(ProtectedView, UpdateView):
+    template_name = 'create.html'
+    slug_field = 'pk'
+    model = CoursePlan
+    form_class = CopyCoursePlanForm
+
+    def get_success_url(self):
+        return reverse('edit', args=(self.object.id,))
+
+    def get_form_kwargs(self):
+        kwargs = super(CopyCoursePlanView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def dispatch(self,request,**kwargs):
+        resp = super(CopyCoursePlanView, self).dispatch(request,**kwargs)
+        # import pdb;pdb.set_trace()
+        return resp
+
+    def form_valid(self, form):
+        super(CopyCoursePlanView, self).form_valid(form)
+        return HttpResponse(json.dumps({'success':True, 'url':self.get_success_url()}))
+
 
 class DeleteCoursePlanView(ProtectedView, DeleteView):
     template_name = 'delete.html'
