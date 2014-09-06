@@ -1,0 +1,69 @@
+- extends "modal.haml"
+- load form_group
+
+{%block id%}loginModal{%endblock%}
+{%block size%}modal-sm{%endblock%}
+
+- block title
+  Login
+
+- block body
+  %button.btn.btn-primary.btn-lg.btn-block{:onclick => "facebookConnect()", :type => "button"}
+    Login with Facebook
+  %hr
+  - if form.non_field_errors
+    - for err in form.non_field_errors
+      .alert.alert-danger
+        =err
+  %form#loginForm{:action => "{% url 'auth_login' %}", :method => "post"}
+    - csrf_token
+    - form_group form.username
+    - form_group form.password
+    %input.hide{:type => "submit"}
+    %small
+      %a{:onclick => "onregister()"}
+          register an email account
+
+- block footer
+  %a.btn.btn-primary.btn-lg{:onclick => "$(\"#loginForm\").submit()", :type => "button"} Login
+
+- block js
+  - if 'noclose' in request.GET
+    :javascript
+      function onregister(e){
+        $("#loginModal").on('hidden.bs.modal',function(){
+          $("#modalContainer").load("{% url 'registration_register' %}?noclose")
+        })
+        $("#loginModal").modal('hide')
+      }
+      $("button.close").remove()
+      $("#loginModal").attr('data-backdrop','static')
+  - else
+    :javascript
+      function onregister(e){
+        $("#loginModal").on('hidden.bs.modal',function(){
+          $("#modalContainer").load("{% url 'registration_register' %}")
+        })
+        $("#loginModal").modal('hide')
+      }
+
+  :javascript
+    $(function(){
+      $("#loginModal").modal('show')
+      $("#loginForm").ajaxForm({
+        success:function(data){
+          if(data.indexOf("loginForm")===-1){
+            if($("#nextpage").length>0){
+              window.location.href = $("#nextpage").val()
+            }else{
+              window.location.reload();
+            }
+          }else{
+            $("#loginModal").on('hidden.bs.modal',function(){
+              $("#modalContainer").html(data)
+            })
+            $("#loginModal").modal('hide')
+          }
+        }
+      })
+    })
