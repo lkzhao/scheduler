@@ -18,6 +18,13 @@ from .models import Course,Subject,Profile,CoursePlan
 import urllib2
 import json
 
+from django.contrib.auth.views import login
+
+def customLogin(request, template_name='registration/login.haml', **kwargs):
+    if 'modal' in request.GET:
+        template_name = 'registration/login_modal.haml'
+    return login(request, template_name, **kwargs)
+
 class ProtectedView(View):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
