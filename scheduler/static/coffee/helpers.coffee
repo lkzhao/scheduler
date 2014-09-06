@@ -24,23 +24,24 @@ window.facebookConnect = ->
   F.connect $('#facebookForm').get(0)
   false
 
-window.uwapi = 
-  courseInfo: window.data.courseInfo||{},
-  getCourse: (subject, catalog_number, callback)->
-    course = {}
-    that = this
-    $.getJSON("/course/"+subject+"/"+catalog_number, (course)->
-        if not course
-          callback(null)
-        console.log course
-        if course.prerequisites&&course.prerequisites.substr(0,7)=="Prereq:"
-          course.prerequisites=course.prerequisites.substr(8)
-        course.name=getCourseName(course)
-        that.courseInfo[course.name]=course
-        callback(course.name)
-    ).fail(-> callback(null))
-  getInfo: (course)->
-    @courseInfo[getCourseName(course)]
+if window.data and window.data.courseInfo
+  window.uwapi = 
+    courseInfo: window.data.courseInfo||{},
+    getCourse: (subject, catalog_number, callback)->
+      course = {}
+      that = this
+      $.getJSON("/course/"+subject+"/"+catalog_number, (course)->
+          if not course
+            callback(null)
+          console.log course
+          if course.prerequisites&&course.prerequisites.substr(0,7)=="Prereq:"
+            course.prerequisites=course.prerequisites.substr(8)
+          course.name=getCourseName(course)
+          that.courseInfo[course.name]=course
+          callback(course.name)
+      ).fail(-> callback(null))
+    getInfo: (course)->
+      @courseInfo[getCourseName(course)]
 
 window.getCourseName = (obj) -> 
   obj.subject + obj.catalog_number
