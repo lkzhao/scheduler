@@ -29,6 +29,11 @@ try:
 
     # SECURITY WARNING: keep the secret key used in production secret!
     SECRET_KEY = os.environ['SECRET_KEY']
+
+    EMAIL_HOST = 'smtp.mandrillapp.com'
+    EMAIL_PORT = '587'
+    EMAIL_HOST_USER = os.environ['MANDRILL_USERNAME']
+    EMAIL_HOST_PASSWORD = os.environ['MANDRILL_APIKEY']
 except Exception, e:
     print e
 
@@ -145,6 +150,8 @@ MEDIA_ROOT = "media"
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+
 
 LOGIN_REDIRECT_URL = "/"
 # django facebook settings

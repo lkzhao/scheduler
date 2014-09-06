@@ -14,6 +14,7 @@
     - include 'django_facebook/_facebook_js.html'
   %body
     #modalContainer
+      - block modal
     %form#facebookForm{:action => "{% url 'facebook_connect' %}?facebook_login=1", :method => "post"}
         %input{:type => "hidden", :value => "{{ request.path }}", :name => "next"}
         %input{:type => "hidden", :value => "{{ request.path }}", :name => "register_next"}
@@ -54,7 +55,7 @@
                         Logout
               - else
                 %li
-                  %a{:onclick => "$(\"#modalContainer\").load(\"{% url 'auth_login' %}\")", :type => "button"}
+                  %a{:onclick => "$(\"#modalContainer\").load(\"{% url 'auth_login' %}?modal\")", :type => "button"}
                     Login
     - if errors
       - for error in errors

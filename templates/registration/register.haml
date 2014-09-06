@@ -16,11 +16,33 @@
     - form_group form.password1
     - form_group form.password2
     %input{:type => "submit", :style => "display:none"}
-    %input{:type => "hidden", :value => "{{ next }}", :name => "next"}
+    %small
+      Already have an account? 
+      %a{:onclick => "onlogin()"}
+        Login here.
 - block footer
   %a.btn.btn-info.btn-lg{:onclick => "$(\"#registerForm\").submit()", :type => "button"} Register
 
 - block js
+  - if 'noclose' in request.GET
+    :javascript
+      function onlogin(e){
+        $("#registerModal").on('hidden.bs.modal',function(){
+          $("#modalContainer").load("{% url 'auth_login' %}?modal&noclose")
+        })
+        $("#registerModal").modal('hide')
+      }
+      $("button.close").remove()
+      $("#registerModal").attr('data-backdrop','static')
+  - else
+    :javascript
+      function onlogin(e){
+        $("#registerModal").on('hidden.bs.modal',function(){
+          $("#modalContainer").load("{% url 'auth_login' %}?modal")
+        })
+        $("#registerModal").modal('hide')
+      }
+
   :javascript
     $(function(){
       $("#registerModal").modal('show')

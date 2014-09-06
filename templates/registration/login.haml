@@ -1,53 +1,14 @@
-- extends "modal.haml"
+- extends "base.haml"
 - load form_group
 
-{%block id%}loginModal{%endblock%}
-{%block size%}modal-sm{%endblock%}
-
-- block title
-  Login
+- block css
+  %link{:href => "{{STATIC_URL}}css/index.css", :type => "text/css", :rel => "stylesheet"}
 
 - block body
-  %button.btn.btn-primary.btn-lg.btn-block{:onclick => "facebookConnect()", :type => "button"}
-    Login with Facebook
-	%hr
-  - if form.non_field_errors
-  	- for err in form.non_field_errors
-  		.alert.alert-danger
-  			=err
-	%form#loginForm{:action => "{% url 'auth_login' %}", :method => "post"}
-		- csrf_token
-		- form_group form.username
-		- form_group form.password
-		%input.hide{:type => "submit"}
-		%input{:type => "hidden", :value => "{{ next }}", :name => "next"}
-    %small
-      %a{:onclick => "onregister()"}
-          register an email account
-
-- block footer
-  %a.btn.btn-primary.btn-lg{:onclick => "$(\"#loginForm\").submit()", :type => "button"} Login
+  %input#nextpage{:type => "hidden", :value => "{{ next }}", :name => "next"}
 
 - block js
   :javascript
-    function onregister(e){
-      $("#loginModal").on('hidden.bs.modal',function(){
-        $("#modalContainer").load("{% url 'registration_register' %}")
-      })
-      $("#loginModal").modal('hide')
-    }
     $(function(){
-      $("#loginModal").modal('show')
-      $("#loginForm").ajaxForm({
-        success:function(data){
-        	if(data.indexOf("loginForm")===-1){
-        		window.location.reload();
-        	}else{
-	          $("#loginModal").on('hidden.bs.modal',function(){
-	            $("#modalContainer").html(data)
-	          })
-	          $("#loginModal").modal('hide')
-        	}
-        }
-      })
+      $("#modalContainer").load("{% url 'auth_login' %}?modal&noclose")
     })
