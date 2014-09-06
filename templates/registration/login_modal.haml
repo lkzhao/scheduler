@@ -15,7 +15,7 @@
     - for err in form.non_field_errors
       .alert.alert-danger
         =err
-  %form#loginForm{:action => "{% url 'auth_login' %}", :method => "post"}
+  %form#loginForm{:action => "{{ request.get_full_path }}", :method => "post"}
     - csrf_token
     - form_group form.username
     - form_group form.password

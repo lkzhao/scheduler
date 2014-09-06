@@ -32,8 +32,10 @@ try:
 
     EMAIL_HOST = 'smtp.mandrillapp.com'
     EMAIL_PORT = '587'
+    DEFAULT_FROM_EMAIL = 'admin@uwscheduler.com'
     EMAIL_HOST_USER = os.environ['MANDRILL_USERNAME']
     EMAIL_HOST_PASSWORD = os.environ['MANDRILL_APIKEY']
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 except Exception, e:
     print e
 
