@@ -111,9 +111,19 @@ body{
   background: @backgroundColor;
   font-family: 'Raleway', sans-serif;
   padding: @navbarHeight 15px 15px;
+  display:flex;
+  flex-direction:column;
 }
 a{cursor: pointer;}
-
+footer{
+  background: white;
+  font-size:12px;
+  padding:20px 0;
+  margin:15px -15px -15px;
+}
+.flex{
+  flex:1;
+}
 .placeholder(@color){
   &:-moz-placeholder{color:@color;transition:color .3s;}
   &::-moz-placeholder{color:@color;transition:color .3s;}

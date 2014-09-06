@@ -22,7 +22,9 @@
     %input.hide{:type => "submit"}
     %small
       %a{:onclick => "onregister()"}
-          register an email account
+          Register an email account
+      %a.pull-right{:href => "{% url 'password_reset' %}"}
+          Forgot password
 
 - block footer
   %a.btn.btn-primary.btn-lg{:onclick => "$(\"#loginForm\").submit()", :type => "button"} Login

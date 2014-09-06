@@ -6173,9 +6173,20 @@ body {
   background: #eceef3;
   font-family: 'Raleway', sans-serif;
   padding: 50px 15px 15px;
+  display: flex;
+  flex-direction: column;
 }
 a {
   cursor: pointer;
+}
+footer {
+  background: white;
+  font-size: 12px;
+  padding: 20px 0;
+  margin: 15px -15px -15px;
+}
+.flex {
+  flex: 1;
 }
 .validate-error {
   color: #a94442;
@@ -6226,7 +6237,7 @@ a {
 }
 .navbar.navbar-default {
   height: 50px;
-  box-shadow: 0 0 0 1px #565675;
+  box-shadow: 0 0 0 3px #565675;
   border: none;
 }
 .navbar.navbar-default .deleteBtn {
@@ -6323,8 +6334,7 @@ a {
   background: #6b6b93;
   color: #ffffff;
   padding: 20px;
-  border-bottom: 1px solid #565675;
-  border-radius: 0 0 3px 3px;
+  border-bottom: 3px solid #565675;
   transform-origin: 50% 0%;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-transform-origin: 50% 0%;
@@ -6334,7 +6344,7 @@ a {
   margin: 0 0 10px;
 }
 .searchResult h3 a {
-  transition: color .5s;
+  color: #333;
 }
 .searchResult p,
 .searchResult div:not(.container) {
@@ -6580,7 +6590,7 @@ fieldset[disabled] .paper-btn-group .btn-primary-inverse.active {
 }
 header.home {
   margin: 0 -15px;
-  padding: 70px 20px;
+  padding: 30px 20px;
 }
 header.home .header-title,
 header.home .header-subtitle {
@@ -6608,7 +6618,7 @@ header.home .header-subtext {
   margin: 5px auto;
 }
 .home-list {
-  min-height: 571px;
+  min-height: 300px;
   padding: 0 0 50px;
 }
 #headerImg {
@@ -6617,6 +6627,7 @@ header.home .header-subtext {
   display: block;
 }
 .schedule-suggest {
+  flex: 1;
   margin: 0 -15px;
   background: white;
   padding: 20px;
@@ -6638,13 +6649,12 @@ header.home .header-subtext {
 .schedule-suggest .schedule {
   border: 2px solid #ddd;
   border-radius: 4px;
-  padding: 1.5vh;
-  height: 10vh;
+  padding: 10px;
   margin-bottom: 10px;
   min-height: 70px;
 }
 .schedule-suggest .schedule .schedule-icon {
-  font-size: 7vh;
+  font-size: 50px;
   color: #F17C6F;
   float: left;
   margin-right: 10px;

@@ -17,7 +17,7 @@
     - include "uservoice.html"
     #modalContainer
       - block modal
-    %form#facebookForm{:action => "{% url 'facebook_connect' %}?facebook_login=1", :method => "post"}
+    %form#facebookForm.hide{:action => "{% url 'facebook_connect' %}?facebook_login=1", :method => "post"}
         %input{:type => "hidden", :value => "{{ request.path }}", :name => "next"}
         %input{:type => "hidden", :value => "{{ request.path }}", :name => "register_next"}
         %input{:type => "hidden", :value => "{{ request.path }}", :name => "error_next"}
@@ -64,7 +64,12 @@
         .alert.alert-danger
           = error
     - block body
-      .container
+      .container.flex
         - block main
+    %footer
+      .container
+        -block footer
+          .pull-right
+            Copyright © 2014 Luke Zhao
 
     - block js

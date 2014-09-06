@@ -18,7 +18,9 @@
       - form_group form.startYear 
       - form_group form.startTerm
       - form_group form.autosave label="Auto Save Schedule"
-      %input.hide{:type => "submit"}
+    %a{:href => "{% url 'password_change' %}", :target => "_blank"}
+      Change password
+    %input.hide{:type => "submit"}
 
 - block footer
   %a.btn.btn-primary.btn-lg{:onclick => "$(\"#profileForm\").submit()", :type => "button"} Save
