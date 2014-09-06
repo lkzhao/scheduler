@@ -168,6 +168,7 @@ MainView=React.createClass({
   removeTerm:function(termIndex){
     data.schedule.splice(termIndex, 1);
     this.forceUpdate();
+    window.hidePreview()
   },
   removeCourse:function(termIndex, courseIndex){
     getTermList(termIndex).splice(courseIndex,1);
