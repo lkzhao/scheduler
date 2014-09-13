@@ -22,14 +22,15 @@
 
 - block navbar-right
   - if not private
-    - if user.pk and user.pk == userid
+    - if user.pk 
+      - if user.pk == userid
         %li
           %a{href: '{% url "edit" coursePlanId %}'}
             Edit
-    - else
-      %li
-        %a.pull-right{:onclick => "$(\"#modalContainer\").load(\"{% url 'create' coursePlanId %}\")"}
-          Use this as template
+      - else
+        %li
+          %a.pull-right{:onclick => "$(\"#modalContainer\").load(\"{% url 'create' coursePlanId %}\")"}
+            Use this as template
 
 - block main
   #main.share
